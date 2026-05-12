@@ -40,6 +40,7 @@ export async function PUT(
       projectsEn: body.projectsEn,
       highlightVi: body.highlightVi,
       highlightEn: body.highlightEn,
+      images: body.images ?? [],
       published: body.published,
     },
   })

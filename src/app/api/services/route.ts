@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
       tag: body.tag ?? '',
       bulletsVi: body.bulletsVi ?? [],
       bulletsEn: body.bulletsEn ?? [],
+      images: body.images ?? [],
       published: body.published ?? true,
     },
   })

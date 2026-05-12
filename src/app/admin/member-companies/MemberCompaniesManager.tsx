@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import CloudinaryGalleryUpload from '@/components/admin/CloudinaryGalleryUpload'
 
 type MemberCompany = {
   id: string
@@ -11,11 +12,12 @@ type MemberCompany = {
   descVi: string
   descEn: string
   accent: string
+  images: string[]
   published: boolean
 }
 
 const emptyCompany: Omit<MemberCompany, 'id'> = {
-  order: 0, abbr: '', name: '', tagline: '', descVi: '', descEn: '', accent: '#328442', published: true,
+  order: 0, abbr: '', name: '', tagline: '', descVi: '', descEn: '', accent: '#328442', images: [], published: true,
 }
 
 export default function MemberCompaniesManager() {
@@ -25,6 +27,7 @@ export default function MemberCompaniesManager() {
   const [isCreating, setIsCreating] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
+  const [companyImages, setCompanyImages] = useState<string[]>([])
 
   const fetchCompanies = useCallback(async () => {
     setLoading(true)
@@ -35,16 +38,17 @@ export default function MemberCompaniesManager() {
 
   useEffect(() => { fetchCompanies() }, [fetchCompanies])
 
-  const openEdit = (c: MemberCompany) => { setEditing(c); setIsCreating(false) }
-  const openCreate = () => { setEditing({ ...emptyCompany }); setIsCreating(true) }
+  const openEdit = (c: MemberCompany) => { setEditing(c); setCompanyImages(c.images); setIsCreating(false) }
+  const openCreate = () => { setEditing({ ...emptyCompany }); setCompanyImages([]); setIsCreating(true) }
 
   const handleSave = async () => {
     if (!editing) return
     setSaving(true)
+    const payload = { ...editing, images: companyImages }
     if (isCreating) {
-      await fetch('/api/member-companies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
+      await fetch('/api/member-companies', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     } else {
-      await fetch(`/api/member-companies/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editing) })
+      await fetch(`/api/member-companies/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     }
     setSaving(false)
     setEditing(null)
@@ -95,6 +99,9 @@ export default function MemberCompaniesManager() {
                   </span>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
+                  <a href="/vi/about" target="_blank" rel="noopener noreferrer" className="p-1.5 rounded-md hover:bg-blue-100 text-gray-400 hover:text-blue-600 transition-colors" title="Xem trang">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+                  </a>
                   <button onClick={() => openEdit(company)} className="p-1.5 rounded-md hover:bg-green-100 text-gray-400 hover:text-[#328442] transition-colors">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                   </button>
@@ -136,6 +143,11 @@ export default function MemberCompaniesManager() {
                 <Field label="Mô tả (VI)" value={editing.descVi || ''} onChange={v => setEditing({ ...editing, descVi: v })} />
                 <Field label="Mô tả (EN)" value={editing.descEn || ''} onChange={v => setEditing({ ...editing, descEn: v })} />
               </div>
+              <CloudinaryGalleryUpload
+                label="Ảnh gallery"
+                value={companyImages}
+                onChange={setCompanyImages}
+              />
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={editing.published ?? true} onChange={e => setEditing({ ...editing, published: e.target.checked })} className="w-4 h-4 rounded" />
                 <span className="text-sm text-gray-700">Xuất bản</span>

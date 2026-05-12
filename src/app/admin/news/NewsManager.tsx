@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import CloudinaryUpload from '@/components/admin/CloudinaryUpload'
+import RichTextEditor from '@/components/admin/RichTextEditor'
 
 type NewsArticle = {
   id: string
@@ -9,8 +11,8 @@ type NewsArticle = {
   titleEn: string
   summaryVi: string
   summaryEn: string
-  contentVi: string[]
-  contentEn: string[]
+  contentVi: string
+  contentEn: string
   image: string
   categoryVi: string
   categoryEn: string
@@ -25,8 +27,8 @@ const emptyArticle: Omit<NewsArticle, 'id'> = {
   titleEn: '',
   summaryVi: '',
   summaryEn: '',
-  contentVi: [],
-  contentEn: [],
+  contentVi: '',
+  contentEn: '',
   image: '',
   categoryVi: '',
   categoryEn: '',
@@ -42,8 +44,6 @@ export default function NewsManager() {
   const [isCreating, setIsCreating] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
-  const [contentViText, setContentViText] = useState('')
-  const [contentEnText, setContentEnText] = useState('')
 
   const fetchArticles = useCallback(async () => {
     setLoading(true)
@@ -56,26 +56,18 @@ export default function NewsManager() {
 
   const openEdit = (a: NewsArticle) => {
     setEditing(a)
-    setContentViText(a.contentVi.join('\n\n'))
-    setContentEnText(a.contentEn.join('\n\n'))
     setIsCreating(false)
   }
 
   const openCreate = () => {
     setEditing({ ...emptyArticle })
-    setContentViText('')
-    setContentEnText('')
     setIsCreating(true)
   }
 
   const handleSave = async () => {
     if (!editing) return
     setSaving(true)
-    const payload = {
-      ...editing,
-      contentVi: contentViText.split('\n\n').map(s => s.trim()).filter(Boolean),
-      contentEn: contentEnText.split('\n\n').map(s => s.trim()).filter(Boolean),
-    }
+    const payload = { ...editing }
     if (isCreating) {
       await fetch('/api/news', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
     } else {
@@ -138,6 +130,17 @@ export default function NewsManager() {
                   </span>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
+                  <a
+                    href={`/vi/news/${article.slug}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-md hover:bg-blue-100 text-gray-400 hover:text-blue-600 transition-colors"
+                    title="Xem trang"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </a>
                   <button onClick={() => openEdit(article)} className="p-1.5 rounded-md hover:bg-green-100 text-gray-400 hover:text-[#328442] transition-colors">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                   </button>
@@ -162,10 +165,12 @@ export default function NewsManager() {
               </button>
             </div>
             <div className="px-6 py-5 space-y-4 max-h-[72vh] overflow-y-auto">
-              <div className="grid grid-cols-2 gap-4">
-                <Field label="Slug" value={editing.slug || ''} onChange={v => setEditing({ ...editing, slug: v })} />
-                <Field label="Ảnh đại diện (URL)" value={editing.image || ''} onChange={v => setEditing({ ...editing, image: v })} />
-              </div>
+              <Field label="Slug" value={editing.slug || ''} onChange={v => setEditing({ ...editing, slug: v })} />
+              <CloudinaryUpload
+                label="Ảnh đại diện"
+                value={editing.image || ''}
+                onChange={v => setEditing({ ...editing, image: v })}
+              />
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Tiêu đề (VI)" value={editing.titleVi || ''} onChange={v => setEditing({ ...editing, titleVi: v })} />
                 <Field label="Tiêu đề (EN)" value={editing.titleEn || ''} onChange={v => setEditing({ ...editing, titleEn: v })} />
@@ -180,14 +185,18 @@ export default function NewsManager() {
               </div>
               <Field label="Tóm tắt (VI)" value={editing.summaryVi || ''} onChange={v => setEditing({ ...editing, summaryVi: v })} type="textarea" />
               <Field label="Tóm tắt (EN)" value={editing.summaryEn || ''} onChange={v => setEditing({ ...editing, summaryEn: v })} type="textarea" />
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Nội dung (VI) — phân cách đoạn bằng dòng trống</label>
-                <textarea value={contentViText} onChange={e => setContentViText(e.target.value)} rows={6} className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#328442]/30 focus:border-[#328442] resize-none" />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Nội dung (EN) — phân cách đoạn bằng dòng trống</label>
-                <textarea value={contentEnText} onChange={e => setContentEnText(e.target.value)} rows={6} className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#328442]/30 focus:border-[#328442] resize-none" />
-              </div>
+              <RichTextEditor
+                label="Nội dung (VI)"
+                value={editing.contentVi || ''}
+                onChange={v => setEditing({ ...editing, contentVi: v })}
+                placeholder="Nhập nội dung tiếng Việt..."
+              />
+              <RichTextEditor
+                label="Nội dung (EN)"
+                value={editing.contentEn || ''}
+                onChange={v => setEditing({ ...editing, contentEn: v })}
+                placeholder="Enter English content..."
+              />
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={editing.published ?? true} onChange={e => setEditing({ ...editing, published: e.target.checked })} className="w-4 h-4 rounded" />
                 <span className="text-sm text-gray-700">Xuất bản</span>

@@ -203,6 +203,63 @@ Key UI patterns:
 
 ---
 
+## Cloudinary Image Upload
+
+Env vars (`.env`):
+```
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME="dg9khx2s7"
+NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET="fam_images"   # must be Unsigned preset
+CLOUDINARY_API_KEY="..."
+CLOUDINARY_API_SECRET="..."
+```
+
+Reusable upload components in `src/components/admin/`:
+- **`CloudinaryUpload.tsx`** — single image, drag-and-drop + URL fallback, props: `{ value: string, onChange: (url) => void, label? }`
+- **`CloudinaryGalleryUpload.tsx`** — multi-image, grid preview with remove, props: `{ value: string[], onChange: (urls) => void, label? }`
+
+Upload goes directly from browser to Cloudinary (unsigned). No backend API needed.
+
+> **Gotcha:** Upload preset must be **Unsigned** in Cloudinary dashboard (Settings → Upload → Upload presets). Signed presets will return "Unknown API key".
+
+All admin entity models have `images String[]` field. Use `CloudinaryGalleryUpload` for it.
+
+---
+
+## Admin Gallery Page (`/admin/gallery`)
+
+Standalone media library at `/admin/gallery`:
+- Upload images directly → saved to `Media` model in DB + Cloudinary
+- Shows all images aggregated from every entity (projects, news, services, partners, member-companies, media)
+- Filter by source, lightbox viewer, copy URL button
+- API: `GET/POST /api/media`, `DELETE /api/media/[id]`
+
+`Media` model:
+```prisma
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  filename  String   @default("")
+  folder    String   @default("gallery")
+  createdAt DateTime @default(now())
+  @@map("media")
+}
+```
+
+---
+
+## Admin UI Patterns
+
+Each admin manager page (`src/app/admin/<entity>/<Entity>Manager.tsx`) follows this pattern:
+
+- Wrap in `AdminShell` in `page.tsx` (provides sidebar layout)
+- Action buttons per row: **view** (blue, opens public page in new tab) → **edit** (green) → **delete** (red)
+- View button links: Projects → `/vi/projects/[slug]`, News → `/vi/news/[slug]`, Services → `/vi/services`, Partners → `/vi/partners`, Timeline/MemberCompanies → `/vi/about`
+- Image fields use `CloudinaryUpload` (single) or `CloudinaryGalleryUpload` (gallery)
+
+> **Note:** `/vi/` is hardcoded as the default locale (`defaultLocale: 'vi'` in `src/i18n/routing.ts`, `localePrefix` defaults to `"always"`).
+
+---
+
 ## File Structure
 
 ```
@@ -216,18 +273,32 @@ src/
 ├── lib/
 │   ├── prisma.ts          # PrismaClient singleton
 │   └── data.ts            # Legacy hardcoded data (projects, articles, partners, timeline)
+├── components/
+│   └── admin/
+│       ├── CloudinaryUpload.tsx        # Single image upload
+│       └── CloudinaryGalleryUpload.tsx # Multi-image upload
 ├── app/
-│   ├── admin/             # Admin panel (excluded from i18n)
-│   │   ├── layout.tsx
-│   │   └── page.tsx       # Projects management
+│   ├── admin/
+│   │   ├── AdminShell.tsx     # Sidebar layout wrapper
+│   │   ├── Sidebar.tsx        # Nav: Projects, Services, News, Partners, Timeline, Hệ sinh thái, Gallery
+│   │   ├── gallery/           # Media library
+│   │   ├── projects/
+│   │   ├── news/
+│   │   ├── services/
+│   │   ├── partners/
+│   │   ├── timeline/
+│   │   └── member-companies/
 │   ├── api/
-│   │   └── projects/      # REST API
-│   │       ├── route.ts
-│   │       └── [id]/route.ts
-│   └── [locale]/          # Public site (i18n)
-├── components/            # Shared components
-├── middleware.ts           # i18n routing (excludes /api, /admin)
-└── messages/              # vi.json, en.json
+│   │   ├── projects/
+│   │   ├── news/
+│   │   ├── services/
+│   │   ├── partners/
+│   │   ├── timeline/
+│   │   ├── member-companies/
+│   │   └── media/             # Media library API
+│   └── [locale]/              # Public site (i18n)
+├── middleware.ts               # i18n routing (excludes /api, /admin)
+└── messages/                  # vi.json, en.json
 ```
 
 ## Design System
@@ -248,3 +319,14 @@ src/
 | `partners` | 20+ | Still hardcoded |
 | `timelineItems` | 10 | Still hardcoded |
 | `memberCompanies` | — | Still hardcoded |
+
+## DB Models & `images` fields
+
+| Model | image | images[] | Notes |
+|---|---|---|---|
+| Project | ✅ | ✅ | Featured + gallery |
+| NewsArticle | ✅ | — | Featured only |
+| Service | — | ✅ | Gallery |
+| Partner | — | ✅ | Gallery |
+| MemberCompany | — | ✅ | Gallery |
+| Media | — | — | `url` field, standalone uploads |

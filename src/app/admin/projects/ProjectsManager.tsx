@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import CloudinaryUpload from '@/components/admin/CloudinaryUpload'
+import CloudinaryGalleryUpload from '@/components/admin/CloudinaryGalleryUpload'
 
 type Project = {
   id: string
@@ -50,7 +52,7 @@ export default function ProjectsManager() {
   const [isCreating, setIsCreating] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
-  const [imagesText, setImagesText] = useState('')
+  const [galleryImages, setGalleryImages] = useState<string[]>([])
 
   const fetchProjects = useCallback(async () => {
     setLoading(true)
@@ -74,7 +76,7 @@ export default function ProjectsManager() {
 
     const payload = {
       ...editingProject,
-      images: imagesText.split('\n').map(s => s.trim()).filter(Boolean),
+      images: galleryImages,
     }
 
     if (isCreating) {
@@ -105,13 +107,13 @@ export default function ProjectsManager() {
 
   const openEdit = (project: Project) => {
     setEditingProject(project)
-    setImagesText(project.images.join('\n'))
+    setGalleryImages(project.images)
     setIsCreating(false)
   }
 
   const openCreate = () => {
     setEditingProject({ ...emptyProject })
-    setImagesText('')
+    setGalleryImages([])
     setIsCreating(true)
   }
 
@@ -217,6 +219,17 @@ export default function ProjectsManager() {
                       </td>
                       <td className="px-4 py-3 text-right">
                         <div className="flex items-center justify-end gap-1">
+                          <a
+                            href={`/vi/projects/${project.slug}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-1.5 rounded-md hover:bg-blue-100 text-gray-500 hover:text-blue-600 transition-colors"
+                            title="Xem trang"
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                            </svg>
+                          </a>
                           <button
                             onClick={() => openEdit(project)}
                             className="p-1.5 rounded-md hover:bg-green-100 text-gray-500 hover:text-[#328442] transition-colors"
@@ -287,18 +300,18 @@ export default function ProjectsManager() {
                 <Field label="Diện tích" value={editingProject.area || ''} onChange={(v) => setEditingProject({ ...editingProject, area: v })} />
                 <Field label="Thời gian" value={editingProject.duration || ''} onChange={(v) => setEditingProject({ ...editingProject, duration: v })} />
               </div>
-              <Field label="Ảnh đại diện (URL)" value={editingProject.image || ''} onChange={(v) => setEditingProject({ ...editingProject, image: v })} />
+              <CloudinaryUpload
+                label="Ảnh đại diện"
+                value={editingProject.image || ''}
+                onChange={(v) => setEditingProject({ ...editingProject, image: v })}
+              />
               <Field label="Mô tả (VI)" value={editingProject.description || ''} onChange={(v) => setEditingProject({ ...editingProject, description: v })} type="textarea" />
               <Field label="Mô tả (EN)" value={editingProject.descriptionEn || ''} onChange={(v) => setEditingProject({ ...editingProject, descriptionEn: v })} type="textarea" />
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Ảnh gallery (mỗi URL 1 dòng)</label>
-                <textarea
-                  value={imagesText}
-                  onChange={(e) => setImagesText(e.target.value)}
-                  rows={4}
-                  className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#328442]/30 focus:border-[#328442] resize-none"
-                />
-              </div>
+              <CloudinaryGalleryUpload
+                label="Ảnh gallery"
+                value={galleryImages}
+                onChange={setGalleryImages}
+              />
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"

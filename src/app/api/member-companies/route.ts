@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
       descVi: body.descVi ?? '',
       descEn: body.descEn ?? '',
       accent: body.accent ?? '#328442',
+      images: body.images ?? [],
       published: body.published ?? true,
     },
   })

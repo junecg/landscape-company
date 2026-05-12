@@ -5,7 +5,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { newsArticles } from '@/lib/data';
 
-type Article = typeof newsArticles[number];
+type Article = {
+  slug: string;
+  titleVi: string; titleEn: string;
+  summaryVi: string; summaryEn: string;
+  contentVi: string | string[];
+  contentEn: string | string[];
+  image: string;
+  categoryVi: string; categoryEn: string;
+  date: string; readTime: number;
+};
 
 function formatDate(dateStr: string, locale: string) {
   return new Date(dateStr).toLocaleDateString(locale === 'vi' ? 'vi-VN' : 'en-US', {
@@ -80,14 +89,19 @@ export default function NewsDetailClient({ article }: { article: Article }) {
               {summary}
             </p>
 
-            {/* Body paragraphs */}
-            <div className="space-y-6">
-              {content.map((para, i) => (
-                <p key={i} className="text-gray-700 text-base leading-relaxed">
-                  {para}
-                </p>
-              ))}
-            </div>
+            {/* Body content */}
+            {Array.isArray(content) ? (
+              <div className="space-y-6">
+                {(content as string[]).map((para, i) => (
+                  <p key={i} className="text-gray-700 text-base leading-relaxed">{para}</p>
+                ))}
+              </div>
+            ) : (
+              <div
+                className="prose prose-gray max-w-none prose-img:rounded-xl prose-headings:text-gray-900 prose-a:text-green-700"
+                dangerouslySetInnerHTML={{ __html: content as string }}
+              />
+            )}
 
             {/* Share */}
             <div className="mt-12 pt-8 border-t border-gray-100 flex items-center gap-4">

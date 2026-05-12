@@ -39,6 +39,11 @@ export type Partner = $Result.DefaultSelection<Prisma.$PartnerPayload>
  */
 export type TimelineItem = $Result.DefaultSelection<Prisma.$TimelineItemPayload>
 /**
+ * Model Media
+ * 
+ */
+export type Media = $Result.DefaultSelection<Prisma.$MediaPayload>
+/**
  * Model MemberCompany
  * 
  */
@@ -157,7 +162,7 @@ export class PrismaClient<
    * 
    * Read more in our [docs](https://www.prisma.io/docs/orm/prisma-client/queries/transactions).
    */
-  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
+  $transaction<P extends Prisma.PrismaPromise<any>[]>(arg: [...P], options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<runtime.Types.Utils.UnwrapTuple<P>>
 
   $transaction<R>(fn: (prisma: Omit<PrismaClient, runtime.ITXClientDenyList>) => $Utils.JsPromise<R>, options?: { maxWait?: number, timeout?: number, isolationLevel?: Prisma.TransactionIsolationLevel }): $Utils.JsPromise<R>
 
@@ -214,6 +219,16 @@ export class PrismaClient<
     * ```
     */
   get timelineItem(): Prisma.TimelineItemDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.media`: Exposes CRUD operations for the **Media** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Media
+    * const media = await prisma.media.findMany()
+    * ```
+    */
+  get media(): Prisma.MediaDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.memberCompany`: Exposes CRUD operations for the **MemberCompany** model.
@@ -274,8 +289,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 7.7.0
-   * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+   * Prisma Client JS version: 7.8.0
+   * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
    */
   export type PrismaVersion = {
     client: string
@@ -663,6 +678,7 @@ export namespace Prisma {
     NewsArticle: 'NewsArticle',
     Partner: 'Partner',
     TimelineItem: 'TimelineItem',
+    Media: 'Media',
     MemberCompany: 'MemberCompany'
   };
 
@@ -679,7 +695,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "project" | "service" | "newsArticle" | "partner" | "timelineItem" | "memberCompany"
+      modelProps: "project" | "service" | "newsArticle" | "partner" | "timelineItem" | "media" | "memberCompany"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1053,6 +1069,80 @@ export namespace Prisma {
           }
         }
       }
+      Media: {
+        payload: Prisma.$MediaPayload<ExtArgs>
+        fields: Prisma.MediaFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MediaFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MediaFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          findFirst: {
+            args: Prisma.MediaFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MediaFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          findMany: {
+            args: Prisma.MediaFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>[]
+          }
+          create: {
+            args: Prisma.MediaCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          createMany: {
+            args: Prisma.MediaCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MediaCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>[]
+          }
+          delete: {
+            args: Prisma.MediaDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          update: {
+            args: Prisma.MediaUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          deleteMany: {
+            args: Prisma.MediaDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MediaUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MediaUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>[]
+          }
+          upsert: {
+            args: Prisma.MediaUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MediaPayload>
+          }
+          aggregate: {
+            args: Prisma.MediaAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMedia>
+          }
+          groupBy: {
+            args: Prisma.MediaGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MediaGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MediaCountArgs<ExtArgs>
+            result: $Utils.Optional<MediaCountAggregateOutputType> | number
+          }
+        }
+      }
       MemberCompany: {
         payload: Prisma.$MemberCompanyPayload<ExtArgs>
         fields: Prisma.MemberCompanyFieldRefs
@@ -1240,6 +1330,7 @@ export namespace Prisma {
     newsArticle?: NewsArticleOmit
     partner?: PartnerOmit
     timelineItem?: TimelineItemOmit
+    media?: MediaOmit
     memberCompany?: MemberCompanyOmit
   }
 
@@ -2541,6 +2632,7 @@ export namespace Prisma {
     tag: number
     bulletsVi: number
     bulletsEn: number
+    images: number
     published: number
     createdAt: number
     updatedAt: number
@@ -2604,6 +2696,7 @@ export namespace Prisma {
     tag?: true
     bulletsVi?: true
     bulletsEn?: true
+    images?: true
     published?: true
     createdAt?: true
     updatedAt?: true
@@ -2710,6 +2803,7 @@ export namespace Prisma {
     tag: string
     bulletsVi: string[]
     bulletsEn: string[]
+    images: string[]
     published: boolean
     createdAt: Date
     updatedAt: Date
@@ -2748,6 +2842,7 @@ export namespace Prisma {
     tag?: boolean
     bulletsVi?: boolean
     bulletsEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2767,6 +2862,7 @@ export namespace Prisma {
     tag?: boolean
     bulletsVi?: boolean
     bulletsEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2786,6 +2882,7 @@ export namespace Prisma {
     tag?: boolean
     bulletsVi?: boolean
     bulletsEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2805,12 +2902,13 @@ export namespace Prisma {
     tag?: boolean
     bulletsVi?: boolean
     bulletsEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "order" | "icon" | "titleVi" | "titleEn" | "subtitleVi" | "subtitleEn" | "descVi" | "descEn" | "tag" | "bulletsVi" | "bulletsEn" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "slug" | "order" | "icon" | "titleVi" | "titleEn" | "subtitleVi" | "subtitleEn" | "descVi" | "descEn" | "tag" | "bulletsVi" | "bulletsEn" | "images" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["service"]>
 
   export type $ServicePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Service"
@@ -2829,6 +2927,7 @@ export namespace Prisma {
       tag: string
       bulletsVi: string[]
       bulletsEn: string[]
+      images: string[]
       published: boolean
       createdAt: Date
       updatedAt: Date
@@ -3268,6 +3367,7 @@ export namespace Prisma {
     readonly tag: FieldRef<"Service", 'String'>
     readonly bulletsVi: FieldRef<"Service", 'String[]'>
     readonly bulletsEn: FieldRef<"Service", 'String[]'>
+    readonly images: FieldRef<"Service", 'String[]'>
     readonly published: FieldRef<"Service", 'Boolean'>
     readonly createdAt: FieldRef<"Service", 'DateTime'>
     readonly updatedAt: FieldRef<"Service", 'DateTime'>
@@ -3669,6 +3769,8 @@ export namespace Prisma {
     titleEn: string | null
     summaryVi: string | null
     summaryEn: string | null
+    contentVi: string | null
+    contentEn: string | null
     image: string | null
     categoryVi: string | null
     categoryEn: string | null
@@ -3686,6 +3788,8 @@ export namespace Prisma {
     titleEn: string | null
     summaryVi: string | null
     summaryEn: string | null
+    contentVi: string | null
+    contentEn: string | null
     image: string | null
     categoryVi: string | null
     categoryEn: string | null
@@ -3732,6 +3836,8 @@ export namespace Prisma {
     titleEn?: true
     summaryVi?: true
     summaryEn?: true
+    contentVi?: true
+    contentEn?: true
     image?: true
     categoryVi?: true
     categoryEn?: true
@@ -3749,6 +3855,8 @@ export namespace Prisma {
     titleEn?: true
     summaryVi?: true
     summaryEn?: true
+    contentVi?: true
+    contentEn?: true
     image?: true
     categoryVi?: true
     categoryEn?: true
@@ -3872,8 +3980,8 @@ export namespace Prisma {
     titleEn: string
     summaryVi: string
     summaryEn: string
-    contentVi: string[]
-    contentEn: string[]
+    contentVi: string
+    contentEn: string
     image: string
     categoryVi: string
     categoryEn: string
@@ -3991,8 +4099,8 @@ export namespace Prisma {
       titleEn: string
       summaryVi: string
       summaryEn: string
-      contentVi: string[]
-      contentEn: string[]
+      contentVi: string
+      contentEn: string
       image: string
       categoryVi: string
       categoryEn: string
@@ -4430,8 +4538,8 @@ export namespace Prisma {
     readonly titleEn: FieldRef<"NewsArticle", 'String'>
     readonly summaryVi: FieldRef<"NewsArticle", 'String'>
     readonly summaryEn: FieldRef<"NewsArticle", 'String'>
-    readonly contentVi: FieldRef<"NewsArticle", 'String[]'>
-    readonly contentEn: FieldRef<"NewsArticle", 'String[]'>
+    readonly contentVi: FieldRef<"NewsArticle", 'String'>
+    readonly contentEn: FieldRef<"NewsArticle", 'String'>
     readonly image: FieldRef<"NewsArticle", 'String'>
     readonly categoryVi: FieldRef<"NewsArticle", 'String'>
     readonly categoryEn: FieldRef<"NewsArticle", 'String'>
@@ -4890,6 +4998,7 @@ export namespace Prisma {
     projectsEn: number
     highlightVi: number
     highlightEn: number
+    images: number
     published: number
     createdAt: number
     updatedAt: number
@@ -4964,6 +5073,7 @@ export namespace Prisma {
     projectsEn?: true
     highlightVi?: true
     highlightEn?: true
+    images?: true
     published?: true
     createdAt?: true
     updatedAt?: true
@@ -5073,6 +5183,7 @@ export namespace Prisma {
     projectsEn: string[]
     highlightVi: string
     highlightEn: string
+    images: string[]
     published: boolean
     createdAt: Date
     updatedAt: Date
@@ -5114,6 +5225,7 @@ export namespace Prisma {
     projectsEn?: boolean
     highlightVi?: boolean
     highlightEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5136,6 +5248,7 @@ export namespace Prisma {
     projectsEn?: boolean
     highlightVi?: boolean
     highlightEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5158,6 +5271,7 @@ export namespace Prisma {
     projectsEn?: boolean
     highlightVi?: boolean
     highlightEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -5180,12 +5294,13 @@ export namespace Prisma {
     projectsEn?: boolean
     highlightVi?: boolean
     highlightEn?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type PartnerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "name" | "sectorVi" | "sectorEn" | "descVi" | "descEn" | "founded" | "hq" | "statLabelVi" | "statLabelEn" | "statValue" | "projectsVi" | "projectsEn" | "highlightVi" | "highlightEn" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["partner"]>
+  export type PartnerOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "name" | "sectorVi" | "sectorEn" | "descVi" | "descEn" | "founded" | "hq" | "statLabelVi" | "statLabelEn" | "statValue" | "projectsVi" | "projectsEn" | "highlightVi" | "highlightEn" | "images" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["partner"]>
 
   export type $PartnerPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Partner"
@@ -5207,6 +5322,7 @@ export namespace Prisma {
       projectsEn: string[]
       highlightVi: string
       highlightEn: string
+      images: string[]
       published: boolean
       createdAt: Date
       updatedAt: Date
@@ -5649,6 +5765,7 @@ export namespace Prisma {
     readonly projectsEn: FieldRef<"Partner", 'String[]'>
     readonly highlightVi: FieldRef<"Partner", 'String'>
     readonly highlightEn: FieldRef<"Partner", 'String'>
+    readonly images: FieldRef<"Partner", 'String[]'>
     readonly published: FieldRef<"Partner", 'Boolean'>
     readonly createdAt: FieldRef<"Partner", 'DateTime'>
     readonly updatedAt: FieldRef<"Partner", 'DateTime'>
@@ -7110,6 +7227,1006 @@ export namespace Prisma {
 
 
   /**
+   * Model Media
+   */
+
+  export type AggregateMedia = {
+    _count: MediaCountAggregateOutputType | null
+    _min: MediaMinAggregateOutputType | null
+    _max: MediaMaxAggregateOutputType | null
+  }
+
+  export type MediaMinAggregateOutputType = {
+    id: string | null
+    url: string | null
+    filename: string | null
+    folder: string | null
+    createdAt: Date | null
+  }
+
+  export type MediaMaxAggregateOutputType = {
+    id: string | null
+    url: string | null
+    filename: string | null
+    folder: string | null
+    createdAt: Date | null
+  }
+
+  export type MediaCountAggregateOutputType = {
+    id: number
+    url: number
+    filename: number
+    folder: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type MediaMinAggregateInputType = {
+    id?: true
+    url?: true
+    filename?: true
+    folder?: true
+    createdAt?: true
+  }
+
+  export type MediaMaxAggregateInputType = {
+    id?: true
+    url?: true
+    filename?: true
+    folder?: true
+    createdAt?: true
+  }
+
+  export type MediaCountAggregateInputType = {
+    id?: true
+    url?: true
+    filename?: true
+    folder?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type MediaAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Media to aggregate.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Media
+    **/
+    _count?: true | MediaCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MediaMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MediaMaxAggregateInputType
+  }
+
+  export type GetMediaAggregateType<T extends MediaAggregateArgs> = {
+        [P in keyof T & keyof AggregateMedia]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMedia[P]>
+      : GetScalarType<T[P], AggregateMedia[P]>
+  }
+
+
+
+
+  export type MediaGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MediaWhereInput
+    orderBy?: MediaOrderByWithAggregationInput | MediaOrderByWithAggregationInput[]
+    by: MediaScalarFieldEnum[] | MediaScalarFieldEnum
+    having?: MediaScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MediaCountAggregateInputType | true
+    _min?: MediaMinAggregateInputType
+    _max?: MediaMaxAggregateInputType
+  }
+
+  export type MediaGroupByOutputType = {
+    id: string
+    url: string
+    filename: string
+    folder: string
+    createdAt: Date
+    _count: MediaCountAggregateOutputType | null
+    _min: MediaMinAggregateOutputType | null
+    _max: MediaMaxAggregateOutputType | null
+  }
+
+  type GetMediaGroupByPayload<T extends MediaGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MediaGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MediaGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MediaGroupByOutputType[P]>
+            : GetScalarType<T[P], MediaGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MediaSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    filename?: boolean
+    folder?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["media"]>
+
+  export type MediaSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    filename?: boolean
+    folder?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["media"]>
+
+  export type MediaSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    filename?: boolean
+    folder?: boolean
+    createdAt?: boolean
+  }, ExtArgs["result"]["media"]>
+
+  export type MediaSelectScalar = {
+    id?: boolean
+    url?: boolean
+    filename?: boolean
+    folder?: boolean
+    createdAt?: boolean
+  }
+
+  export type MediaOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "filename" | "folder" | "createdAt", ExtArgs["result"]["media"]>
+
+  export type $MediaPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Media"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      url: string
+      filename: string
+      folder: string
+      createdAt: Date
+    }, ExtArgs["result"]["media"]>
+    composites: {}
+  }
+
+  type MediaGetPayload<S extends boolean | null | undefined | MediaDefaultArgs> = $Result.GetResult<Prisma.$MediaPayload, S>
+
+  type MediaCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MediaFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MediaCountAggregateInputType | true
+    }
+
+  export interface MediaDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Media'], meta: { name: 'Media' } }
+    /**
+     * Find zero or one Media that matches the filter.
+     * @param {MediaFindUniqueArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MediaFindUniqueArgs>(args: SelectSubset<T, MediaFindUniqueArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Media that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MediaFindUniqueOrThrowArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MediaFindUniqueOrThrowArgs>(args: SelectSubset<T, MediaFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Media that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaFindFirstArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MediaFindFirstArgs>(args?: SelectSubset<T, MediaFindFirstArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Media that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaFindFirstOrThrowArgs} args - Arguments to find a Media
+     * @example
+     * // Get one Media
+     * const media = await prisma.media.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MediaFindFirstOrThrowArgs>(args?: SelectSubset<T, MediaFindFirstOrThrowArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Media that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Media
+     * const media = await prisma.media.findMany()
+     * 
+     * // Get first 10 Media
+     * const media = await prisma.media.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const mediaWithIdOnly = await prisma.media.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends MediaFindManyArgs>(args?: SelectSubset<T, MediaFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Media.
+     * @param {MediaCreateArgs} args - Arguments to create a Media.
+     * @example
+     * // Create one Media
+     * const Media = await prisma.media.create({
+     *   data: {
+     *     // ... data to create a Media
+     *   }
+     * })
+     * 
+     */
+    create<T extends MediaCreateArgs>(args: SelectSubset<T, MediaCreateArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Media.
+     * @param {MediaCreateManyArgs} args - Arguments to create many Media.
+     * @example
+     * // Create many Media
+     * const media = await prisma.media.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MediaCreateManyArgs>(args?: SelectSubset<T, MediaCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Media and returns the data saved in the database.
+     * @param {MediaCreateManyAndReturnArgs} args - Arguments to create many Media.
+     * @example
+     * // Create many Media
+     * const media = await prisma.media.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Media and only return the `id`
+     * const mediaWithIdOnly = await prisma.media.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MediaCreateManyAndReturnArgs>(args?: SelectSubset<T, MediaCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Media.
+     * @param {MediaDeleteArgs} args - Arguments to delete one Media.
+     * @example
+     * // Delete one Media
+     * const Media = await prisma.media.delete({
+     *   where: {
+     *     // ... filter to delete one Media
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MediaDeleteArgs>(args: SelectSubset<T, MediaDeleteArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Media.
+     * @param {MediaUpdateArgs} args - Arguments to update one Media.
+     * @example
+     * // Update one Media
+     * const media = await prisma.media.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MediaUpdateArgs>(args: SelectSubset<T, MediaUpdateArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Media.
+     * @param {MediaDeleteManyArgs} args - Arguments to filter Media to delete.
+     * @example
+     * // Delete a few Media
+     * const { count } = await prisma.media.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MediaDeleteManyArgs>(args?: SelectSubset<T, MediaDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Media
+     * const media = await prisma.media.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MediaUpdateManyArgs>(args: SelectSubset<T, MediaUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Media and returns the data updated in the database.
+     * @param {MediaUpdateManyAndReturnArgs} args - Arguments to update many Media.
+     * @example
+     * // Update many Media
+     * const media = await prisma.media.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Media and only return the `id`
+     * const mediaWithIdOnly = await prisma.media.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MediaUpdateManyAndReturnArgs>(args: SelectSubset<T, MediaUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Media.
+     * @param {MediaUpsertArgs} args - Arguments to update or create a Media.
+     * @example
+     * // Update or create a Media
+     * const media = await prisma.media.upsert({
+     *   create: {
+     *     // ... data to create a Media
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Media we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MediaUpsertArgs>(args: SelectSubset<T, MediaUpsertArgs<ExtArgs>>): Prisma__MediaClient<$Result.GetResult<Prisma.$MediaPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaCountArgs} args - Arguments to filter Media to count.
+     * @example
+     * // Count the number of Media
+     * const count = await prisma.media.count({
+     *   where: {
+     *     // ... the filter for the Media we want to count
+     *   }
+     * })
+    **/
+    count<T extends MediaCountArgs>(
+      args?: Subset<T, MediaCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MediaCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MediaAggregateArgs>(args: Subset<T, MediaAggregateArgs>): Prisma.PrismaPromise<GetMediaAggregateType<T>>
+
+    /**
+     * Group by Media.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MediaGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MediaGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MediaGroupByArgs['orderBy'] }
+        : { orderBy?: MediaGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MediaGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMediaGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Media model
+   */
+  readonly fields: MediaFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Media.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MediaClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Media model
+   */
+  interface MediaFieldRefs {
+    readonly id: FieldRef<"Media", 'String'>
+    readonly url: FieldRef<"Media", 'String'>
+    readonly filename: FieldRef<"Media", 'String'>
+    readonly folder: FieldRef<"Media", 'String'>
+    readonly createdAt: FieldRef<"Media", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Media findUnique
+   */
+  export type MediaFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media findUniqueOrThrow
+   */
+  export type MediaFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media findFirst
+   */
+  export type MediaFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Media.
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Media.
+     */
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media findFirstOrThrow
+   */
+  export type MediaFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Media.
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Media.
+     */
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media findMany
+   */
+  export type MediaFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Filter, which Media to fetch.
+     */
+    where?: MediaWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Media to fetch.
+     */
+    orderBy?: MediaOrderByWithRelationInput | MediaOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Media.
+     */
+    cursor?: MediaWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Media from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Media.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Media.
+     */
+    distinct?: MediaScalarFieldEnum | MediaScalarFieldEnum[]
+  }
+
+  /**
+   * Media create
+   */
+  export type MediaCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Media.
+     */
+    data: XOR<MediaCreateInput, MediaUncheckedCreateInput>
+  }
+
+  /**
+   * Media createMany
+   */
+  export type MediaCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Media.
+     */
+    data: MediaCreateManyInput | MediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Media createManyAndReturn
+   */
+  export type MediaCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * The data used to create many Media.
+     */
+    data: MediaCreateManyInput | MediaCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Media update
+   */
+  export type MediaUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Media.
+     */
+    data: XOR<MediaUpdateInput, MediaUncheckedUpdateInput>
+    /**
+     * Choose, which Media to update.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media updateMany
+   */
+  export type MediaUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Media.
+     */
+    data: XOR<MediaUpdateManyMutationInput, MediaUncheckedUpdateManyInput>
+    /**
+     * Filter which Media to update
+     */
+    where?: MediaWhereInput
+    /**
+     * Limit how many Media to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Media updateManyAndReturn
+   */
+  export type MediaUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * The data used to update Media.
+     */
+    data: XOR<MediaUpdateManyMutationInput, MediaUncheckedUpdateManyInput>
+    /**
+     * Filter which Media to update
+     */
+    where?: MediaWhereInput
+    /**
+     * Limit how many Media to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Media upsert
+   */
+  export type MediaUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Media to update in case it exists.
+     */
+    where: MediaWhereUniqueInput
+    /**
+     * In case the Media found by the `where` argument doesn't exist, create a new Media with this data.
+     */
+    create: XOR<MediaCreateInput, MediaUncheckedCreateInput>
+    /**
+     * In case the Media was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MediaUpdateInput, MediaUncheckedUpdateInput>
+  }
+
+  /**
+   * Media delete
+   */
+  export type MediaDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+    /**
+     * Filter which Media to delete.
+     */
+    where: MediaWhereUniqueInput
+  }
+
+  /**
+   * Media deleteMany
+   */
+  export type MediaDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Media to delete
+     */
+    where?: MediaWhereInput
+    /**
+     * Limit how many Media to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Media without action
+   */
+  export type MediaDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Media
+     */
+    select?: MediaSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Media
+     */
+    omit?: MediaOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Model MemberCompany
    */
 
@@ -7166,6 +8283,7 @@ export namespace Prisma {
     descVi: number
     descEn: number
     accent: number
+    images: number
     published: number
     createdAt: number
     updatedAt: number
@@ -7218,6 +8336,7 @@ export namespace Prisma {
     descVi?: true
     descEn?: true
     accent?: true
+    images?: true
     published?: true
     createdAt?: true
     updatedAt?: true
@@ -7319,6 +8438,7 @@ export namespace Prisma {
     descVi: string
     descEn: string
     accent: string
+    images: string[]
     published: boolean
     createdAt: Date
     updatedAt: Date
@@ -7352,6 +8472,7 @@ export namespace Prisma {
     descVi?: boolean
     descEn?: boolean
     accent?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7366,6 +8487,7 @@ export namespace Prisma {
     descVi?: boolean
     descEn?: boolean
     accent?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7380,6 +8502,7 @@ export namespace Prisma {
     descVi?: boolean
     descEn?: boolean
     accent?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -7394,12 +8517,13 @@ export namespace Prisma {
     descVi?: boolean
     descEn?: boolean
     accent?: boolean
+    images?: boolean
     published?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type MemberCompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "abbr" | "name" | "tagline" | "descVi" | "descEn" | "accent" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["memberCompany"]>
+  export type MemberCompanyOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "order" | "abbr" | "name" | "tagline" | "descVi" | "descEn" | "accent" | "images" | "published" | "createdAt" | "updatedAt", ExtArgs["result"]["memberCompany"]>
 
   export type $MemberCompanyPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "MemberCompany"
@@ -7413,6 +8537,7 @@ export namespace Prisma {
       descVi: string
       descEn: string
       accent: string
+      images: string[]
       published: boolean
       createdAt: Date
       updatedAt: Date
@@ -7847,6 +8972,7 @@ export namespace Prisma {
     readonly descVi: FieldRef<"MemberCompany", 'String'>
     readonly descEn: FieldRef<"MemberCompany", 'String'>
     readonly accent: FieldRef<"MemberCompany", 'String'>
+    readonly images: FieldRef<"MemberCompany", 'String[]'>
     readonly published: FieldRef<"MemberCompany", 'Boolean'>
     readonly createdAt: FieldRef<"MemberCompany", 'DateTime'>
     readonly updatedAt: FieldRef<"MemberCompany", 'DateTime'>
@@ -8272,6 +9398,7 @@ export namespace Prisma {
     tag: 'tag',
     bulletsVi: 'bulletsVi',
     bulletsEn: 'bulletsEn',
+    images: 'images',
     published: 'published',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -8319,6 +9446,7 @@ export namespace Prisma {
     projectsEn: 'projectsEn',
     highlightVi: 'highlightVi',
     highlightEn: 'highlightEn',
+    images: 'images',
     published: 'published',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -8342,6 +9470,17 @@ export namespace Prisma {
   export type TimelineItemScalarFieldEnum = (typeof TimelineItemScalarFieldEnum)[keyof typeof TimelineItemScalarFieldEnum]
 
 
+  export const MediaScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    filename: 'filename',
+    folder: 'folder',
+    createdAt: 'createdAt'
+  };
+
+  export type MediaScalarFieldEnum = (typeof MediaScalarFieldEnum)[keyof typeof MediaScalarFieldEnum]
+
+
   export const MemberCompanyScalarFieldEnum: {
     id: 'id',
     order: 'order',
@@ -8351,6 +9490,7 @@ export namespace Prisma {
     descVi: 'descVi',
     descEn: 'descEn',
     accent: 'accent',
+    images: 'images',
     published: 'published',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -8575,6 +9715,7 @@ export namespace Prisma {
     tag?: StringFilter<"Service"> | string
     bulletsVi?: StringNullableListFilter<"Service">
     bulletsEn?: StringNullableListFilter<"Service">
+    images?: StringNullableListFilter<"Service">
     published?: BoolFilter<"Service"> | boolean
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
@@ -8594,6 +9735,7 @@ export namespace Prisma {
     tag?: SortOrder
     bulletsVi?: SortOrder
     bulletsEn?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8616,6 +9758,7 @@ export namespace Prisma {
     tag?: StringFilter<"Service"> | string
     bulletsVi?: StringNullableListFilter<"Service">
     bulletsEn?: StringNullableListFilter<"Service">
+    images?: StringNullableListFilter<"Service">
     published?: BoolFilter<"Service"> | boolean
     createdAt?: DateTimeFilter<"Service"> | Date | string
     updatedAt?: DateTimeFilter<"Service"> | Date | string
@@ -8635,6 +9778,7 @@ export namespace Prisma {
     tag?: SortOrder
     bulletsVi?: SortOrder
     bulletsEn?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8662,6 +9806,7 @@ export namespace Prisma {
     tag?: StringWithAggregatesFilter<"Service"> | string
     bulletsVi?: StringNullableListFilter<"Service">
     bulletsEn?: StringNullableListFilter<"Service">
+    images?: StringNullableListFilter<"Service">
     published?: BoolWithAggregatesFilter<"Service"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Service"> | Date | string
@@ -8677,8 +9822,8 @@ export namespace Prisma {
     titleEn?: StringFilter<"NewsArticle"> | string
     summaryVi?: StringFilter<"NewsArticle"> | string
     summaryEn?: StringFilter<"NewsArticle"> | string
-    contentVi?: StringNullableListFilter<"NewsArticle">
-    contentEn?: StringNullableListFilter<"NewsArticle">
+    contentVi?: StringFilter<"NewsArticle"> | string
+    contentEn?: StringFilter<"NewsArticle"> | string
     image?: StringFilter<"NewsArticle"> | string
     categoryVi?: StringFilter<"NewsArticle"> | string
     categoryEn?: StringFilter<"NewsArticle"> | string
@@ -8718,8 +9863,8 @@ export namespace Prisma {
     titleEn?: StringFilter<"NewsArticle"> | string
     summaryVi?: StringFilter<"NewsArticle"> | string
     summaryEn?: StringFilter<"NewsArticle"> | string
-    contentVi?: StringNullableListFilter<"NewsArticle">
-    contentEn?: StringNullableListFilter<"NewsArticle">
+    contentVi?: StringFilter<"NewsArticle"> | string
+    contentEn?: StringFilter<"NewsArticle"> | string
     image?: StringFilter<"NewsArticle"> | string
     categoryVi?: StringFilter<"NewsArticle"> | string
     categoryEn?: StringFilter<"NewsArticle"> | string
@@ -8764,8 +9909,8 @@ export namespace Prisma {
     titleEn?: StringWithAggregatesFilter<"NewsArticle"> | string
     summaryVi?: StringWithAggregatesFilter<"NewsArticle"> | string
     summaryEn?: StringWithAggregatesFilter<"NewsArticle"> | string
-    contentVi?: StringNullableListFilter<"NewsArticle">
-    contentEn?: StringNullableListFilter<"NewsArticle">
+    contentVi?: StringWithAggregatesFilter<"NewsArticle"> | string
+    contentEn?: StringWithAggregatesFilter<"NewsArticle"> | string
     image?: StringWithAggregatesFilter<"NewsArticle"> | string
     categoryVi?: StringWithAggregatesFilter<"NewsArticle"> | string
     categoryEn?: StringWithAggregatesFilter<"NewsArticle"> | string
@@ -8796,6 +9941,7 @@ export namespace Prisma {
     projectsEn?: StringNullableListFilter<"Partner">
     highlightVi?: StringFilter<"Partner"> | string
     highlightEn?: StringFilter<"Partner"> | string
+    images?: StringNullableListFilter<"Partner">
     published?: BoolFilter<"Partner"> | boolean
     createdAt?: DateTimeFilter<"Partner"> | Date | string
     updatedAt?: DateTimeFilter<"Partner"> | Date | string
@@ -8818,6 +9964,7 @@ export namespace Prisma {
     projectsEn?: SortOrder
     highlightVi?: SortOrder
     highlightEn?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8843,6 +9990,7 @@ export namespace Prisma {
     projectsEn?: StringNullableListFilter<"Partner">
     highlightVi?: StringFilter<"Partner"> | string
     highlightEn?: StringFilter<"Partner"> | string
+    images?: StringNullableListFilter<"Partner">
     published?: BoolFilter<"Partner"> | boolean
     createdAt?: DateTimeFilter<"Partner"> | Date | string
     updatedAt?: DateTimeFilter<"Partner"> | Date | string
@@ -8865,6 +10013,7 @@ export namespace Prisma {
     projectsEn?: SortOrder
     highlightVi?: SortOrder
     highlightEn?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8895,6 +10044,7 @@ export namespace Prisma {
     projectsEn?: StringNullableListFilter<"Partner">
     highlightVi?: StringWithAggregatesFilter<"Partner"> | string
     highlightEn?: StringWithAggregatesFilter<"Partner"> | string
+    images?: StringNullableListFilter<"Partner">
     published?: BoolWithAggregatesFilter<"Partner"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"Partner"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Partner"> | Date | string
@@ -8974,6 +10124,58 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"TimelineItem"> | Date | string
   }
 
+  export type MediaWhereInput = {
+    AND?: MediaWhereInput | MediaWhereInput[]
+    OR?: MediaWhereInput[]
+    NOT?: MediaWhereInput | MediaWhereInput[]
+    id?: StringFilter<"Media"> | string
+    url?: StringFilter<"Media"> | string
+    filename?: StringFilter<"Media"> | string
+    folder?: StringFilter<"Media"> | string
+    createdAt?: DateTimeFilter<"Media"> | Date | string
+  }
+
+  export type MediaOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    filename?: SortOrder
+    folder?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MediaWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: MediaWhereInput | MediaWhereInput[]
+    OR?: MediaWhereInput[]
+    NOT?: MediaWhereInput | MediaWhereInput[]
+    url?: StringFilter<"Media"> | string
+    filename?: StringFilter<"Media"> | string
+    folder?: StringFilter<"Media"> | string
+    createdAt?: DateTimeFilter<"Media"> | Date | string
+  }, "id">
+
+  export type MediaOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    filename?: SortOrder
+    folder?: SortOrder
+    createdAt?: SortOrder
+    _count?: MediaCountOrderByAggregateInput
+    _max?: MediaMaxOrderByAggregateInput
+    _min?: MediaMinOrderByAggregateInput
+  }
+
+  export type MediaScalarWhereWithAggregatesInput = {
+    AND?: MediaScalarWhereWithAggregatesInput | MediaScalarWhereWithAggregatesInput[]
+    OR?: MediaScalarWhereWithAggregatesInput[]
+    NOT?: MediaScalarWhereWithAggregatesInput | MediaScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Media"> | string
+    url?: StringWithAggregatesFilter<"Media"> | string
+    filename?: StringWithAggregatesFilter<"Media"> | string
+    folder?: StringWithAggregatesFilter<"Media"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Media"> | Date | string
+  }
+
   export type MemberCompanyWhereInput = {
     AND?: MemberCompanyWhereInput | MemberCompanyWhereInput[]
     OR?: MemberCompanyWhereInput[]
@@ -8986,6 +10188,7 @@ export namespace Prisma {
     descVi?: StringFilter<"MemberCompany"> | string
     descEn?: StringFilter<"MemberCompany"> | string
     accent?: StringFilter<"MemberCompany"> | string
+    images?: StringNullableListFilter<"MemberCompany">
     published?: BoolFilter<"MemberCompany"> | boolean
     createdAt?: DateTimeFilter<"MemberCompany"> | Date | string
     updatedAt?: DateTimeFilter<"MemberCompany"> | Date | string
@@ -9000,6 +10203,7 @@ export namespace Prisma {
     descVi?: SortOrder
     descEn?: SortOrder
     accent?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9017,6 +10221,7 @@ export namespace Prisma {
     descVi?: StringFilter<"MemberCompany"> | string
     descEn?: StringFilter<"MemberCompany"> | string
     accent?: StringFilter<"MemberCompany"> | string
+    images?: StringNullableListFilter<"MemberCompany">
     published?: BoolFilter<"MemberCompany"> | boolean
     createdAt?: DateTimeFilter<"MemberCompany"> | Date | string
     updatedAt?: DateTimeFilter<"MemberCompany"> | Date | string
@@ -9031,6 +10236,7 @@ export namespace Prisma {
     descVi?: SortOrder
     descEn?: SortOrder
     accent?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -9053,6 +10259,7 @@ export namespace Prisma {
     descVi?: StringWithAggregatesFilter<"MemberCompany"> | string
     descEn?: StringWithAggregatesFilter<"MemberCompany"> | string
     accent?: StringWithAggregatesFilter<"MemberCompany"> | string
+    images?: StringNullableListFilter<"MemberCompany">
     published?: BoolWithAggregatesFilter<"MemberCompany"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"MemberCompany"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"MemberCompany"> | Date | string
@@ -9212,6 +10419,7 @@ export namespace Prisma {
     tag: string
     bulletsVi?: ServiceCreatebulletsViInput | string[]
     bulletsEn?: ServiceCreatebulletsEnInput | string[]
+    images?: ServiceCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9231,6 +10439,7 @@ export namespace Prisma {
     tag: string
     bulletsVi?: ServiceCreatebulletsViInput | string[]
     bulletsEn?: ServiceCreatebulletsEnInput | string[]
+    images?: ServiceCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9250,6 +10459,7 @@ export namespace Prisma {
     tag?: StringFieldUpdateOperationsInput | string
     bulletsVi?: ServiceUpdatebulletsViInput | string[]
     bulletsEn?: ServiceUpdatebulletsEnInput | string[]
+    images?: ServiceUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9269,6 +10479,7 @@ export namespace Prisma {
     tag?: StringFieldUpdateOperationsInput | string
     bulletsVi?: ServiceUpdatebulletsViInput | string[]
     bulletsEn?: ServiceUpdatebulletsEnInput | string[]
+    images?: ServiceUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9288,6 +10499,7 @@ export namespace Prisma {
     tag: string
     bulletsVi?: ServiceCreatebulletsViInput | string[]
     bulletsEn?: ServiceCreatebulletsEnInput | string[]
+    images?: ServiceCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9307,6 +10519,7 @@ export namespace Prisma {
     tag?: StringFieldUpdateOperationsInput | string
     bulletsVi?: ServiceUpdatebulletsViInput | string[]
     bulletsEn?: ServiceUpdatebulletsEnInput | string[]
+    images?: ServiceUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9326,6 +10539,7 @@ export namespace Prisma {
     tag?: StringFieldUpdateOperationsInput | string
     bulletsVi?: ServiceUpdatebulletsViInput | string[]
     bulletsEn?: ServiceUpdatebulletsEnInput | string[]
+    images?: ServiceUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9338,8 +10552,8 @@ export namespace Prisma {
     titleEn: string
     summaryVi: string
     summaryEn: string
-    contentVi?: NewsArticleCreatecontentViInput | string[]
-    contentEn?: NewsArticleCreatecontentEnInput | string[]
+    contentVi?: string
+    contentEn?: string
     image: string
     categoryVi: string
     categoryEn: string
@@ -9357,8 +10571,8 @@ export namespace Prisma {
     titleEn: string
     summaryVi: string
     summaryEn: string
-    contentVi?: NewsArticleCreatecontentViInput | string[]
-    contentEn?: NewsArticleCreatecontentEnInput | string[]
+    contentVi?: string
+    contentEn?: string
     image: string
     categoryVi: string
     categoryEn: string
@@ -9376,8 +10590,8 @@ export namespace Prisma {
     titleEn?: StringFieldUpdateOperationsInput | string
     summaryVi?: StringFieldUpdateOperationsInput | string
     summaryEn?: StringFieldUpdateOperationsInput | string
-    contentVi?: NewsArticleUpdatecontentViInput | string[]
-    contentEn?: NewsArticleUpdatecontentEnInput | string[]
+    contentVi?: StringFieldUpdateOperationsInput | string
+    contentEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     categoryVi?: StringFieldUpdateOperationsInput | string
     categoryEn?: StringFieldUpdateOperationsInput | string
@@ -9395,8 +10609,8 @@ export namespace Prisma {
     titleEn?: StringFieldUpdateOperationsInput | string
     summaryVi?: StringFieldUpdateOperationsInput | string
     summaryEn?: StringFieldUpdateOperationsInput | string
-    contentVi?: NewsArticleUpdatecontentViInput | string[]
-    contentEn?: NewsArticleUpdatecontentEnInput | string[]
+    contentVi?: StringFieldUpdateOperationsInput | string
+    contentEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     categoryVi?: StringFieldUpdateOperationsInput | string
     categoryEn?: StringFieldUpdateOperationsInput | string
@@ -9414,8 +10628,8 @@ export namespace Prisma {
     titleEn: string
     summaryVi: string
     summaryEn: string
-    contentVi?: NewsArticleCreatecontentViInput | string[]
-    contentEn?: NewsArticleCreatecontentEnInput | string[]
+    contentVi?: string
+    contentEn?: string
     image: string
     categoryVi: string
     categoryEn: string
@@ -9433,8 +10647,8 @@ export namespace Prisma {
     titleEn?: StringFieldUpdateOperationsInput | string
     summaryVi?: StringFieldUpdateOperationsInput | string
     summaryEn?: StringFieldUpdateOperationsInput | string
-    contentVi?: NewsArticleUpdatecontentViInput | string[]
-    contentEn?: NewsArticleUpdatecontentEnInput | string[]
+    contentVi?: StringFieldUpdateOperationsInput | string
+    contentEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     categoryVi?: StringFieldUpdateOperationsInput | string
     categoryEn?: StringFieldUpdateOperationsInput | string
@@ -9452,8 +10666,8 @@ export namespace Prisma {
     titleEn?: StringFieldUpdateOperationsInput | string
     summaryVi?: StringFieldUpdateOperationsInput | string
     summaryEn?: StringFieldUpdateOperationsInput | string
-    contentVi?: NewsArticleUpdatecontentViInput | string[]
-    contentEn?: NewsArticleUpdatecontentEnInput | string[]
+    contentVi?: StringFieldUpdateOperationsInput | string
+    contentEn?: StringFieldUpdateOperationsInput | string
     image?: StringFieldUpdateOperationsInput | string
     categoryVi?: StringFieldUpdateOperationsInput | string
     categoryEn?: StringFieldUpdateOperationsInput | string
@@ -9481,6 +10695,7 @@ export namespace Prisma {
     projectsEn?: PartnerCreateprojectsEnInput | string[]
     highlightVi: string
     highlightEn: string
+    images?: PartnerCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9503,6 +10718,7 @@ export namespace Prisma {
     projectsEn?: PartnerCreateprojectsEnInput | string[]
     highlightVi: string
     highlightEn: string
+    images?: PartnerCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9525,6 +10741,7 @@ export namespace Prisma {
     projectsEn?: PartnerUpdateprojectsEnInput | string[]
     highlightVi?: StringFieldUpdateOperationsInput | string
     highlightEn?: StringFieldUpdateOperationsInput | string
+    images?: PartnerUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9547,6 +10764,7 @@ export namespace Prisma {
     projectsEn?: PartnerUpdateprojectsEnInput | string[]
     highlightVi?: StringFieldUpdateOperationsInput | string
     highlightEn?: StringFieldUpdateOperationsInput | string
+    images?: PartnerUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9569,6 +10787,7 @@ export namespace Prisma {
     projectsEn?: PartnerCreateprojectsEnInput | string[]
     highlightVi: string
     highlightEn: string
+    images?: PartnerCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9591,6 +10810,7 @@ export namespace Prisma {
     projectsEn?: PartnerUpdateprojectsEnInput | string[]
     highlightVi?: StringFieldUpdateOperationsInput | string
     highlightEn?: StringFieldUpdateOperationsInput | string
+    images?: PartnerUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9613,6 +10833,7 @@ export namespace Prisma {
     projectsEn?: PartnerUpdateprojectsEnInput | string[]
     highlightVi?: StringFieldUpdateOperationsInput | string
     highlightEn?: StringFieldUpdateOperationsInput | string
+    images?: PartnerUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9702,6 +10923,62 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type MediaCreateInput = {
+    id?: string
+    url: string
+    filename?: string
+    folder?: string
+    createdAt?: Date | string
+  }
+
+  export type MediaUncheckedCreateInput = {
+    id?: string
+    url: string
+    filename?: string
+    folder?: string
+    createdAt?: Date | string
+  }
+
+  export type MediaUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
+    folder?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MediaUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
+    folder?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MediaCreateManyInput = {
+    id?: string
+    url: string
+    filename?: string
+    folder?: string
+    createdAt?: Date | string
+  }
+
+  export type MediaUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
+    folder?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type MediaUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    filename?: StringFieldUpdateOperationsInput | string
+    folder?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type MemberCompanyCreateInput = {
     id?: string
     order?: number
@@ -9711,6 +10988,7 @@ export namespace Prisma {
     descVi: string
     descEn: string
     accent: string
+    images?: MemberCompanyCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9725,6 +11003,7 @@ export namespace Prisma {
     descVi: string
     descEn: string
     accent: string
+    images?: MemberCompanyCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9739,6 +11018,7 @@ export namespace Prisma {
     descVi?: StringFieldUpdateOperationsInput | string
     descEn?: StringFieldUpdateOperationsInput | string
     accent?: StringFieldUpdateOperationsInput | string
+    images?: MemberCompanyUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9753,6 +11033,7 @@ export namespace Prisma {
     descVi?: StringFieldUpdateOperationsInput | string
     descEn?: StringFieldUpdateOperationsInput | string
     accent?: StringFieldUpdateOperationsInput | string
+    images?: MemberCompanyUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9767,6 +11048,7 @@ export namespace Prisma {
     descVi: string
     descEn: string
     accent: string
+    images?: MemberCompanyCreateimagesInput | string[]
     published?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -9781,6 +11063,7 @@ export namespace Prisma {
     descVi?: StringFieldUpdateOperationsInput | string
     descEn?: StringFieldUpdateOperationsInput | string
     accent?: StringFieldUpdateOperationsInput | string
+    images?: MemberCompanyUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9795,6 +11078,7 @@ export namespace Prisma {
     descVi?: StringFieldUpdateOperationsInput | string
     descEn?: StringFieldUpdateOperationsInput | string
     accent?: StringFieldUpdateOperationsInput | string
+    images?: MemberCompanyUpdateimagesInput | string[]
     published?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -9962,6 +11246,7 @@ export namespace Prisma {
     tag?: SortOrder
     bulletsVi?: SortOrder
     bulletsEn?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10055,6 +11340,8 @@ export namespace Prisma {
     titleEn?: SortOrder
     summaryVi?: SortOrder
     summaryEn?: SortOrder
+    contentVi?: SortOrder
+    contentEn?: SortOrder
     image?: SortOrder
     categoryVi?: SortOrder
     categoryEn?: SortOrder
@@ -10072,6 +11359,8 @@ export namespace Prisma {
     titleEn?: SortOrder
     summaryVi?: SortOrder
     summaryEn?: SortOrder
+    contentVi?: SortOrder
+    contentEn?: SortOrder
     image?: SortOrder
     categoryVi?: SortOrder
     categoryEn?: SortOrder
@@ -10103,6 +11392,7 @@ export namespace Prisma {
     projectsEn?: SortOrder
     highlightVi?: SortOrder
     highlightEn?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10202,6 +11492,30 @@ export namespace Prisma {
     order?: SortOrder
   }
 
+  export type MediaCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    filename?: SortOrder
+    folder?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MediaMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    filename?: SortOrder
+    folder?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type MediaMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    filename?: SortOrder
+    folder?: SortOrder
+    createdAt?: SortOrder
+  }
+
   export type MemberCompanyCountOrderByAggregateInput = {
     id?: SortOrder
     order?: SortOrder
@@ -10211,6 +11525,7 @@ export namespace Prisma {
     descVi?: SortOrder
     descEn?: SortOrder
     accent?: SortOrder
+    images?: SortOrder
     published?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -10281,6 +11596,10 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type ServiceCreateimagesInput = {
+    set: string[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -10299,20 +11618,7 @@ export namespace Prisma {
     push?: string | string[]
   }
 
-  export type NewsArticleCreatecontentViInput = {
-    set: string[]
-  }
-
-  export type NewsArticleCreatecontentEnInput = {
-    set: string[]
-  }
-
-  export type NewsArticleUpdatecontentViInput = {
-    set?: string[]
-    push?: string | string[]
-  }
-
-  export type NewsArticleUpdatecontentEnInput = {
+  export type ServiceUpdateimagesInput = {
     set?: string[]
     push?: string | string[]
   }
@@ -10325,12 +11631,30 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type PartnerCreateimagesInput = {
+    set: string[]
+  }
+
   export type PartnerUpdateprojectsViInput = {
     set?: string[]
     push?: string | string[]
   }
 
   export type PartnerUpdateprojectsEnInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type PartnerUpdateimagesInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type MemberCompanyCreateimagesInput = {
+    set: string[]
+  }
+
+  export type MemberCompanyUpdateimagesInput = {
     set?: string[]
     push?: string | string[]
   }

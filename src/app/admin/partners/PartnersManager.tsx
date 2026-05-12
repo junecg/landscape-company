@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import CloudinaryGalleryUpload from '@/components/admin/CloudinaryGalleryUpload'
 
 type Partner = {
   id: string
@@ -19,13 +20,14 @@ type Partner = {
   projectsEn: string[]
   highlightVi: string
   highlightEn: string
+  images: string[]
   published: boolean
 }
 
 const emptyPartner: Omit<Partner, 'id'> = {
   order: 0, name: '', sectorVi: '', sectorEn: '', descVi: '', descEn: '',
   founded: 2000, hq: '', statLabelVi: '', statLabelEn: '', statValue: '',
-  projectsVi: [], projectsEn: [], highlightVi: '', highlightEn: '', published: true,
+  projectsVi: [], projectsEn: [], highlightVi: '', highlightEn: '', images: [], published: true,
 }
 
 export default function PartnersManager() {
@@ -37,6 +39,7 @@ export default function PartnersManager() {
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
   const [projectsViText, setProjectsViText] = useState('')
   const [projectsEnText, setProjectsEnText] = useState('')
+  const [partnerImages, setPartnerImages] = useState<string[]>([])
 
   const fetchPartners = useCallback(async () => {
     setLoading(true)
@@ -51,6 +54,7 @@ export default function PartnersManager() {
     setEditing(p)
     setProjectsViText(p.projectsVi.join('\n'))
     setProjectsEnText(p.projectsEn.join('\n'))
+    setPartnerImages(p.images)
     setIsCreating(false)
   }
 
@@ -58,6 +62,7 @@ export default function PartnersManager() {
     setEditing({ ...emptyPartner })
     setProjectsViText('')
     setProjectsEnText('')
+    setPartnerImages([])
     setIsCreating(true)
   }
 
@@ -68,6 +73,7 @@ export default function PartnersManager() {
       ...editing,
       projectsVi: projectsViText.split('\n').map(s => s.trim()).filter(Boolean),
       projectsEn: projectsEnText.split('\n').map(s => s.trim()).filter(Boolean),
+      images: partnerImages,
     }
     if (isCreating) {
       await fetch('/api/partners', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
@@ -120,6 +126,17 @@ export default function PartnersManager() {
                   </span>
                 </div>
                 <div className="flex items-center gap-1 shrink-0">
+                  <a
+                    href="/vi/partners"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-md hover:bg-blue-100 text-gray-400 hover:text-blue-600 transition-colors"
+                    title="Xem trang"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </a>
                   <button onClick={() => openEdit(partner)} className="p-1.5 rounded-md hover:bg-green-100 text-gray-400 hover:text-[#328442] transition-colors">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                   </button>
@@ -175,6 +192,11 @@ export default function PartnersManager() {
               </div>
               <Field label="Điểm nổi bật (VI)" value={editing.highlightVi || ''} onChange={v => setEditing({ ...editing, highlightVi: v })} type="textarea" />
               <Field label="Điểm nổi bật (EN)" value={editing.highlightEn || ''} onChange={v => setEditing({ ...editing, highlightEn: v })} type="textarea" />
+              <CloudinaryGalleryUpload
+                label="Ảnh gallery"
+                value={partnerImages}
+                onChange={setPartnerImages}
+              />
               <label className="flex items-center gap-2 cursor-pointer">
                 <input type="checkbox" checked={editing.published ?? true} onChange={e => setEditing({ ...editing, published: e.target.checked })} className="w-4 h-4 rounded" />
                 <span className="text-sm text-gray-700">Xuất bản</span>

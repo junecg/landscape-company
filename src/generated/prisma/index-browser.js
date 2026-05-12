@@ -24,12 +24,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 7.7.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 Prisma.prismaVersion = {
-  client: "7.7.0",
-  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 Prisma.PrismaClientKnownRequestError = () => {
@@ -154,6 +154,7 @@ exports.Prisma.ServiceScalarFieldEnum = {
   tag: 'tag',
   bulletsVi: 'bulletsVi',
   bulletsEn: 'bulletsEn',
+  images: 'images',
   published: 'published',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -195,6 +196,7 @@ exports.Prisma.PartnerScalarFieldEnum = {
   projectsEn: 'projectsEn',
   highlightVi: 'highlightVi',
   highlightEn: 'highlightEn',
+  images: 'images',
   published: 'published',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -212,6 +214,14 @@ exports.Prisma.TimelineItemScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.MediaScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  filename: 'filename',
+  folder: 'folder',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.MemberCompanyScalarFieldEnum = {
   id: 'id',
   order: 'order',
@@ -221,6 +231,7 @@ exports.Prisma.MemberCompanyScalarFieldEnum = {
   descVi: 'descVi',
   descEn: 'descEn',
   accent: 'accent',
+  images: 'images',
   published: 'published',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -243,6 +254,7 @@ exports.Prisma.ModelName = {
   NewsArticle: 'NewsArticle',
   Partner: 'Partner',
   TimelineItem: 'TimelineItem',
+  Media: 'Media',
   MemberCompany: 'MemberCompany'
 };
 

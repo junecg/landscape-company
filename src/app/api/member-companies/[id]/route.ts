@@ -32,6 +32,7 @@ export async function PUT(
       descVi: body.descVi,
       descEn: body.descEn,
       accent: body.accent,
+      images: body.images ?? [],
       published: body.published,
     },
   })

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
+import CloudinaryGalleryUpload from '@/components/admin/CloudinaryGalleryUpload'
 
 type Service = {
   id: string
@@ -16,6 +17,7 @@ type Service = {
   tag: string
   bulletsVi: string[]
   bulletsEn: string[]
+  images: string[]
   published: boolean
 }
 
@@ -32,6 +34,7 @@ const emptyService: Omit<Service, 'id'> = {
   tag: '',
   bulletsVi: [],
   bulletsEn: [],
+  images: [],
   published: true,
 }
 
@@ -44,6 +47,7 @@ export default function ServicesManager() {
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
   const [bulletsViText, setBulletsViText] = useState('')
   const [bulletsEnText, setBulletsEnText] = useState('')
+  const [serviceImages, setServiceImages] = useState<string[]>([])
 
   const fetchServices = useCallback(async () => {
     setLoading(true)
@@ -58,6 +62,7 @@ export default function ServicesManager() {
     setEditing(s)
     setBulletsViText(s.bulletsVi.join('\n'))
     setBulletsEnText(s.bulletsEn.join('\n'))
+    setServiceImages(s.images)
     setIsCreating(false)
   }
 
@@ -65,6 +70,7 @@ export default function ServicesManager() {
     setEditing({ ...emptyService })
     setBulletsViText('')
     setBulletsEnText('')
+    setServiceImages([])
     setIsCreating(true)
   }
 
@@ -75,6 +81,7 @@ export default function ServicesManager() {
       ...editing,
       bulletsVi: bulletsViText.split('\n').map(s => s.trim()).filter(Boolean),
       bulletsEn: bulletsEnText.split('\n').map(s => s.trim()).filter(Boolean),
+      images: serviceImages,
     }
 
     if (isCreating) {
@@ -165,6 +172,17 @@ export default function ServicesManager() {
 
                 {/* Actions */}
                 <div className="flex items-center gap-1 shrink-0">
+                  <a
+                    href="/vi/services"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-1.5 rounded-md hover:bg-blue-100 text-gray-400 hover:text-blue-600 transition-colors"
+                    title="Xem trang"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                    </svg>
+                  </a>
                   <button
                     onClick={() => openEdit(service)}
                     className="p-1.5 rounded-md hover:bg-green-100 text-gray-400 hover:text-[#328442] transition-colors"
@@ -257,6 +275,11 @@ export default function ServicesManager() {
                   />
                 </div>
               </div>
+              <CloudinaryGalleryUpload
+                label="Ảnh gallery"
+                value={serviceImages}
+                onChange={setServiceImages}
+              />
             </div>
 
             <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">

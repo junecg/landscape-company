@@ -45,6 +45,7 @@ model Service {
   tag        String
   bulletsVi  String[]
   bulletsEn  String[]
+  images     String[]
   published  Boolean  @default(true)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
@@ -60,8 +61,8 @@ model NewsArticle {
   titleEn     String
   summaryVi   String   @db.Text
   summaryEn   String   @db.Text
-  contentVi   String[]
-  contentEn   String[]
+  contentVi   String   @db.Text @default("")
+  contentEn   String   @db.Text @default("")
   image       String
   categoryVi  String
   categoryEn  String
@@ -93,6 +94,7 @@ model Partner {
   projectsEn   String[]
   highlightVi  String   @db.Text
   highlightEn  String   @db.Text
+  images       String[]
   published    Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -115,6 +117,16 @@ model TimelineItem {
   @@map("timeline_item")
 }
 
+model Media {
+  id        String   @id @default(cuid())
+  url       String
+  filename  String   @default("")
+  folder    String   @default("gallery")
+  createdAt DateTime @default(now())
+
+  @@map("media")
+}
+
 model MemberCompany {
   id           String   @id @default(cuid())
   order        Int      @default(0)
@@ -124,6 +136,7 @@ model MemberCompany {
   descVi       String
   descEn       String
   accent       String
+  images       String[]
   published    Boolean  @default(true)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
