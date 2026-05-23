@@ -37,14 +37,20 @@ export default function PartnersManager() {
   const [isCreating, setIsCreating] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const [projectsViText, setProjectsViText] = useState('')
   const [projectsEnText, setProjectsEnText] = useState('')
   const [partnerImages, setPartnerImages] = useState<string[]>([])
 
   const fetchPartners = useCallback(async () => {
     setLoading(true)
-    const res = await fetch('/api/partners')
-    setPartners(await res.json())
+    try {
+      const res = await fetch('/api/partners')
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      setPartners(await res.json())
+    } catch (err) {
+      console.error('Failed to load partners:', err)
+    }
     setLoading(false)
   }, [])
 
@@ -56,6 +62,7 @@ export default function PartnersManager() {
     setProjectsEnText(p.projectsEn.join('\n'))
     setPartnerImages(p.images)
     setIsCreating(false)
+    setError(null)
   }
 
   const openCreate = () => {
@@ -64,29 +71,37 @@ export default function PartnersManager() {
     setProjectsEnText('')
     setPartnerImages([])
     setIsCreating(true)
+    setError(null)
   }
+
+  const closeModal = () => { setEditing(null); setError(null) }
 
   const handleSave = async () => {
     if (!editing) return
     setSaving(true)
+    setError(null)
     const payload = {
       ...editing,
       projectsVi: projectsViText.split('\n').map(s => s.trim()).filter(Boolean),
       projectsEn: projectsEnText.split('\n').map(s => s.trim()).filter(Boolean),
       images: partnerImages,
     }
-    if (isCreating) {
-      await fetch('/api/partners', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-    } else {
-      await fetch(`/api/partners/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+    try {
+      const res = isCreating
+        ? await fetch('/api/partners', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        : await fetch(`/api/partners/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      if (!res.ok) throw new Error(`${res.status}`)
+      setEditing(null)
+      fetchPartners()
+    } catch {
+      setError('Lưu thất bại. Vui lòng thử lại.')
     }
     setSaving(false)
-    setEditing(null)
-    fetchPartners()
   }
 
   const handleDelete = async (id: string) => {
-    await fetch(`/api/partners/${id}`, { method: 'DELETE' })
+    const res = await fetch(`/api/partners/${id}`, { method: 'DELETE' })
+    if (!res.ok) { alert('Xóa thất bại.'); return }
     setDeleteConfirm(null)
     fetchPartners()
   }
@@ -156,7 +171,7 @@ export default function PartnersManager() {
           <div className="bg-white rounded-2xl w-full max-w-2xl shadow-2xl mb-10">
             <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
               <h2 className="text-base font-semibold text-gray-900">{isCreating ? 'Thêm đối tác mới' : 'Chỉnh sửa đối tác'}</h2>
-              <button onClick={() => setEditing(null)} className="p-1 rounded-md hover:bg-gray-100 text-gray-400">
+              <button onClick={closeModal} className="p-1 rounded-md hover:bg-gray-100 text-gray-400">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
             </div>
@@ -202,11 +217,14 @@ export default function PartnersManager() {
                 <span className="text-sm text-gray-700">Xuất bản</span>
               </label>
             </div>
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">
-              <button onClick={() => setEditing(null)} className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">Hủy</button>
-              <button onClick={handleSave} disabled={saving} className="bg-[#328442] hover:bg-[#48a85a] text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50">
-                {saving ? 'Đang lưu...' : isCreating ? 'Tạo đối tác' : 'Lưu thay đổi'}
-              </button>
+            <div className="flex items-center gap-3 px-6 py-4 border-t border-gray-100">
+              {error && <p className="text-sm text-red-500 mr-auto">{error}</p>}
+              <div className="flex items-center gap-3 ml-auto">
+                <button onClick={closeModal} className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">Hủy</button>
+                <button onClick={handleSave} disabled={saving} className="bg-[#328442] hover:bg-[#48a85a] text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50">
+                  {saving ? 'Đang lưu...' : isCreating ? 'Tạo đối tác' : 'Lưu thay đổi'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

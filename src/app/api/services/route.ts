@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import { verifySession } from '@/lib/auth'
-import { SERVICES as staticServices } from '@/components/ServicesPageContent'
 
 const unauthorized = () => NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+const serverError = (err: unknown, label: string) => {
+  console.error(label, err)
+  return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+}
 
 export async function GET() {
   try {
@@ -11,49 +14,35 @@ export async function GET() {
       orderBy: { order: 'asc' },
     })
     return NextResponse.json(services)
-  } catch {
-    return NextResponse.json(
-      staticServices.map((s, i) => ({
-        id: s.id,
-        slug: s.id,
-        order: i,
-        icon: s.icon,
-        titleVi: s.titleVi,
-        titleEn: s.titleEn,
-        subtitleVi: s.subtitleVi,
-        subtitleEn: s.subtitleEn,
-        descVi: s.descVi,
-        descEn: s.descEn,
-        tag: '',
-        bulletsVi: [...s.bulletsVi],
-        bulletsEn: [...s.bulletsEn],
-        published: true,
-      }))
-    )
+  } catch (err) {
+    return serverError(err, 'GET /api/services error:')
   }
 }
 
 export async function POST(request: NextRequest) {
   if (!(await verifySession())) return unauthorized()
-  const body = await request.json()
-
-  const service = await prisma.service.create({
-    data: {
-      slug: body.slug,
-      order: body.order ?? 0,
-      icon: body.icon ?? '',
-      titleVi: body.titleVi,
-      titleEn: body.titleEn,
-      subtitleVi: body.subtitleVi ?? '',
-      subtitleEn: body.subtitleEn ?? '',
-      descVi: body.descVi,
-      descEn: body.descEn,
-      tag: body.tag ?? '',
-      bulletsVi: body.bulletsVi ?? [],
-      bulletsEn: body.bulletsEn ?? [],
-      images: body.images ?? [],
-      published: body.published ?? true,
-    },
-  })
-  return NextResponse.json(service, { status: 201 })
+  try {
+    const body = await request.json()
+    const service = await prisma.service.create({
+      data: {
+        slug: body.slug,
+        order: body.order ?? 0,
+        icon: body.icon ?? '',
+        titleVi: body.titleVi,
+        titleEn: body.titleEn,
+        subtitleVi: body.subtitleVi ?? '',
+        subtitleEn: body.subtitleEn ?? '',
+        descVi: body.descVi,
+        descEn: body.descEn,
+        tag: body.tag ?? '',
+        bulletsVi: body.bulletsVi ?? [],
+        bulletsEn: body.bulletsEn ?? [],
+        images: body.images ?? [],
+        published: body.published ?? true,
+      },
+    })
+    return NextResponse.json(service, { status: 201 })
+  } catch (err) {
+    return serverError(err, 'POST /api/services error:')
+  }
 }

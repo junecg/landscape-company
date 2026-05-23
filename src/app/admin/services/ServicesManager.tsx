@@ -45,14 +45,20 @@ export default function ServicesManager() {
   const [isCreating, setIsCreating] = useState(false)
   const [saving, setSaving] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
   const [bulletsViText, setBulletsViText] = useState('')
   const [bulletsEnText, setBulletsEnText] = useState('')
   const [serviceImages, setServiceImages] = useState<string[]>([])
 
   const fetchServices = useCallback(async () => {
     setLoading(true)
-    const res = await fetch('/api/services')
-    setServices(await res.json())
+    try {
+      const res = await fetch('/api/services')
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      setServices(await res.json())
+    } catch (err) {
+      console.error('Failed to load services:', err)
+    }
     setLoading(false)
   }, [])
 
@@ -64,6 +70,7 @@ export default function ServicesManager() {
     setBulletsEnText(s.bulletsEn.join('\n'))
     setServiceImages(s.images)
     setIsCreating(false)
+    setError(null)
   }
 
   const openCreate = () => {
@@ -72,39 +79,37 @@ export default function ServicesManager() {
     setBulletsEnText('')
     setServiceImages([])
     setIsCreating(true)
+    setError(null)
   }
+
+  const closeModal = () => { setEditing(null); setError(null) }
 
   const handleSave = async () => {
     if (!editing) return
     setSaving(true)
+    setError(null)
     const payload = {
       ...editing,
       bulletsVi: bulletsViText.split('\n').map(s => s.trim()).filter(Boolean),
       bulletsEn: bulletsEnText.split('\n').map(s => s.trim()).filter(Boolean),
       images: serviceImages,
     }
-
-    if (isCreating) {
-      await fetch('/api/services', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-    } else {
-      await fetch(`/api/services/${editing.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
+    try {
+      const res = isCreating
+        ? await fetch('/api/services', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        : await fetch(`/api/services/${editing.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      if (!res.ok) throw new Error(`${res.status}`)
+      setEditing(null)
+      fetchServices()
+    } catch {
+      setError('Lưu thất bại. Vui lòng thử lại.')
     }
-
     setSaving(false)
-    setEditing(null)
-    fetchServices()
   }
 
   const handleDelete = async (id: string) => {
-    await fetch(`/api/services/${id}`, { method: 'DELETE' })
+    const res = await fetch(`/api/services/${id}`, { method: 'DELETE' })
+    if (!res.ok) { alert('Xóa thất bại.'); return }
     setDeleteConfirm(null)
     fetchServices()
   }
@@ -218,7 +223,7 @@ export default function ServicesManager() {
               <h2 className="text-base font-semibold text-gray-900">
                 {isCreating ? 'Thêm dịch vụ mới' : 'Chỉnh sửa dịch vụ'}
               </h2>
-              <button onClick={() => setEditing(null)} className="p-1 rounded-md hover:bg-gray-100 text-gray-400">
+              <button onClick={closeModal} className="p-1 rounded-md hover:bg-gray-100 text-gray-400">
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -282,17 +287,20 @@ export default function ServicesManager() {
               />
             </div>
 
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">
-              <button onClick={() => setEditing(null)} className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
-                Hủy
-              </button>
-              <button
-                onClick={handleSave}
-                disabled={saving}
-                className="bg-[#328442] hover:bg-[#48a85a] text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
-              >
-                {saving ? 'Đang lưu...' : isCreating ? 'Tạo dịch vụ' : 'Lưu thay đổi'}
-              </button>
+            <div className="flex items-center gap-3 px-6 py-4 border-t border-gray-100">
+              {error && <p className="text-sm text-red-500 mr-auto">{error}</p>}
+              <div className="flex items-center gap-3 ml-auto">
+                <button onClick={closeModal} className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors">
+                  Hủy
+                </button>
+                <button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="bg-[#328442] hover:bg-[#48a85a] text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+                >
+                  {saving ? 'Đang lưu...' : isCreating ? 'Tạo dịch vụ' : 'Lưu thay đổi'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

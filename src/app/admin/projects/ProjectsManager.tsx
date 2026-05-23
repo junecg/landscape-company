@@ -53,16 +53,20 @@ export default function ProjectsManager() {
   const [saving, setSaving] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null)
   const [galleryImages, setGalleryImages] = useState<string[]>([])
+  const [error, setError] = useState<string | null>(null)
 
   const fetchProjects = useCallback(async () => {
     setLoading(true)
-    const params = new URLSearchParams()
-    if (filter !== 'All') params.set('category', filter)
-    if (search) params.set('search', search)
-
-    const res = await fetch(`/api/projects?${params}`)
-    const data = await res.json()
-    setProjects(data)
+    try {
+      const params = new URLSearchParams()
+      if (filter !== 'All') params.set('category', filter)
+      if (search) params.set('search', search)
+      const res = await fetch(`/api/projects?${params}`)
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      setProjects(await res.json())
+    } catch (err) {
+      console.error('Failed to load projects:', err)
+    }
     setLoading(false)
   }, [filter, search])
 
@@ -73,34 +77,35 @@ export default function ProjectsManager() {
   const handleSave = async () => {
     if (!editingProject) return
     setSaving(true)
+    setError(null)
 
-    const payload = {
-      ...editingProject,
-      images: galleryImages,
+    const payload = { ...editingProject, images: galleryImages }
+
+    try {
+      const res = isCreating
+        ? await fetch('/api/projects', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+        : await fetch(`/api/projects/${editingProject.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          })
+      if (!res.ok) throw new Error(`${res.status}`)
+      setEditingProject(null)
+      setIsCreating(false)
+      fetchProjects()
+    } catch {
+      setError('Lưu thất bại. Vui lòng thử lại.')
     }
-
-    if (isCreating) {
-      await fetch('/api/projects', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-    } else {
-      await fetch(`/api/projects/${editingProject.id}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-    }
-
     setSaving(false)
-    setEditingProject(null)
-    setIsCreating(false)
-    fetchProjects()
   }
 
   const handleDelete = async (id: string) => {
-    await fetch(`/api/projects/${id}`, { method: 'DELETE' })
+    const res = await fetch(`/api/projects/${id}`, { method: 'DELETE' })
+    if (!res.ok) { alert('Xóa thất bại.'); return }
     setDeleteConfirm(null)
     fetchProjects()
   }
@@ -109,13 +114,17 @@ export default function ProjectsManager() {
     setEditingProject(project)
     setGalleryImages(project.images)
     setIsCreating(false)
+    setError(null)
   }
 
   const openCreate = () => {
     setEditingProject({ ...emptyProject })
     setGalleryImages([])
     setIsCreating(true)
+    setError(null)
   }
+
+  const closeModal = () => { setEditingProject(null); setIsCreating(false); setError(null) }
 
   return (
     <div className="min-h-screen">
@@ -275,7 +284,7 @@ export default function ProjectsManager() {
                 {isCreating ? 'Thêm dự án mới' : 'Chỉnh sửa dự án'}
               </h2>
               <button
-                onClick={() => { setEditingProject(null); setIsCreating(false) }}
+                onClick={closeModal}
                 className="p-1 rounded-md hover:bg-gray-100 text-gray-400"
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -323,20 +332,23 @@ export default function ProjectsManager() {
               </label>
             </div>
 
-            <div className="flex items-center justify-end gap-3 px-6 py-4 border-t border-gray-100">
-              <button
-                onClick={() => { setEditingProject(null); setIsCreating(false) }}
-                className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors"
-              >
-                Hủy
-              </button>
-              <button
-                onClick={handleSave}
-                disabled={saving}
-                className="bg-[#328442] hover:bg-[#48a85a] text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
-              >
-                {saving ? 'Đang lưu...' : isCreating ? 'Tạo dự án' : 'Lưu thay đổi'}
-              </button>
+            <div className="flex items-center gap-3 px-6 py-4 border-t border-gray-100">
+              {error && <p className="text-sm text-red-500 mr-auto">{error}</p>}
+              <div className="flex items-center gap-3 ml-auto">
+                <button
+                  onClick={closeModal}
+                  className="px-4 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100 transition-colors"
+                >
+                  Hủy
+                </button>
+                <button
+                  onClick={handleSave}
+                  disabled={saving}
+                  className="bg-[#328442] hover:bg-[#48a85a] text-white px-5 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+                >
+                  {saving ? 'Đang lưu...' : isCreating ? 'Tạo dự án' : 'Lưu thay đổi'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

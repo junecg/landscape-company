@@ -27,10 +27,15 @@ export default function ProjectsGrid() {
 
   useEffect(() => {
     const params = new URLSearchParams();
+    params.set('published', 'true');
     if (active !== 'All') params.set('category', active);
     fetch(`/api/projects?${params}`)
-      .then((r) => r.json())
-      .then((data) => { setProjects(data); setLoading(false); });
+      .then((r) => {
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        return r.json();
+      })
+      .then((data) => { setProjects(data); setLoading(false); })
+      .catch((err) => { console.error('Failed to load projects:', err); setLoading(false); });
   }, [active]);
 
   return (

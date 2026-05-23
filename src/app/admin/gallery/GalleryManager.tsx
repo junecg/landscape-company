@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
@@ -50,26 +50,22 @@ export default function GalleryManager() {
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const fetchMedia = useCallback(async () => {
-    const res = await fetch('/api/media')
-    const items: MediaItem[] = await res.json()
-    setMediaItems(items)
-    return items
-  }, [])
-
   useEffect(() => {
     const fetchAll = async () => {
       setLoading(true)
       const collected: GalleryImage[] = []
 
+      const fetchJson = (url: string) =>
+        fetch(url).then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json() })
+
       const [mediaRes, projects, news, services, partners, companies] = await Promise.all([
-        fetch('/api/media').then(r => r.json()),
-        fetch('/api/projects').then(r => r.json()),
-        fetch('/api/news').then(r => r.json()),
-        fetch('/api/services').then(r => r.json()),
-        fetch('/api/partners').then(r => r.json()),
-        fetch('/api/member-companies').then(r => r.json()),
-      ])
+        fetchJson('/api/media'),
+        fetchJson('/api/projects'),
+        fetchJson('/api/news'),
+        fetchJson('/api/services'),
+        fetchJson('/api/partners'),
+        fetchJson('/api/member-companies'),
+      ]).catch(err => { console.error('Failed to load gallery:', err); return [[], [], [], [], [], []] })
 
       setMediaItems(mediaRes)
       for (const m of mediaRes) collected.push({ url: m.url, source: 'media', label: m.filename || 'Gallery' })
@@ -106,23 +102,28 @@ export default function GalleryManager() {
     const results: MediaItem[] = []
 
     for (const file of files) {
-      const form = new FormData()
-      form.append('file', file)
-      form.append('upload_preset', UPLOAD_PRESET)
+      try {
+        const form = new FormData()
+        form.append('file', file)
+        form.append('upload_preset', UPLOAD_PRESET)
 
-      const res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-        method: 'POST',
-        body: form,
-      })
-      const data = await res.json()
+        const cloudRes = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
+          method: 'POST',
+          body: form,
+        })
+        if (!cloudRes.ok) throw new Error(`Cloudinary error ${cloudRes.status}`)
+        const data = await cloudRes.json()
 
-      // Save to DB
-      const saved = await fetch('/api/media', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url: data.secure_url, filename: file.name }),
-      })
-      results.push(await saved.json())
+        const saved = await fetch('/api/media', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: data.secure_url, filename: file.name }),
+        })
+        if (!saved.ok) throw new Error(`Save error ${saved.status}`)
+        results.push(await saved.json())
+      } catch (err) {
+        console.error(`Failed to upload ${file.name}:`, err)
+      }
 
       done++
       setUploadProgress(Math.round((done / files.length) * 100))
