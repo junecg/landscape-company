@@ -59,27 +59,28 @@ async function main() {
   console.log('Seeding partners...')
   for (const [i, partner] of partners.entries()) {
     const existing = await prisma.partner.findFirst({ where: { name: partner.name } })
-    if (!existing) {
-      await prisma.partner.create({
-        data: {
-          order: i,
-          name: partner.name,
-          sectorVi: partner.sector,
-          sectorEn: partner.sectorEn,
-          descVi: partner.descVi,
-          descEn: partner.descEn,
-          founded: partner.founded,
-          hq: partner.hq,
-          statLabelVi: partner.statLabelVi,
-          statLabelEn: partner.statLabelEn,
-          statValue: partner.statValue,
-          projectsVi: partner.projectsVi,
-          projectsEn: partner.projectsEn,
-          highlightVi: partner.highlightVi,
-          highlightEn: partner.highlightEn,
-          published: true,
-        },
-      })
+    const data = {
+      order: i,
+      name: partner.name,
+      sectorVi: partner.sector,
+      sectorEn: partner.sectorEn,
+      descVi: partner.descVi,
+      descEn: partner.descEn,
+      founded: partner.founded,
+      hq: partner.hq,
+      statLabelVi: partner.statLabelVi,
+      statLabelEn: partner.statLabelEn,
+      statValue: partner.statValue,
+      projectsVi: partner.projectsVi,
+      projectsEn: partner.projectsEn,
+      highlightVi: partner.highlightVi,
+      highlightEn: partner.highlightEn,
+      published: true,
+    }
+    if (existing) {
+      await prisma.partner.update({ where: { id: existing.id }, data })
+    } else {
+      await prisma.partner.create({ data })
     }
   }
   console.log(`Seeded ${partners.length} partners.`)
@@ -87,17 +88,18 @@ async function main() {
   console.log('Seeding timeline...')
   for (const [i, item] of timelineItems.entries()) {
     const existing = await prisma.timelineItem.findFirst({ where: { year: item.year } })
-    if (!existing) {
-      await prisma.timelineItem.create({
-        data: {
-          order: i,
-          year: item.year,
-          titleVi: item.title,
-          titleEn: item.titleEn,
-          descVi: item.description,
-          descEn: item.descriptionEn,
-        },
-      })
+    const data = {
+      order: i,
+      year: item.year,
+      titleVi: item.title,
+      titleEn: item.titleEn,
+      descVi: item.description,
+      descEn: item.descriptionEn,
+    }
+    if (existing) {
+      await prisma.timelineItem.update({ where: { id: existing.id }, data })
+    } else {
+      await prisma.timelineItem.create({ data })
     }
   }
   console.log(`Seeded ${timelineItems.length} timeline items.`)
@@ -105,19 +107,20 @@ async function main() {
   console.log('Seeding member companies...')
   for (const [i, company] of memberCompanies.entries()) {
     const existing = await prisma.memberCompany.findFirst({ where: { abbr: company.abbr } })
-    if (!existing) {
-      await prisma.memberCompany.create({
-        data: {
-          order: i,
-          abbr: company.abbr,
-          name: company.name,
-          tagline: company.tagline,
-          descVi: company.description,
-          descEn: company.descriptionEn,
-          accent: company.accent,
-          published: true,
-        },
-      })
+    const data = {
+      order: i,
+      abbr: company.abbr,
+      name: company.name,
+      tagline: company.tagline,
+      descVi: company.description,
+      descEn: company.descriptionEn,
+      accent: company.accent,
+      published: true,
+    }
+    if (existing) {
+      await prisma.memberCompany.update({ where: { id: existing.id }, data })
+    } else {
+      await prisma.memberCompany.create({ data })
     }
   }
   console.log(`Seeded ${memberCompanies.length} member companies.`)

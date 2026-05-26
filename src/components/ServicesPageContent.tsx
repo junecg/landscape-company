@@ -41,9 +41,9 @@ export const SERVICES = [
     subtitleVi: 'Bao phủ toàn bộ vòng đời dự án',
     subtitleEn: 'Full project lifecycle coverage',
     descVi:
-      'FAM cung cấp dịch vụ tư vấn và quản lý toàn diện cho mọi giai đoạn của dự án cảnh quan — từ ý tưởng ban đầu đến bàn giao và bảo dưỡng dài hạn.',
+      'Lapla cung cấp dịch vụ tư vấn và quản lý toàn diện cho mọi giai đoạn của dự án cảnh quan — từ ý tưởng ban đầu đến bàn giao và bảo dưỡng dài hạn.',
     descEn:
-      'FAM provides end-to-end consultancy and management across every phase of a landscape project — from initial concept through final handover and long-term maintenance.',
+      'Lapla provides end-to-end consultancy and management across every phase of a landscape project — from initial concept through final handover and long-term maintenance.',
     bulletsVi: [
       'Thiết kế ý tưởng (Concept Design)',
       'Thiết kế kỹ thuật (Technical Design)',
@@ -101,9 +101,9 @@ export const SERVICES = [
     subtitleVi: 'Chuyên gia cỏ & tưới tiêu sân golf',
     subtitleEn: 'Turf & irrigation specialists',
     descVi:
-      'FAM có chuyên môn sâu trong thiết kế, thi công và bảo dưỡng cảnh quan sân golf — từ lựa chọn loại cỏ đến hệ thống tưới tiêu Rainbird đạt tiêu chuẩn quốc tế.',
+      'Lapla có chuyên môn sâu trong thiết kế, thi công và bảo dưỡng cảnh quan sân golf — từ lựa chọn loại cỏ đến hệ thống tưới tiêu Rainbird đạt tiêu chuẩn quốc tế.',
     descEn:
-      'FAM has deep expertise in golf course landscape design, construction, and maintenance — from turf selection to Rainbird-certified automatic irrigation systems.',
+      'Lapla has deep expertise in golf course landscape design, construction, and maintenance — from turf selection to Rainbird-certified automatic irrigation systems.',
     bulletsVi: [
       'Lựa chọn loại cỏ: Paspalum, Bermuda, Zoysia',
       'Thiết kế & lắp đặt tưới tiêu tự động (chứng nhận Rainbird)',

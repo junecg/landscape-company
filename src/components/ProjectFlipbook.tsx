@@ -32,7 +32,7 @@ const CoverPage = forwardRef<HTMLDivElement, BasePageProps>((_, ref) => {
     >
       <Image
         src={projects[0].images[0]}
-        alt="FAM Landscape – Dự Án Tiêu Biểu"
+        alt="Lapla Landscape – Dự Án Tiêu Biểu"
         fill
         sizes="420px"
         className="object-cover"
@@ -47,7 +47,7 @@ const CoverPage = forwardRef<HTMLDivElement, BasePageProps>((_, ref) => {
           className="text-[#BE7B2B] text-[10px] tracking-[0.4em] uppercase"
           style={{ fontFamily: 'Geist, sans-serif' }}
         >
-          FAM Landscape
+          Lapla Landscape
         </p>
         <h2
           className="text-white text-[1.75rem] leading-tight font-light"
@@ -169,10 +169,10 @@ const BackCoverPage = forwardRef<HTMLDivElement, BasePageProps>((_, ref) => (
       className="text-white text-2xl font-light tracking-[0.3em]"
       style={{ fontFamily: 'Playfair Display, Georgia, serif' }}
     >
-      FAM
+      LAPLA
     </span>
     <span className="text-stone-500 text-[11px] tracking-[0.25em]">
-      fam.com.vn
+      lapla.vn
     </span>
     <div className="w-8 h-px bg-[#BE7B2B]" />
   </div>

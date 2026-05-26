@@ -26,7 +26,7 @@ export default async function CatalogPage({
         </Link>
 
         <div className="flex items-center gap-2">
-          <span className="text-[11px] font-semibold tracking-[0.3em] text-white uppercase">FAM</span>
+          <span className="text-[11px] font-semibold tracking-[0.3em] text-white uppercase">LAPLA</span>
           <span className="w-px h-3 bg-white/20" />
           <span className="text-[10px] tracking-[0.2em] text-gray-500 uppercase">
             {locale === 'vi' ? 'Danh mục dự án' : 'Project Catalog'}

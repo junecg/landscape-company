@@ -1,19 +1,18 @@
 'use client';
-import { useTranslations, useLocale } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { memberCompanies } from '@/lib/data';
 
 type Member = typeof memberCompanies[number];
 
+/* ── Modal ── */
 function MemberModal({ member, onClose, isVi }: { member: Member; onClose: () => void; isVi: boolean }) {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
       onClick={onClose}
     >
       <motion.div
@@ -21,125 +20,199 @@ function MemberModal({ member, onClose, isVi }: { member: Member; onClose: () =>
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.93, y: 20 }}
         transition={{ duration: 0.25, ease: 'easeOut' }}
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl relative overflow-hidden"
+        className="bg-white rounded-3xl shadow-2xl w-full max-w-lg relative overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header band */}
-        <div className="bg-gradient-to-r from-green-700 to-green-500 px-6 pt-6 pb-5">
-          <button
-            onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors text-white"
-            aria-label="Close"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+        <div className="bg-[#07130a] px-7 pt-7 pb-6">
+          <button onClick={onClose} className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white" aria-label="Đóng">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
-          <span className="text-[10px] font-bold tracking-widest uppercase text-green-100 bg-white/15 px-2.5 py-1 rounded-full">
+          <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-[#48a85a] bg-[#328442]/20 px-3 py-1 rounded-full border border-[#328442]/30 mb-3">
             {member.tagline}
           </span>
-          <h3 className="text-2xl font-bold text-white mt-2">{member.name}</h3>
-          <p className="text-green-100 text-xs mt-1">{member.abbr}</p>
-        </div>
-
-        <div className="px-6 py-5 space-y-5 max-h-[65vh] overflow-y-auto">
-          {/* About */}
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400 mb-1.5">
-              {isVi ? 'Giới thiệu' : 'About'}
-            </p>
-            <p className="text-gray-700 text-sm leading-relaxed">
-              {isVi ? member.description : member.descriptionEn}
-            </p>
+          <div className="flex items-center gap-4 mt-1">
+            <div className="w-14 h-14 rounded-2xl bg-[#328442]/20 border border-[#328442]/30 flex items-center justify-center">
+              <span className="font-black text-[#48a85a] text-lg tracking-wide">{member.abbr}</span>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-white">{member.name}</h3>
+              <p className="text-white/40 text-xs mt-0.5">{member.abbr} · Lapla Group</p>
+            </div>
           </div>
         </div>
-
-        {/* Footer */}
-        <div className="px-6 py-3 border-t border-gray-100 flex items-center gap-2 bg-gray-50">
-          <div className="w-2 h-2 rounded-full bg-green-500" />
-          <span className="text-xs text-gray-400">
-            {isVi ? 'Thành viên của FAM Group' : 'Member of FAM Group'}
-          </span>
+        <div className="px-7 py-6">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">{isVi ? 'Giới thiệu' : 'About'}</p>
+          <p className="text-gray-600 text-sm leading-relaxed">{isVi ? member.description : member.descriptionEn}</p>
+        </div>
+        <div className="px-7 py-4 border-t border-gray-100 flex items-center gap-2 bg-gray-50/50">
+          <div className="w-2 h-2 rounded-full bg-[#328442]" />
+          <span className="text-xs text-gray-400">{isVi ? 'Thành viên của Lapla Group' : 'Member of Lapla Group'}</span>
         </div>
       </motion.div>
     </motion.div>
   );
 }
 
-export default function MemberCompaniesSection() {
-  const t = useTranslations('members');
-  const locale = useLocale();
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-  const [selected, setSelected] = useState<Member | null>(null);
-
+/* ── Card variants ── */
+// Large featured card (first item)
+function FeaturedCard({ company, onClick, isVi, index }: { company: Member; onClick: () => void; isVi: boolean; index: number }) {
   return (
-    <section ref={ref} className="py-12 md:py-24 bg-[#f7faf7] relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_50%_100%,rgba(50,132,66,0.06)_0%,transparent_70%)] pointer-events-none" />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-10 md:mb-16"
-        >
-          <p className="text-green-500 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3">Ecosystem</p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-gray-900 mb-4">{t('title')}</h2>
-          <p className="text-gray-500 text-base md:text-lg max-w-2xl mx-auto">{t('subtitle')}</p>
-          <p className="text-gray-400 text-xs mt-3">
-            {locale === 'vi' ? '* Nhấn vào thành viên để xem chi tiết' : '* Click on a member to view details'}
-          </p>
-        </motion.div>
+    <motion.button
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, delay: index * 0.07 }}
+      onClick={onClick}
+      className="group relative rounded-3xl bg-[#328442] overflow-hidden text-left cursor-pointer p-7 md:p-9 flex flex-col justify-between min-h-[240px]"
+    >
+      {/* Big decorative abbr watermark */}
+      <span className="absolute -right-4 -bottom-4 font-black text-[120px] leading-none text-white/[0.07] select-none pointer-events-none">
+        {company.abbr}
+      </span>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {memberCompanies.map((company, i) => (
-            <motion.button
-              key={company.abbr}
-              initial={{ opacity: 0, y: 40 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: i * 0.07 }}
-              onClick={() => setSelected(company)}
-              className="group relative rounded-2xl bg-white border border-gray-100 hover:border-green-300 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden text-left cursor-pointer"
-            >
-              {/* Accent top bar — green to gold */}
-              <div className="h-1 w-full bg-gradient-to-r from-green-600 via-green-500 to-secondary-400" />
+      <div>
+        <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-[#48a85a] bg-white/10 px-3 py-1 rounded-full border border-white/20 mb-4">
+          {company.tagline}
+        </span>
+        <h3 className="font-display text-2xl md:text-3xl font-bold text-white leading-snug">
+          {company.name}
+        </h3>
+      </div>
 
-              <div className="p-4 md:p-6 flex flex-col h-full">
-                {/* Abbreviation badge */}
-                <div className="inline-flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-xl mb-4 font-black text-sm md:text-base tracking-wide bg-green-500/10 text-green-600 group-hover:bg-green-500 group-hover:text-white transition-colors duration-300">
-                  {company.abbr}
-                </div>
+      <div className="flex items-end justify-between mt-6">
+        <p className="text-white/60 text-sm leading-relaxed max-w-[200px]">
+          {isVi ? company.description : company.descriptionEn}
+        </p>
+        <div className="shrink-0 w-10 h-10 rounded-full bg-white/15 group-hover:bg-white/25 flex items-center justify-center transition-colors ml-4">
+          <svg className="w-4 h-4 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
+        </div>
+      </div>
+    </motion.button>
+  );
+}
 
-                <h3 className="text-gray-900 font-bold text-sm md:text-base leading-snug mb-1">
-                  {company.name}
-                </h3>
-                <p className="text-[10px] md:text-xs font-semibold tracking-widest uppercase mb-3 text-green-500">
-                  {company.tagline}
-                </p>
-                <p className="text-gray-400 text-xs leading-relaxed flex-1">
-                  {locale === 'vi' ? company.description : company.descriptionEn}
-                </p>
+// Regular card
+function MemberCard({ company, onClick, isVi, index }: { company: Member; onClick: () => void; isVi: boolean; index: number }) {
+  return (
+    <motion.button
+      initial={{ opacity: 0, y: 32 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-60px' }}
+      transition={{ duration: 0.6, delay: index * 0.07 }}
+      onClick={onClick}
+      className="group relative rounded-2xl bg-white border border-gray-100 hover:border-[#328442]/30 hover:shadow-xl overflow-hidden text-left cursor-pointer p-6 flex flex-col justify-between transition-all duration-300"
+    >
+      {/* Hover top bar */}
+      <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#328442] to-[#48a85a] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
 
-                {/* View detail hint */}
-                <div className="flex items-center gap-1 mt-4 text-[10px] font-semibold tracking-widest uppercase text-gray-300 group-hover:text-green-500 transition-colors duration-300">
-                  <span>{locale === 'vi' ? 'Xem chi tiết' : 'View details'}</span>
-                  <span className="translate-x-0 group-hover:translate-x-1 transition-transform duration-300">→</span>
-                </div>
-              </div>
-            </motion.button>
-          ))}
+      {/* Abbr */}
+      <div className="flex items-start justify-between mb-4">
+        <div className="w-12 h-12 rounded-xl bg-[#328442]/8 group-hover:bg-[#328442] flex items-center justify-center transition-colors duration-300">
+          <span className="font-black text-[#328442] group-hover:text-white text-sm tracking-wide transition-colors duration-300">
+            {company.abbr}
+          </span>
+        </div>
+        <div className="w-7 h-7 rounded-full border border-gray-100 group-hover:border-[#328442]/30 flex items-center justify-center transition-colors">
+          <svg className="w-3 h-3 text-gray-300 group-hover:text-[#328442] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
         </div>
       </div>
 
+      <div>
+        <p className="text-[10px] font-semibold tracking-widest uppercase text-[#328442]/60 mb-1.5">
+          {company.tagline}
+        </p>
+        <h3 className="font-bold text-gray-900 text-sm md:text-base leading-snug group-hover:text-[#328442] transition-colors">
+          {company.name}
+        </h3>
+        <p className="text-gray-400 text-xs leading-relaxed mt-2 line-clamp-2">
+          {isVi ? company.description : company.descriptionEn}
+        </p>
+      </div>
+    </motion.button>
+  );
+}
+
+/* ── Main ── */
+export default function MemberCompaniesSection() {
+  const locale = useLocale();
+  const isVi = locale === 'vi';
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-80px' });
+  const [selected, setSelected] = useState<Member | null>(null);
+
+  const [featured, ...rest] = memberCompanies;
+
+  return (
+    <>
+      <section ref={ref} className="py-20 md:py-32 bg-[#f7faf7] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7 }}
+            >
+              <p className="text-[10px] tracking-[0.35em] uppercase font-semibold text-[#328442] mb-3">
+                Ecosystem
+              </p>
+              <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1]">
+                {isVi ? (
+                  <>Hệ sinh thái<br /><span className="text-[#328442]">Lapla Group</span></>
+                ) : (
+                  <>The <span className="text-[#328442]">Lapla</span><br />Ecosystem</>
+                )}
+              </h2>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="text-gray-400 text-sm max-w-xs leading-relaxed md:text-right"
+            >
+              {isVi
+                ? 'Hệ sinh thái toàn diện gồm các công ty thành viên chuyên biệt, cùng phát triển bền vững.'
+                : 'A comprehensive ecosystem of specialized member companies, growing together sustainably.'}
+            </motion.p>
+          </div>
+
+          {/* Bento grid layout */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* Featured — spans 2 cols on lg */}
+            <div className="sm:col-span-2 lg:col-span-2">
+              <FeaturedCard
+                company={featured}
+                onClick={() => setSelected(featured)}
+                isVi={isVi}
+                index={0}
+              />
+            </div>
+
+            {/* Rest — regular cards */}
+            {rest.map((company, i) => (
+              <MemberCard
+                key={company.abbr}
+                company={company}
+                onClick={() => setSelected(company)}
+                isVi={isVi}
+                index={i + 1}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
       <AnimatePresence>
         {selected && (
-          <MemberModal
-            member={selected}
-            onClose={() => setSelected(null)}
-            isVi={locale === 'vi'}
-          />
+          <MemberModal member={selected} onClose={() => setSelected(null)} isVi={isVi} />
         )}
       </AnimatePresence>
-    </section>
+    </>
   );
 }

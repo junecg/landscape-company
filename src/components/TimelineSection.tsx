@@ -1,104 +1,124 @@
 "use client";
-import { useTranslations, useLocale } from "next-intl";
-import { motion } from "framer-motion";
-import Image from "next/image";
+import { useLocale } from "next-intl";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 import { timelineItems } from "@/lib/data";
 
 export default function TimelineSection() {
-  const t = useTranslations("timeline");
   const locale = useLocale();
+  const isVi = locale === "vi";
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="py-16 md:py-28 overflow-hidden relative bg-black">
-      {/* Company image background */}
-      <Image
-        src="/images/hero/bg-history.jpg"
-        alt=""
-        fill
-        className="object-cover opacity-25"
-        sizes="100vw"
-        aria-hidden="true"
-      />
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/60 to-black/60" />
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section ref={ref} className="relative py-20 md:py-32 overflow-hidden bg-white">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(50,132,66,0.04)_0%,transparent_70%)] pointer-events-none" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-24"
-        >
-          <p className="text-green-400 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 drop-shadow-[0_1px_6px_rgba(190,123,43,0.5)]">
-            History
-          </p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 drop-shadow-[0_2px_12px_rgba(0,0,0,0.5)]">
-            {t("title")}
-          </h2>
-          <p className="text-white/70 text-base md:text-lg">{t("subtitle")}</p>
-        </motion.div>
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7 }}
+          >
+            <p className="text-[10px] tracking-[0.35em] uppercase font-semibold text-[#328442] mb-4">
+              {isVi ? "Lịch sử" : "History"}
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1]">
+              {isVi ? (
+                <>Hành trình<br /><span className="text-[#328442]">17 năm</span> phát triển</>
+              ) : (
+                <>Our <span className="text-[#328442]">17 year</span><br />journey</>
+              )}
+            </h2>
+          </motion.div>
 
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="text-gray-400 text-sm max-w-xs leading-relaxed md:text-right"
+          >
+            {isVi
+              ? "Từ những bước khởi đầu nhỏ bé đến những công trình cảnh quan lớn trên toàn quốc."
+              : "From humble beginnings to landmark landscape projects across the nation."}
+          </motion.p>
+        </div>
+
+        {/* Timeline */}
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-1.75 md:left-1/2 top-2 bottom-2 w-1 bg-linear-to-b from-white/0 via-green-400/60 to-green-400 md:-translate-x-px" />
+          {/* Vertical spine desktop */}
+          <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-gray-100 via-[#328442]/30 to-gray-100 -translate-x-px" />
 
-          <div className="flex flex-col gap-10 md:gap-14">
-            {timelineItems.map((item, i) => (
-              <motion.div
-                key={item.year}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{
-                  duration: 0.65,
-                  ease: "easeOut",
-                  delay: 0.05 * i,
-                }}
-                className={`relative flex items-start ${i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"}`}
-              >
-                {/* ── Dot (mobile: left edge; desktop: center via absolute) ── */}
-                <div className="relative shrink-0 mt-1 mr-5 md:hidden">
-                  <div className="w-3.5 h-3.5 rounded-full bg-green-400 ring-4 ring-green-400/30" />
-                </div>
-                <div className="hidden md:flex absolute left-1/2 top-1 -translate-x-1/2 z-10">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.05 * i + 0.2 }}
-                    className="w-3.5 h-3.5 rounded-full bg-green-400 ring-4 ring-green-400/30"
-                  />
-                </div>
-
-                {/* ── Content (single block, layout shifts via md: classes) ── */}
+          <div className="flex flex-col gap-12 md:gap-16">
+            {timelineItems.map((item, i) => {
+              const isLeft = i % 2 === 0;
+              return (
                 <motion.div
-                  whileHover={{ y: -4 }}
-                  transition={{ duration: 0.2 }}
-                  className={`flex-1 pb-2 md:max-w-70 ${
-                    i % 2 === 0
-                      ? "md:mr-auto md:ml-0 md:pr-14 md:text-right"
-                      : "md:ml-auto md:mr-0 md:pl-14 md:text-left"
-                  }`}
+                  key={item.year}
+                  initial={{ opacity: 0, y: 36 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.65, ease: "easeOut", delay: 0.06 * i }}
+                  className="relative flex items-start md:items-center"
                 >
-                  <span className="text-[10px] tracking-[0.3em] text-green-400 uppercase font-semibold">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <div className="text-2xl md:text-5xl font-bold text-green-400 leading-none mt-0.5 mb-2 select-none">
-                    {item.year}
+                  {/* Mobile marker */}
+                  <div className="md:hidden shrink-0 mt-2 mr-5">
+                    <div className="w-3 h-3 rounded-full bg-[#328442] ring-4 ring-[#328442]/15" />
                   </div>
-                  <h3 className="font-bold text-white text-base md:text-xl leading-snug mb-1">
-                    {locale === "vi" ? item.title : item.titleEn}
-                  </h3>
-                  <p className="text-white/60 text-sm leading-relaxed">
-                    {locale === "vi" ? item.description : item.descriptionEn}
-                  </p>
-                </motion.div>
 
-                {/* ── Desktop: empty side spacer ── */}
-                <div className="hidden md:block flex-1" />
-              </motion.div>
-            ))}
+                  {/* Desktop center dot */}
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 z-10">
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={inView ? { scale: 1 } : {}}
+                      transition={{ duration: 0.4, delay: 0.06 * i + 0.25 }}
+                      className="w-4 h-4 rounded-full bg-[#328442] ring-[6px] ring-[#328442]/10"
+                    />
+                  </div>
+
+                  {!isLeft && <div className="hidden md:block flex-1" />}
+
+                  {/* Content */}
+                  <motion.div
+                    whileHover={{ y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className={`group flex-1 md:max-w-[44%] ${
+                      isLeft ? "md:pr-14 md:text-right md:mr-auto" : "md:pl-14 md:text-left md:ml-auto"
+                    }`}
+                  >
+                    <div className={`inline-flex items-center gap-2 mb-3 ${isLeft ? "md:flex-row-reverse md:ml-auto" : ""}`}>
+                      <span className="text-[10px] tracking-[0.3em] text-[#328442] uppercase font-semibold">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="w-6 h-px bg-[#328442]/30" />
+                    </div>
+
+                    {/* Ghost year */}
+                    <div className="text-5xl md:text-7xl font-black text-gray-900/[0.05] select-none leading-none mb-2 group-hover:text-gray-900/[0.08] transition-colors">
+                      {item.year}
+                    </div>
+
+                    {/* Year badge */}
+                    <div className={`flex items-center gap-2 mb-2 ${isLeft ? "md:justify-end" : ""}`}>
+                      <span className="inline-block px-3 py-1 rounded-full bg-[#328442]/10 text-[#328442] text-xs font-bold tracking-wider border border-[#328442]/15">
+                        {item.year}
+                      </span>
+                    </div>
+
+                    <h3 className="font-bold text-gray-900 text-lg md:text-xl leading-snug mb-2 group-hover:text-[#328442] transition-colors">
+                      {isVi ? item.title : item.titleEn}
+                    </h3>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {isVi ? item.description : item.descriptionEn}
+                    </p>
+                  </motion.div>
+
+                  {isLeft && <div className="hidden md:block flex-1" />}
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

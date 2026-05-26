@@ -1,227 +1,197 @@
 'use client';
-import { useTranslations, useLocale } from 'next-intl';
+import { useLocale } from 'next-intl';
 import { motion, useInView } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRef, useState } from 'react';
 
 const services = [
   {
     number: '01',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3 21h18M3.75 3h16.5M4.5 3v18M19.5 3v18" />
-      </svg>
-    ),
     titleVi: 'Thiết kế & Thi công cảnh quan',
-    titleEn: 'Landscape Design & Construction',
-    descVi: 'Sản phẩm theo yêu cầu dựa trên kiến thức và kinh nghiệm thực tiễn trong lĩnh vực cảnh quan.',
-    descEn: 'Tailored outputs built on deep practical knowledge and field experience in landscaping.',
-    tag: 'Design · Build',
+    titleEn: 'Home Garden',
+    subtitleVi: 'Thiết kế · Thi công',
+    subtitleEn: 'Design · Build',
+    descVi: 'Kiến tạo không gian xanh hoàn hảo cho ngôi nhà của bạn, từ sân vườn đến nội thất xanh.',
+    descEn: 'Crafting the perfect garden space for your home, whether indoor or outdoor, all ready for your greenery needs.',
+    image: '/images/hero/FUSION 1.webp',
   },
   {
     number: '02',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
-      </svg>
-    ),
-    titleVi: 'Thiết kế & Thi công Artwork',
-    titleEn: 'Artwork Design & Construction',
-    descVi: 'Mẫu thiết kế nghệ thuật tùy chỉnh phù hợp với quy mô và đặc thù của từng công trình.',
-    descEn: 'Custom artistic designs tailored to the scale and character of each project.',
-    tag: 'Art · Identity',
+    titleVi: 'Tuyển chọn cây xanh',
+    titleEn: 'Plant Selection',
+    subtitleVi: 'Cây xanh · Thảm cỏ',
+    subtitleEn: 'Greenery · Turf',
+    descVi: 'Tuyển chọn và cung cấp cây xanh, thảm cỏ chất lượng cao phù hợp với mọi công trình.',
+    descEn: 'Carefully selecting and providing the perfect plants and greenery for your landscape.',
+    image: '/images/hero/FUSION 2.jpg',
   },
   {
     number: '03',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-      </svg>
-    ),
-    titleVi: 'Cung ứng lao động',
-    titleEn: 'Labour Supply',
-    descVi: 'Cung ứng nhân lực chuyên nghiệp cho thi công và bảo dưỡng các hạng mục cảnh quan.',
-    descEn: 'Skilled workforce supply for landscape construction and maintenance projects.',
-    tag: 'Workforce',
+    titleVi: 'Cảnh quan cứng',
+    titleEn: 'Hard Scaping',
+    subtitleVi: 'Đá · Vật liệu',
+    subtitleEn: 'Stone · Materials',
+    descVi: 'Thiết kế và thi công các hạng mục cứng: lối đi, sân đá, hồ nước, tiểu cảnh nghệ thuật.',
+    descEn: 'Designing and constructing hardscape elements: pathways, stone patios, water features and art installations.',
+    image: '/images/hero/FUSION 4.png',
   },
   {
     number: '04',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
-      </svg>
-    ),
-    titleVi: 'Cung ứng vật liệu cảnh quan',
-    titleEn: 'Landscape Materials Supply',
-    descVi: 'Cho thuê và cung cấp cây xanh, thảm cỏ, hệ thống tưới và vật liệu cảnh quan đa dạng.',
-    descEn: 'Supply and rental of trees, turf, irrigation systems and diverse landscape materials.',
-    tag: 'Materials',
+    titleVi: 'Cảnh quan công cộng',
+    titleEn: 'Public Garden',
+    subtitleVi: 'Công viên · Đô thị',
+    subtitleEn: 'Park · Urban',
+    descVi: 'Thiết kế và thi công cảnh quan cho các dự án công viên, khu đô thị và không gian công cộng.',
+    descEn: 'Landscape design and construction for parks, urban developments and public spaces.',
+    image: '/images/hero/HÌNH 3.jpg',
   },
   {
     number: '05',
-    icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
-      </svg>
-    ),
-    titleVi: 'Dịch vụ bảo dưỡng',
-    titleEn: 'Maintenance Services',
-    descVi: 'Bảo dưỡng định kỳ cây xanh và công trình cảnh quan, đảm bảo không gian luôn xanh đẹp.',
-    descEn: 'Regular maintenance of greenery and landscape works to keep spaces vibrant year-round.',
-    tag: 'Maintenance',
+    titleVi: 'Bảo dưỡng cảnh quan',
+    titleEn: 'Maintenance',
+    subtitleVi: 'Bảo dưỡng · Chăm sóc',
+    subtitleEn: 'Care · Upkeep',
+    descVi: 'Dịch vụ bảo dưỡng định kỳ để không gian xanh của bạn luôn tươi đẹp và phát triển tốt.',
+    descEn: 'Regular maintenance services to keep your green spaces vibrant, healthy and thriving year-round.',
+    image: '/images/hero/HÌNH 4.jpg',
   },
 ];
 
 export default function OurServicesSection() {
-  const t = useTranslations('services');
   const locale = useLocale();
+  const isVi = locale === 'vi';
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+  const [hovered, setHovered] = useState<number | null>(null);
 
   return (
-    <section ref={ref} className="relative bg-[#f7faf7] py-20 md:py-32 overflow-hidden">
-      {/* Subtle nature-inspired background texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_100%_0%,rgba(50,132,66,0.06)_0%,transparent_60%)] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[radial-gradient(ellipse_at_bottom_left,rgba(190,123,43,0.04)_0%,transparent_65%)] pointer-events-none" />
+    <section ref={ref} className="py-20 md:py-32 bg-[#f7faf7] overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Header row */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-16 md:mb-20">
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <p className="text-green-600 text-[10px] tracking-[0.3em] uppercase font-semibold mb-3">
-              {locale === 'vi' ? 'Dịch vụ' : 'What We Do'}
+            <p className="text-[10px] tracking-[0.35em] uppercase font-semibold text-[#328442] mb-3">
+              {isVi ? 'Dịch vụ' : 'Services'}
             </p>
-            <h2 className="font-display text-3xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
-              {t('title')}
+            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1]">
+              {isVi ? 'Dịch vụ của chúng tôi' : 'Our Services'}
             </h2>
-
           </motion.div>
+
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15 }}
-            className="flex flex-col items-start md:items-end gap-3"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <p className="text-gray-500 text-sm max-w-xs leading-relaxed md:text-right">
-              {t('subtitle')}
-            </p>
             <Link
               href={`/${locale}/services`}
-              className="inline-flex items-center gap-2 text-green-600 text-xs tracking-widest uppercase font-semibold hover:text-green-700 transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#328442] hover:text-[#48a85a] transition-colors group"
             >
-              {locale === 'vi' ? 'Xem tất cả dịch vụ' : 'View all services'}
-              <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              {isVi ? 'Xem tất cả dịch vụ' : 'See More Services'}
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
             </Link>
           </motion.div>
         </div>
 
-        {/* Services — accordion list */}
-        <div className="divide-y divide-gray-100">
-          {services.map((service, i) => {
-            const isActive = activeIndex === i;
-            const isHovered = hoverIndex === i;
-            return (
-              <motion.div
-                key={service.number}
-                initial={{ opacity: 0, y: 20 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.1 + i * 0.07 }}
-              >
-                <button
-                  className="w-full text-left group"
-                  onClick={() => setActiveIndex(isActive ? null : i)}
-                  onMouseEnter={() => setHoverIndex(i)}
-                  onMouseLeave={() => setHoverIndex(null)}
-                >
-                  <div className="relative py-6 md:py-8 flex items-center gap-6 md:gap-10">
-                    {/* Animated green left bar */}
-                    <motion.div
-                      className="absolute left-0 top-0 bottom-0 w-[2px] bg-green-500 origin-top"
-                      animate={{ scaleY: isActive || isHovered ? 1 : 0 }}
-                      transition={{ duration: 0.25 }}
-                    />
+        {/* Service cards — outer div handles mobile scroll breakout */}
+        <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 pb-4 md:pb-0">
+          {/* Inner div: row on mobile (w-max so cards don't shrink), grid on desktop */}
+          <div className="flex gap-4 w-max snap-x snap-mandatory md:snap-none md:grid md:grid-cols-5 md:w-auto">
+          {services.map((service, i) => (
+            <motion.div
+              key={service.number}
+              initial={{ opacity: 0, y: 32 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.1 }}
+              onMouseEnter={() => setHovered(i)}
+              onMouseLeave={() => setHovered(null)}
+              className="relative group snap-start w-[220px] md:w-auto rounded-3xl overflow-hidden cursor-pointer"
+            >
+              {/* Background image */}
+              <div className="relative h-[380px] md:h-[460px]">
+                <Image
+                  src={service.image}
+                  alt={isVi ? service.titleVi : service.titleEn}
+                  fill
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                  sizes="(max-width: 768px) 260px, 20vw"
+                />
+                {/* Gradient overlay — always present, deepens on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/5 transition-all duration-500 group-hover:from-black/90 group-hover:via-black/50" />
 
-                    {/* Number */}
-                    <span className={`text-[10px] tracking-[0.3em] font-semibold transition-colors duration-300 w-8 shrink-0 pl-4 ${isActive || isHovered ? 'text-green-500' : 'text-gray-300'}`}>
-                      {service.number}
+                {/* Top tags */}
+                <div className="absolute top-5 left-5 right-5 flex items-start justify-between">
+                  <div className="flex gap-2 flex-wrap">
+                    <span className="text-[10px] tracking-widest uppercase text-white/70 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10">
+                      {isVi ? service.subtitleVi.split('·')[0].trim() : service.subtitleEn.split('·')[0].trim()}
                     </span>
-
-                    {/* Main content */}
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-3 mb-0">
-                        <h3 className={`text-base md:text-xl font-semibold tracking-tight transition-all duration-300 ${isActive || isHovered ? 'text-green-600 scale-[1.02] origin-left' : 'text-gray-900'}`}>
-                          {locale === 'vi' ? service.titleVi : service.titleEn}
-                        </h3>
-                        <span className={`hidden sm:inline text-[9px] tracking-widest uppercase rounded-full px-2 py-0.5 transition-colors duration-300 ${isActive || isHovered ? 'border border-green-500/40 text-green-600' : 'border border-gray-200 text-gray-400'}`}>
-                          {service.tag}
-                        </span>
-                      </div>
-
-                      {/* Description — expands on click only */}
-                      <motion.div
-                        animate={{ height: isActive ? 'auto' : 0, opacity: isActive ? 1 : 0 }}
-                        initial={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3 }}
-                        className="overflow-hidden"
-                      >
-                        <p className="text-gray-500 text-sm leading-relaxed pt-3 max-w-2xl">
-                          {locale === 'vi' ? service.descVi : service.descEn}
-                        </p>
-                      </motion.div>
-                    </div>
-
-                    {/* Icon + arrow */}
-                    <div className="flex items-center gap-4 shrink-0">
-                      <div className={`transition-all duration-300 ${isActive || isHovered ? 'text-green-600 scale-125' : 'text-gray-400'}`}>
-                        {service.icon}
-                      </div>
-                      <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-300 ${isActive ? 'border-green-500 bg-green-500/10' : isHovered ? 'border-gray-400' : 'border-gray-200'}`}>
-                        <svg
-                          className={`w-3.5 h-3.5 transition-all duration-300 ${isActive ? 'text-green-600 rotate-45' : isHovered ? 'text-gray-500' : 'text-gray-400'}`}
-                          fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
-                        >
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                        </svg>
-                      </div>
-                    </div>
+                    <span className="text-[10px] tracking-widest uppercase text-white/70 bg-white/10 backdrop-blur-sm px-2.5 py-1 rounded-full border border-white/10">
+                      {isVi ? service.subtitleVi.split('·')[1]?.trim() : service.subtitleEn.split('·')[1]?.trim()}
+                    </span>
                   </div>
-                </button>
-              </motion.div>
-            );
-          })}
-        </div>
+                  <span className="text-[10px] font-bold text-white/40">{service.number}</span>
+                </div>
+
+                {/* Bottom content */}
+                <div className="absolute bottom-0 left-0 right-0 p-6">
+                  <h3 className="font-display text-xl md:text-2xl font-bold text-white leading-snug mb-2">
+                    {isVi ? service.titleVi : service.titleEn}
+                  </h3>
+
+                  {/* Description — slides up on hover */}
+                  <motion.div
+                    animate={{ height: hovered === i ? 'auto' : 0, opacity: hovered === i ? 1 : 0 }}
+                    initial={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
+                    className="overflow-hidden"
+                  >
+                    <p className="text-white/70 text-sm leading-relaxed pt-1 pb-3">
+                      {isVi ? service.descVi : service.descEn}
+                    </p>
+                  </motion.div>
+
+                  {/* Arrow */}
+                  <div className={`w-8 h-8 rounded-full border border-white/30 flex items-center justify-center transition-all duration-300 ${hovered === i ? 'bg-[#328442] border-[#328442]' : ''}`}>
+                    <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+          </div>{/* end inner flex/grid */}
+        </div>{/* end outer scroll wrapper */}
 
         {/* Bottom stat bar */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-16 md:mt-20 grid grid-cols-3 rounded-2xl overflow-hidden border border-green-100 shadow-sm"
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-12 md:mt-16 grid grid-cols-3 rounded-2xl overflow-hidden border border-green-100 shadow-sm"
         >
           {[
-            { value: '17+', labelVi: 'Năm kinh nghiệm', labelEn: 'Years Experience', accent: 'from-green-600 to-green-500' },
-            { value: '200+', labelVi: 'Dự án hoàn thành', labelEn: 'Projects Completed', accent: 'from-green-500 to-secondary-500' },
-            { value: '6', labelVi: 'Dịch vụ cốt lõi', labelEn: 'Core Services', accent: 'from-secondary-500 to-secondary-400' },
+            { value: '17+', labelVi: 'Năm kinh nghiệm', labelEn: 'Years Experience' },
+            { value: '200+', labelVi: 'Dự án hoàn thành', labelEn: 'Projects Completed' },
+            { value: '5★', labelVi: 'Đánh giá khách hàng', labelEn: 'Client Rating' },
           ].map((stat, i) => (
             <div key={stat.value} className={`relative bg-white px-2 md:px-6 py-5 md:py-8 text-center ${i < 2 ? 'border-r border-green-100' : ''}`}>
-              <div className={`absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r ${stat.accent}`} />
-              <p className="text-xl md:text-3xl font-bold text-green-700 mb-1">{stat.value}</p>
+              <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#328442] to-[#48a85a]" />
+              <p className="text-xl md:text-3xl font-bold text-[#328442] mb-1">{stat.value}</p>
               <p className="text-[9px] md:text-[10px] tracking-widest uppercase text-gray-400">
-                {locale === 'vi' ? stat.labelVi : stat.labelEn}
+                {isVi ? stat.labelVi : stat.labelEn}
               </p>
             </div>
           ))}
         </motion.div>
-
       </div>
     </section>
   );

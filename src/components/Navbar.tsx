@@ -168,7 +168,7 @@ export default function Navbar() {
                 />
                 <Image
                   src="/logo.png"
-                  alt="FAM Landscape"
+                  alt="Lapla Landscape"
                   width={140}
                   height={48}
                   className={`relative h-16 w-auto object-contain transition-[filter] duration-500 ${
@@ -299,7 +299,7 @@ export default function Navbar() {
                 >
                   <Image
                     src="/logo.png"
-                    alt="FAM Landscape"
+                    alt="Lapla Landscape"
                     width={100}
                     height={34}
                     className="h-8 w-auto object-contain brightness-0 invert"

@@ -67,7 +67,7 @@ export default function Footer() {
                 <div className="px-3 py-2 rounded-xl bg-white/8 hover:bg-white/14 transition-colors duration-300 inline-block border border-white/10">
                   <Image
                     src="/logo.png"
-                    alt="FAM Landscape"
+                    alt="Lapla Landscape"
                     width={120}
                     height={40}
                     className="h-9 w-auto object-contain drop-shadow-[0_1px_8px_rgba(50,132,66,0.4)]"
@@ -148,10 +148,10 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="border-t border-green-900/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white">
-          <p>© {new Date().getFullYear()} Công Ty TNHH SX-TM-DV Hoa Và Hơn Thế Nữa (FAM). {t('rights')}</p>
+          <p>© {new Date().getFullYear()} Công Ty Cổ Phần Cảnh Quan LA-PLA (Lapla). {t('rights')}</p>
           <div className="flex items-center gap-1.5">
             <span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
-            <span className="text-white">landscape · artwork · maintenance</span>
+            <span className="text-white">landscape · artwork · golf · maintenance</span>
           </div>
         </div>
       </div>

@@ -271,7 +271,7 @@ export default function CareersPageContent() {
           >
             <iframe
               src={GOOGLE_FORM}
-              title="FAM Careers Application Form"
+              title="Lapla Careers Application Form"
               className="w-full"
               style={{ height: '820px', border: 'none' }}
               loading="lazy"
@@ -355,7 +355,7 @@ export default function CareersPageContent() {
             >
               <iframe
                 src={MAPS_EMBED}
-                title="FAM Office Location"
+                title="Lapla Office Location"
                 className="w-full h-full"
                 style={{ border: 'none' }}
                 loading="lazy"
