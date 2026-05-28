@@ -307,8 +307,8 @@ export default function CareersPageContent() {
                 {
                   icon: '✉️',
                   label: 'Email',
-                  value: 'hr@fam.com.vn',
-                  href: 'mailto:hr@fam.com.vn',
+                  value: 'hr@lapla.com.vn',
+                  href: 'mailto:hr@lapla.com.vn',
                 },
                 {
                   icon: '📞',

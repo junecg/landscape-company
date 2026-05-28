@@ -123,15 +123,7 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Skip to main content */}
-      <a
-        href="#main-content"
-        className="absolute -top-12 left-4 bg-green-600 text-white px-4 py-2 rounded-md focus:top-4 transition-all z-[60] font-medium text-sm"
-      >
-        Skip to main content
-      </a>
-
-      <motion.nav
+<motion.nav
         initial={{ y: prefersReducedMotion ? 0 : -100 }}
         animate={{ y: 0 }}
         transition={{

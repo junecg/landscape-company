@@ -19,6 +19,7 @@ model Project {
   client        String
   year          String
   image         String
+  sketchImage   String   @default("")
   images        String[]
   description   String   @db.Text
   descriptionEn String   @db.Text
@@ -66,6 +67,7 @@ model NewsArticle {
   image       String
   categoryVi  String
   categoryEn  String
+  newsType    String   @default("general")
   date        String
   readTime    Int      @default(4)
   published   Boolean  @default(true)
@@ -94,6 +96,7 @@ model Partner {
   projectsEn   String[]
   highlightVi  String   @db.Text
   highlightEn  String   @db.Text
+  logo         String   @default("")
   images       String[]
   published    Boolean  @default(true)
   createdAt    DateTime @default(now())

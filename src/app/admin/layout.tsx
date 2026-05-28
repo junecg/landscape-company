@@ -5,7 +5,7 @@ import Sidebar from './Sidebar'
 import '../globals.css'
 
 export const metadata: Metadata = {
-  title: 'FAM Admin',
+  title: 'LAPLA Admin',
   robots: 'noindex, nofollow',
 }
 

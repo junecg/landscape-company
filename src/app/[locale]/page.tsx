@@ -11,6 +11,7 @@ import CTASection from '@/components/CTASection';
 import TimelineSection from '@/components/TimelineSection';
 import MemberCompaniesSection from '@/components/MemberCompaniesSection';
 import PartnersSection from '@/components/PartnersSection';
+import BenefitsSection from '@/components/BenefitsSection';
 import Footer from '@/components/Footer';
 
 export default async function HomePage({
@@ -26,12 +27,12 @@ export default async function HomePage({
       <HeroSection />
       <ValuesSection />
       <OurServicesSection />
+      <BenefitsSection />
       <ProcessSection />
       <ProjectsSection />
       <TestimonialsSection />
       <VideoSection />
       <CTASection />
-      <TimelineSection />
       <MemberCompaniesSection />
       <PartnersSection />
       <Footer />

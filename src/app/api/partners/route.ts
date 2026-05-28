@@ -40,6 +40,7 @@ export async function POST(request: NextRequest) {
         projectsEn: body.projectsEn ?? [],
         highlightVi: body.highlightVi ?? '',
         highlightEn: body.highlightEn ?? '',
+        logo: body.logo ?? '',
         images: body.images ?? [],
         published: body.published ?? true,
       },

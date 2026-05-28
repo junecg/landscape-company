@@ -51,6 +51,7 @@ export async function POST(request: NextRequest) {
         client: body.client,
         year: body.year,
         image: body.image,
+        sketchImage: body.sketchImage || '',
         images: body.images || [],
         description: body.description,
         descriptionEn: body.descriptionEn,

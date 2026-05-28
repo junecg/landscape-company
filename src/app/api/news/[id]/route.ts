@@ -43,6 +43,7 @@ export async function PUT(
         image: body.image,
         categoryVi: body.categoryVi,
         categoryEn: body.categoryEn,
+        newsType: body.newsType ?? 'general',
         date: body.date,
         readTime: body.readTime,
         published: body.published,

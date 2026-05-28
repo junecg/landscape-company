@@ -116,7 +116,7 @@ export default function ProcessSection() {
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#328442] to-[#48a85a] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left rounded-t-3xl" />
 
               {/* Big ghost number */}
-              <span className="absolute -right-3 -top-4 font-black text-[80px] leading-none text-gray-900/[0.04] select-none pointer-events-none group-hover:text-[#328442]/8 transition-colors duration-300">
+              <span className="absolute right-2 top-2 font-black text-[80px] leading-none text-gray-900/[0.04] select-none pointer-events-none group-hover:text-[#328442]/8 transition-colors duration-300">
                 {step.num}
               </span>
 

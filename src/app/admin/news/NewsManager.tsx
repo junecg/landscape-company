@@ -16,6 +16,7 @@ type NewsArticle = {
   image: string
   categoryVi: string
   categoryEn: string
+  newsType: string
   date: string
   readTime: number
   published: boolean
@@ -32,14 +33,32 @@ const emptyArticle: Omit<NewsArticle, 'id'> = {
   image: '',
   categoryVi: '',
   categoryEn: '',
+  newsType: 'general',
   date: new Date().toISOString().slice(0, 10),
   readTime: 4,
   published: true,
 }
 
+const NEWS_TYPES = [
+  { value: 'all', label: 'Tất cả' },
+  { value: 'general', label: 'Thông tin chung' },
+  { value: 'internal_event', label: 'Sự kiện nội bộ' },
+  { value: 'industry', label: 'Chủ đề chuyên ngành' },
+  { value: 'project', label: 'Chủ đề dự án' },
+]
+
+const newsTypeLabel = (type: string) => NEWS_TYPES.find(t => t.value === type)?.label ?? 'Thông tin chung'
+const newsTypeColor = (type: string) => {
+  if (type === 'internal_event') return 'bg-purple-100 text-purple-700'
+  if (type === 'industry') return 'bg-blue-100 text-blue-700'
+  if (type === 'project') return 'bg-green-100 text-green-700'
+  return 'bg-amber-100 text-amber-700'
+}
+
 export default function NewsManager() {
   const [articles, setArticles] = useState<NewsArticle[]>([])
   const [loading, setLoading] = useState(true)
+  const [typeFilter, setTypeFilter] = useState('all')
   const [editing, setEditing] = useState<Partial<NewsArticle> | null>(null)
   const [isCreating, setIsCreating] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -107,11 +126,28 @@ export default function NewsManager() {
       </div>
 
       <div className="px-6 py-6">
+        {/* Type filter */}
+        <div className="flex gap-2 flex-wrap mb-5">
+          {NEWS_TYPES.map(t => (
+            <button
+              key={t.value}
+              onClick={() => setTypeFilter(t.value)}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+                typeFilter === t.value
+                  ? 'bg-[#328442] text-white'
+                  : 'bg-white text-gray-600 hover:bg-green-50 border border-gray-200'
+              }`}
+            >
+              {t.label}
+            </button>
+          ))}
+        </div>
+
         {loading ? (
           <div className="space-y-3">{Array.from({ length: 4 }).map((_, i) => <div key={i} className="h-20 rounded-xl bg-white animate-pulse" />)}</div>
         ) : (
           <div className="space-y-2">
-            {articles.map((article) => (
+            {articles.filter(a => typeFilter === 'all' || a.newsType === typeFilter).map((article) => (
               <div key={article.id} className="bg-white rounded-xl border border-gray-100 px-5 py-4 flex items-center gap-4 shadow-sm hover:shadow-md transition-shadow">
                 {article.image && (
                   <img src={article.image} alt="" className="w-16 h-12 object-cover rounded-lg shrink-0" />
@@ -119,7 +155,7 @@ export default function NewsManager() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <p className="font-medium text-gray-900 text-sm truncate">{article.titleVi}</p>
-                    <span className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 ${categoryColor(article.categoryVi)}`}>{article.categoryVi}</span>
+                    <span className={`text-[10px] px-2 py-0.5 rounded-full shrink-0 ${newsTypeColor(article.newsType)}`}>{newsTypeLabel(article.newsType)}</span>
                   </div>
                   <p className="text-xs text-gray-400 mt-0.5 truncate">{article.titleEn}</p>
                   <div className="flex items-center gap-3 mt-1">
@@ -178,6 +214,18 @@ export default function NewsManager() {
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Tiêu đề (VI)" value={editing.titleVi || ''} onChange={v => setEditing({ ...editing, titleVi: v })} />
                 <Field label="Tiêu đề (EN)" value={editing.titleEn || ''} onChange={v => setEditing({ ...editing, titleEn: v })} />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Loại tin tức</label>
+                <select
+                  value={editing.newsType || 'general'}
+                  onChange={e => setEditing({ ...editing, newsType: e.target.value })}
+                  className="w-full px-3 py-2 rounded-lg border border-gray-200 text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-[#328442]/30 focus:border-[#328442]"
+                >
+                  {NEWS_TYPES.filter(t => t.value !== 'all').map(t => (
+                    <option key={t.value} value={t.value}>{t.label}</option>
+                  ))}
+                </select>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <Field label="Danh mục (VI)" value={editing.categoryVi || ''} onChange={v => setEditing({ ...editing, categoryVi: v })} />

@@ -86,7 +86,7 @@ export default function Sidebar() {
             F
           </div>
           <div>
-            <p className="text-white font-semibold text-sm leading-tight">FAM Admin</p>
+            <p className="text-white font-semibold text-sm leading-tight">LAPLA Admin</p>
             <p className="text-white/30 text-[10px] mt-0.5 tracking-wide">Quản lý nội dung</p>
           </div>
         </div>

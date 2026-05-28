@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import CloudinaryGalleryUpload from '@/components/admin/CloudinaryGalleryUpload'
+import CloudinaryUpload from '@/components/admin/CloudinaryUpload'
 
 type Partner = {
   id: string
@@ -20,6 +21,7 @@ type Partner = {
   projectsEn: string[]
   highlightVi: string
   highlightEn: string
+  logo: string
   images: string[]
   published: boolean
 }
@@ -27,7 +29,7 @@ type Partner = {
 const emptyPartner: Omit<Partner, 'id'> = {
   order: 0, name: '', sectorVi: '', sectorEn: '', descVi: '', descEn: '',
   founded: 2000, hq: '', statLabelVi: '', statLabelEn: '', statValue: '',
-  projectsVi: [], projectsEn: [], highlightVi: '', highlightEn: '', images: [], published: true,
+  projectsVi: [], projectsEn: [], highlightVi: '', highlightEn: '', logo: '', images: [], published: true,
 }
 
 export default function PartnersManager() {
@@ -207,6 +209,11 @@ export default function PartnersManager() {
               </div>
               <Field label="Điểm nổi bật (VI)" value={editing.highlightVi || ''} onChange={v => setEditing({ ...editing, highlightVi: v })} type="textarea" />
               <Field label="Điểm nổi bật (EN)" value={editing.highlightEn || ''} onChange={v => setEditing({ ...editing, highlightEn: v })} type="textarea" />
+              <CloudinaryUpload
+                label="Logo đối tác"
+                value={editing.logo || ''}
+                onChange={v => setEditing({ ...editing, logo: v })}
+              />
               <CloudinaryGalleryUpload
                 label="Ảnh gallery"
                 value={partnerImages}

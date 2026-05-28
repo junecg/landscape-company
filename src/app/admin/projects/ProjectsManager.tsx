@@ -16,6 +16,7 @@ type Project = {
   client: string
   year: string
   image: string
+  sketchImage: string
   images: string[]
   description: string
   descriptionEn: string
@@ -37,6 +38,7 @@ const emptyProject = {
   client: '',
   year: new Date().getFullYear().toString(),
   image: '',
+  sketchImage: '',
   images: [] as string[],
   description: '',
   descriptionEn: '',
@@ -313,6 +315,11 @@ export default function ProjectsManager() {
                 label="Ảnh đại diện"
                 value={editingProject.image || ''}
                 onChange={(v) => setEditingProject({ ...editingProject, image: v })}
+              />
+              <CloudinaryUpload
+                label="Ảnh vẽ tay (Sketch)"
+                value={editingProject.sketchImage || ''}
+                onChange={(v) => setEditingProject({ ...editingProject, sketchImage: v })}
               />
               <Field label="Mô tả (VI)" value={editingProject.description || ''} onChange={(v) => setEditingProject({ ...editingProject, description: v })} type="textarea" />
               <Field label="Mô tả (EN)" value={editingProject.descriptionEn || ''} onChange={(v) => setEditingProject({ ...editingProject, descriptionEn: v })} type="textarea" />

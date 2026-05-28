@@ -15,7 +15,7 @@ export default function CTASection() {
     <section ref={ref} className="relative py-20 md:py-32 bg-[#07130a] overflow-hidden">
       {/* Background image */}
       <Image
-        src="/images/hero/HÌNH 4.jpg"
+        src="/images/hero/hinh-4.jpg"
         alt=""
         fill
         className="object-cover opacity-30"

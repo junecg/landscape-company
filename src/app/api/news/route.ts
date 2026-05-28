@@ -12,8 +12,10 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = request.nextUrl
     const category = searchParams.get('category')
+    const newsType = searchParams.get('newsType')
     const where: Record<string, unknown> = {}
     if (category) where.categoryEn = category
+    if (newsType) where.newsType = newsType
 
     const articles = await prisma.newsArticle.findMany({
       where,
@@ -41,6 +43,7 @@ export async function POST(request: NextRequest) {
         image: body.image ?? '',
         categoryVi: body.categoryVi ?? '',
         categoryEn: body.categoryEn ?? '',
+        newsType: body.newsType ?? 'general',
         date: body.date ?? new Date().toISOString().slice(0, 10),
         readTime: body.readTime ?? 4,
         published: body.published ?? true,

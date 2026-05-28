@@ -52,7 +52,7 @@ const heroSlides = [
     descEn: 'Landscape design and construction for an eco-urban development along the Co Co River.',
   },
   {
-    url: '/images/hero/HÌNH 3.jpg',
+    url: '/images/hero/hinh-3.jpg',
     labelVi: 'Nông Trại Sinh Thái',
     labelEn: 'Eco Farm Landscape',
     projectVi: 'Cầu Đất Farm – Đà Lạt',
@@ -63,7 +63,7 @@ const heroSlides = [
     descEn: 'Landscape and iconic Artwork for a 230-ha eco-farm in Da Lat.',
   },
   {
-    url: '/images/hero/HÌNH 4.jpg',
+    url: '/images/hero/hinh-4.jpg',
     labelVi: 'Resort Sinh Thái',
     labelEn: 'Eco Resort',
     projectVi: 'Fiore Resort & Spa',

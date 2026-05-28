@@ -44,7 +44,7 @@ const services = [
     subtitleEn: 'Park · Urban',
     descVi: 'Thiết kế và thi công cảnh quan cho các dự án công viên, khu đô thị và không gian công cộng.',
     descEn: 'Landscape design and construction for parks, urban developments and public spaces.',
-    image: '/images/hero/HÌNH 3.jpg',
+    image: '/images/hero/hinh-3.jpg',
   },
   {
     number: '05',
@@ -54,7 +54,7 @@ const services = [
     subtitleEn: 'Care · Upkeep',
     descVi: 'Dịch vụ bảo dưỡng định kỳ để không gian xanh của bạn luôn tươi đẹp và phát triển tốt.',
     descEn: 'Regular maintenance services to keep your green spaces vibrant, healthy and thriving year-round.',
-    image: '/images/hero/HÌNH 4.jpg',
+    image: '/images/hero/hinh-4.jpg',
   },
 ];
 

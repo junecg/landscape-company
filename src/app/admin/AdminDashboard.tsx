@@ -130,7 +130,7 @@ export default function AdminDashboard() {
               F
             </div>
             <div>
-              <h1 className="text-lg font-semibold">FAM Admin</h1>
+              <h1 className="text-lg font-semibold">LAPLA Admin</h1>
               <p className="text-xs text-gray-400">Quản lý dự án</p>
             </div>
           </div>

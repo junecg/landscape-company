@@ -35,11 +35,11 @@ export default function LoginPage() {
       {/* Left panel – branding */}
       <div className="hidden lg:flex w-80 shrink-0 bg-[#07130a] flex-col justify-between p-8">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#328442] flex items-center justify-center font-bold text-white text-sm">F</div>
-          <span className="text-white font-semibold text-sm">FAM Admin</span>
+          <div className="w-8 h-8 rounded-lg bg-[#328442] flex items-center justify-center font-bold text-white text-sm">L</div>
+          <span className="text-white font-semibold text-sm">LAPLA Admin</span>
         </div>
         <div>
-          <p className="text-white/20 text-[10px] tracking-widest uppercase mb-2">FAM Landscape</p>
+          <p className="text-white/20 text-[10px] tracking-widest uppercase mb-2">LAPLA</p>
           <p className="text-white/50 text-xs leading-relaxed">Hệ thống quản lý nội dung nội bộ — chỉ dành cho quản trị viên.</p>
         </div>
       </div>
