@@ -1,396 +1,326 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useTranslations, useLocale } from "next-intl";
-import { motion, AnimatePresence } from "framer-motion";
+import { useLocale } from "next-intl";
 import { usePathname } from "next/navigation";
-
-function useReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mq.matches);
-    const handler = (e: MediaQueryListEvent) =>
-      setPrefersReducedMotion(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-  return prefersReducedMotion;
-}
 
 function FlagVN({ className = "w-5 h-3.5" }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 30 20"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg className={className} viewBox="0 0 30 20" xmlns="http://www.w3.org/2000/svg">
       <rect width="30" height="20" fill="#DA251D" />
-      <polygon
-        points="15,3.5 16.55,8.27 21.5,8.27 17.48,11.18 19.02,15.95 15,13.04 10.98,15.95 12.52,11.18 8.5,8.27 13.45,8.27"
-        fill="#FFFF00"
-      />
+      <polygon points="15,3.5 16.55,8.27 21.5,8.27 17.48,11.18 19.02,15.95 15,13.04 10.98,15.95 12.52,11.18 8.5,8.27 13.45,8.27" fill="#FFFF00" />
     </svg>
   );
 }
 
 function FlagEN({ className = "w-5 h-3.5" }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 60 30"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg className={className} viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg">
       <rect width="60" height="30" fill="#012169" />
-      {/* White diagonals */}
       <path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" strokeWidth="6" />
-      {/* Red diagonals (clipped to halves) */}
       <path d="M0,0 L60,30" stroke="#C8102E" strokeWidth="4" />
       <path d="M60,0 L0,30" stroke="#C8102E" strokeWidth="4" />
-      {/* White cross */}
       <rect x="25" y="0" width="10" height="30" fill="#fff" />
       <rect x="0" y="10" width="60" height="10" fill="#fff" />
-      {/* Red cross */}
       <rect x="27" y="0" width="6" height="30" fill="#C8102E" />
       <rect x="0" y="12" width="60" height="6" fill="#C8102E" />
     </svg>
   );
 }
 
+const navLinks = [
+  { key: "home",     vi: "Trang chủ",    en: "HOME" },
+  { key: "projects", vi: "Dự án",        en: "PAGES" },
+  { key: "services", vi: "Dịch vụ",      en: "SERVICE" },
+  { key: "news",     vi: "Tin tức",      en: "BLOG" },
+  { key: "about",    vi: "Về chúng tôi", en: "CONTACT" },
+];
+
 export default function Navbar() {
-  const t = useTranslations("nav");
   const locale = useLocale();
   const pathname = usePathname();
-  const isHomePage = pathname === `/${locale}` || pathname === "/";
-  const [scrolled, setScrolled] = useState(!isHomePage);
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
-    if (!isHomePage) {
-      setScrolled(true);
-      return;
-    }
-    const handler = () => setScrolled(window.scrollY > 50);
-    handler();
-    window.addEventListener("scroll", handler);
-    return () => window.removeEventListener("scroll", handler);
-  }, [isHomePage]);
+    const onScroll = () => setScrolled(window.scrollY > 60);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  // Lock body scroll (with scrollbar-width fix to prevent layout shift)
   useEffect(() => {
-    if (mobileOpen) {
-      const scrollbarWidth =
-        window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-    } else {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    }
-    return () => {
-      document.body.style.overflow = "";
-      document.body.style.paddingRight = "";
-    };
-  }, [mobileOpen]);
-
-  // Close on Escape key
-  useEffect(() => {
-    if (!mobileOpen) return;
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMobileOpen(false);
-    };
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
   const otherLocale = locale === "vi" ? "en" : "vi";
   const switchPath = pathname.replace(`/${locale}`, `/${otherLocale}`);
 
-  const links = [
-    { href: `/${locale}`, label: t("home") },
-    { href: `/${locale}/projects`, label: t("projects") },
-    { href: `/${locale}/about`, label: t("about") },
-    { href: `/${locale}/services`, label: t("services") },
-    { href: `/${locale}/partners`, label: t("partners") },
-    { href: `/${locale}/news`, label: t("news") },
-    { href: `/${locale}/careers`, label: t("careers") },
-  ];
+  const href = (key: string) => {
+    if (key === "home") return `/${locale}`;
+    return `/${locale}/${key}`;
+  };
 
-  const isActive = (href: string) =>
-    href === `/${locale}` ? pathname === href : pathname.startsWith(href);
+  const isActive = (key: string) => {
+    const h = href(key);
+    return h === `/${locale}` ? pathname === h : pathname.startsWith(h);
+  };
 
   return (
     <>
-<motion.nav
-        initial={{ y: prefersReducedMotion ? 0 : -100 }}
-        animate={{ y: 0 }}
-        transition={{
-          duration: prefersReducedMotion ? 0 : 0.6,
-          ease: "easeOut",
+      <nav
+        className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        style={{
+          backgroundColor: scrolled ? "#0F541E" : "transparent",
+          boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.2)" : "none",
+          backdropFilter: scrolled ? "none" : "none",
         }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-white/80 backdrop-blur-xl shadow-[0_1px_0_0_rgba(0,0,0,0.06)]"
-            : "bg-transparent"
-        }`}
       >
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-[76px]">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-8 lg:px-10">
+          <div className="flex items-center justify-between h-[76px] gap-4">
+
             {/* Logo */}
-            <Link
-              href={`/${locale}`}
-              className="flex items-center gap-2 shrink-0 group"
-              onClick={() => setMobileOpen(false)}
-            >
-              <motion.div
-                whileHover={prefersReducedMotion ? {} : { scale: 1.06, y: -1 }}
-                whileTap={prefersReducedMotion ? {} : { scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                className="relative"
-              >
-                {/* Glow halo behind logo */}
-                <span
-                  className={`absolute inset-0 rounded-xl blur-lg transition-opacity duration-500 ${
-                    scrolled
-                      ? "bg-green-400/20 opacity-0 group-hover:opacity-100"
-                      : "bg-white/10 opacity-0 group-hover:opacity-100"
-                  }`}
-                />
-                <Image
-                  src="/logo.png"
-                  alt="Lapla Landscape"
-                  width={140}
-                  height={48}
-                  className={`relative h-16 w-auto object-contain transition-[filter] duration-500 ${
-                    scrolled
-                      ? "drop-shadow-[0_2px_8px_rgba(50,132,66,0.25)] group-hover:drop-shadow-[0_4px_16px_rgba(50,132,66,0.45)]"
-                      : "drop-shadow-[0_2px_12px_rgba(255,255,255,0.15)] group-hover:drop-shadow-[0_4px_20px_rgba(255,255,255,0.3)]"
-                  }`}
-                  priority
-                />
-              </motion.div>
+            <Link href={`/${locale}`} className="shrink-0 flex items-center">
+              <Image
+                src="/logo.png"
+                alt="Lapla Landscape"
+                width={140}
+                height={48}
+                className="h-12 w-auto object-contain"
+                style={{ filter: 'brightness(0) invert(1)' }}
+                priority
+              />
             </Link>
 
-            {/* Desktop links */}
-            <div className="hidden lg:flex items-center gap-1">
-              {links.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`relative px-4 py-2 text-sm font-medium tracking-wide transition-colors rounded-md focus:outline-none
-                    ${scrolled ? "text-gray-700" : "text-white/85"}
-                    ${isActive(link.href) ? "!text-green-500" : "hover:text-green-500"}
-                  `}
-                >
-                  {link.label}
-                  {isActive(link.href) && (
-                    <motion.div
-                      layoutId="nav-underline"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-green-500"
-                      transition={
-                        prefersReducedMotion
-                          ? { duration: 0 }
-                          : { type: "spring", stiffness: 300, damping: 30 }
-                      }
-                    />
-                  )}
-                </Link>
-              ))}
+            {/* Center: nav pill */}
+            <div
+              className="hidden lg:flex items-center rounded-full px-3 py-1.5"
+              style={{
+                backgroundColor: scrolled ? "transparent" : "rgba(0,0,0,0.45)",
+                backdropFilter: scrolled ? "none" : "blur(8px)",
+              }}
+            >
+              {navLinks.map((link) => {
+                const active = isActive(link.key);
+                return (
+                  <Link
+                    key={link.key}
+                    href={href(link.key)}
+                    className="flex items-center gap-1 px-4 py-2 text-xs font-bold uppercase tracking-wider transition-colors duration-200 rounded-full"
+                    style={{
+                      color: active ? "#c7dc49" : "rgba(255,255,255,0.92)",
+                      backgroundColor: "transparent",
+                    }}
+                    onMouseEnter={e => {
+                      if (!active) (e.currentTarget as HTMLElement).style.color = "#c7dc49";
+                    }}
+                    onMouseLeave={e => {
+                      if (!active) (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.92)";
+                    }}
+                  >
+                    {locale === "vi" ? link.vi : link.en}
+                    <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                    </svg>
+                  </Link>
+                );
+              })}
             </div>
 
-            {/* Right: lang switcher + hamburger */}
-            <div className="flex items-center gap-3">
+            {/* Right side */}
+            <div className="hidden lg:flex items-center gap-4">
+              {/* Phone */}
+              <div className="text-right">
+                <p
+                  className="text-[10px] font-semibold uppercase tracking-wider"
+                  style={{ color: "rgba(255,255,255,0.6)" }}
+                >
+                  {locale === "vi" ? "Gọi cho chúng tôi:" : "Speak With Us:"}
+                </p>
+                <a
+                  href="tel:+84901234567"
+                  className="text-sm font-bold flex items-center gap-1.5 mt-0.5 transition-colors duration-200 hover:text-[#c7dc49]"
+                  style={{ color: "white" }}
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                  </svg>
+                  (+84) 90 123 4567
+                </a>
+              </div>
+
+              {/* Search icon */}
+              <button
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200"
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.15)",
+                  color: "white",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "#c7dc49";
+                  (e.currentTarget as HTMLElement).style.color = "white";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.backgroundColor = "rgba(255,255,255,0.15)";
+                  (e.currentTarget as HTMLElement).style.color = "white";
+                }}
+                aria-label="Search"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+              </button>
+
+              {/* Language switcher */}
               <Link
                 href={switchPath}
-                aria-label={`Switch language to ${otherLocale === "vi" ? "Vietnamese" : "English"}`}
-                className={`hidden sm:flex items-center gap-2 text-xs font-semibold tracking-widest uppercase transition-all px-3 py-1.5 rounded-full border focus:outline-none ${
-                  scrolled
-                    ? "border-gray-200 text-gray-600 hover:border-green-600 hover:text-green-600"
-                    : "border-white/30 text-white/80 hover:border-white hover:text-white"
-                }`}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider border transition-all duration-200"
+                style={{
+                  borderColor: "rgba(255,255,255,0.3)",
+                  color: "rgba(255,255,255,0.85)",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "#c7dc49";
+                  (e.currentTarget as HTMLElement).style.color = "#c7dc49";
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.3)";
+                  (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.85)";
+                }}
               >
-                <span className="rounded-sm overflow-hidden shadow-sm">
+                <span className="rounded-sm overflow-hidden">
                   {otherLocale === "vi" ? <FlagVN /> : <FlagEN />}
                 </span>
                 {otherLocale.toUpperCase()}
               </Link>
 
-              {/* Hamburger */}
-              <button
-                className={`lg:hidden p-2 flex flex-col items-center justify-center gap-[5px] rounded-md transition-colors focus:outline-none ${
-                  scrolled
-                    ? "text-gray-700 hover:bg-gray-100"
-                    : "text-white hover:bg-white/10"
-                }`}
-                onClick={() => setMobileOpen(!mobileOpen)}
-                aria-label={mobileOpen ? "Close menu" : "Open menu"}
-                aria-expanded={mobileOpen}
+              {/* REQUEST A QUOTE CTA */}
+              <Link
+                href={`/${locale}#contact`}
+                className="inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase tracking-widest transition-all duration-200 hover:opacity-90"
+                style={{
+                  backgroundColor: "#c7dc49",
+                  color: "#141414",
+                  borderRadius: "10px",
+                }}
               >
-                <motion.span
-                  animate={
-                    mobileOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }
-                  }
-                  className="block w-5 h-px bg-current origin-center"
-                  transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
-                />
-                <motion.span
-                  animate={
-                    mobileOpen
-                      ? { opacity: 0, scaleX: 0 }
-                      : { opacity: 1, scaleX: 1 }
-                  }
-                  className="block w-5 h-px bg-current origin-center"
-                  transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
-                />
-                <motion.span
-                  animate={
-                    mobileOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }
-                  }
-                  className="block w-5 h-px bg-current origin-center"
-                  transition={{ duration: prefersReducedMotion ? 0 : 0.25 }}
-                />
-              </button>
+                {locale === "vi" ? "Yêu cầu báo giá" : "Request A Quote"}
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
             </div>
+
+            {/* Mobile hamburger */}
+            <button
+              className="lg:hidden w-10 h-10 flex flex-col items-center justify-center gap-[5px]"
+              style={{ color: scrolled ? "#111" : "white" }}
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              <span
+                className="block w-6 h-0.5 bg-current transition-all duration-200"
+                style={{ transform: mobileOpen ? "rotate(45deg) translateY(6px)" : "none" }}
+              />
+              <span
+                className="block w-6 h-0.5 bg-current transition-all duration-200"
+                style={{ opacity: mobileOpen ? 0 : 1 }}
+              />
+              <span
+                className="block w-6 h-0.5 bg-current transition-all duration-200"
+                style={{ transform: mobileOpen ? "rotate(-45deg) translateY(-6px)" : "none" }}
+              />
+            </button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Mobile full-screen overlay */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm lg:hidden"
-              onClick={() => setMobileOpen(false)}
-            />
+      {/* Mobile drawer */}
+      {mobileOpen && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-black/40 lg:hidden"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div
+            className="fixed top-0 right-0 bottom-0 z-50 w-[300px] bg-white flex flex-col lg:hidden"
+            style={{ boxShadow: "-4px 0 30px rgba(0,0,0,0.15)" }}
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between px-5 h-[76px] border-b border-[#e8e8e8]">
+              <Image src="/logo.png" alt="Lapla" width={100} height={34} className="h-10 w-auto object-contain" />
+              <button onClick={() => setMobileOpen(false)} className="w-10 h-10 flex items-center justify-center" style={{ color: "#545454" }}>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-            {/* Drawer from right */}
-            <motion.div
-              initial={{ x: prefersReducedMotion ? 0 : "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: prefersReducedMotion ? 0 : "100%" }}
-              transition={{
-                duration: prefersReducedMotion ? 0 : 0.35,
-                ease: [0.32, 0.72, 0, 1],
-              }}
-              className="fixed top-0 right-0 bottom-0 z-50 w-[280px] bg-[#07130a] flex flex-col lg:hidden"
-            >
-              {/* Drawer header */}
-              <div className="flex items-center justify-between px-6 h-[76px] border-b border-white/[0.07]">
+            {/* Links */}
+            <div className="flex-1 px-4 py-4 overflow-y-auto">
+              {navLinks.map((link) => (
                 <Link
-                  href={`/${locale}`}
+                  key={link.key}
+                  href={href(link.key)}
                   onClick={() => setMobileOpen(false)}
-                  className="flex items-center gap-2"
+                  className="flex items-center justify-between px-4 py-3.5 mb-1 text-sm font-bold uppercase tracking-wider transition-colors duration-200"
+                  style={{
+                    color: isActive(link.key) ? "#c7dc49" : "#111111",
+                    backgroundColor: isActive(link.key) ? "#f5f9f0" : "transparent",
+                  }}
                 >
-                  <Image
-                    src="/logo.png"
-                    alt="Lapla Landscape"
-                    width={100}
-                    height={34}
-                    className="h-8 w-auto object-contain brightness-0 invert"
-                  />
+                  {locale === "vi" ? link.vi : link.en}
+                  {isActive(link.key) && (
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: "#c7dc49" }} />
+                  )}
                 </Link>
-                <button
-                  onClick={() => setMobileOpen(false)}
-                  aria-label="Close navigation menu"
-                  title="Close menu (Esc)"
-                  className="p-2 w-10 h-10 flex items-center justify-center rounded-md text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
-                >
-                  <svg
-                    className="w-5 h-5"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
+              ))}
+            </div>
 
-              {/* Nav links */}
-              <nav className="flex-1 px-4 py-6 overflow-y-auto">
-                <p className="text-[9px] tracking-[0.3em] text-gray-600 uppercase mb-4 px-2">
-                  Navigation
-                </p>
-                {links.map((link, i) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: prefersReducedMotion ? 0 : 0.05 + i * 0.05,
-                      duration: prefersReducedMotion ? 0 : 0.3,
+            {/* Footer */}
+            <div className="px-4 py-5 border-t border-[#e8e8e8] space-y-3">
+              <a href="tel:+84901234567" className="flex items-center gap-3 text-sm font-semibold" style={{ color: "#111111" }}>
+                <div className="w-9 h-9 flex items-center justify-center" style={{ backgroundColor: "#c7dc49", color: "white" }}>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                  </svg>
+                </div>
+                (+84) 90 123 4567
+              </a>
+              <div className="flex gap-2">
+                {(["vi", "en"] as const).map((lang) => (
+                  <Link
+                    key={lang}
+                    href={pathname.replace(`/${locale}`, `/${lang}`)}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex-1 flex items-center justify-center gap-2 py-3 text-xs font-bold uppercase tracking-wider border transition-colors duration-200"
+                    style={{
+                      backgroundColor: locale === lang ? "#c7dc49" : "white",
+                      color: locale === lang ? "white" : "#545454",
+                      borderColor: locale === lang ? "#c7dc49" : "#e0e0e0",
                     }}
                   >
-                    <Link
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      className={`flex items-center justify-between px-4 py-3 rounded-lg mb-1 min-h-[44px] text-base font-medium tracking-wide transition-colors group  ${
-                        isActive(link.href)
-                          ? "bg-green-600/15 text-green-400"
-                          : "text-gray-300 hover:bg-white/[0.05] hover:text-white"
-                      }`}
-                    >
-                      <span>{link.label}</span>
-                      {isActive(link.href) && (
-                        <span className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-lg" />
-                      )}
-                    </Link>
-                  </motion.div>
+                    <span className="rounded-sm overflow-hidden">
+                      {lang === "vi" ? <FlagVN /> : <FlagEN />}
+                    </span>
+                    {lang.toUpperCase()}
+                  </Link>
                 ))}
-              </nav>
-
-              {/* Footer: lang switcher */}
-              <div className="px-4 py-5 border-t border-white/[0.07]">
-                <p className="text-[9px] tracking-[0.3em] text-gray-600 uppercase mb-3 px-2">
-                  Language
-                </p>
-                <div className="flex gap-2 px-2">
-                  {(["vi", "en"] as const).map((lang) => {
-                    const path = pathname.replace(`/${locale}`, `/${lang}`);
-                    const active = locale === lang;
-                    return (
-                      <Link
-                        key={lang}
-                        href={path}
-                        onClick={() => setMobileOpen(false)}
-                        aria-label={`Switch to ${lang === "vi" ? "Vietnamese" : "English"}`}
-                        aria-current={active ? "page" : undefined}
-                        className={`flex-1 flex items-center justify-center gap-2 py-3.5 min-h-[48px] rounded-lg text-sm font-semibold tracking-widest uppercase transition-colors focus:outline-none ${
-                          active
-                            ? "bg-green-600 text-white"
-                            : "bg-white/[0.06] text-gray-400 hover:bg-white/10 hover:text-white"
-                        }`}
-                      >
-                        <span className="rounded-sm overflow-hidden shadow-sm">
-                          {lang === "vi" ? (
-                            <FlagVN className="w-5 h-3.5" />
-                          ) : (
-                            <FlagEN className="w-5 h-3.5" />
-                          )}
-                        </span>
-                        {lang.toUpperCase()}
-                      </Link>
-                    );
-                  })}
-                </div>
               </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              <Link
+                href={`/${locale}#contact`}
+                onClick={() => setMobileOpen(false)}
+                className="block w-full text-center py-3.5 text-xs font-black uppercase tracking-widest transition-opacity hover:opacity-90"
+                style={{ backgroundColor: "#c7dc49", color: "#141414", borderRadius: "10px" }}
+              >
+                {locale === "vi" ? "Yêu cầu báo giá" : "Request A Quote"}
+              </Link>
+            </div>
+          </div>
+        </>
+      )}
     </>
   );
 }

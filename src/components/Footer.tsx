@@ -1,8 +1,8 @@
 'use client';
-import { useTranslations, useLocale } from 'next-intl';
+import { useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
 
 const socialLinks = [
   {
@@ -44,114 +44,239 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const t = useTranslations('footer');
   const locale = useLocale();
+  const isVi = locale === 'vi';
+  const [email, setEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email) { setSubscribed(true); setEmail(''); }
+  };
 
   return (
-    <footer className="relative bg-[#07130a] text-white overflow-hidden">
+    <footer className="relative overflow-hidden" style={{ backgroundColor: '#0e2208' }}>
+      {/* Background leaf pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.04] pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #0f541e 1px, transparent 1px)',
+          backgroundSize: '32px 32px',
+        }}
+      />
+      {/* Green glow */}
+      <div
+        className="absolute -bottom-40 -right-40 w-[600px] h-[600px] rounded-full pointer-events-none opacity-10"
+        style={{ backgroundColor: '#c7dc49', filter: 'blur(150px)' }}
+      />
 
-      {/* Top brand gold accent line */}
-      <div className="absolute top-12 md:top-14 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary-500/40 to-transparent" />
+      <div className="relative z-10">
+        {/* Top bar: logo + hours + socials */}
+        <div
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center gap-4 justify-between"
+          style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
+        >
+          <Link href={`/${locale}`}>
+            <Image
+              src="/logo.png"
+              alt="Lapla Landscape"
+              width={120}
+              height={40}
+              className="h-10 w-auto object-contain brightness-0 invert"
+            />
+          </Link>
 
-      {/* Background glow */}
-      <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-[radial-gradient(ellipse_at_top_left,rgba(50,132,66,0.12)_0%,transparent_65%)] pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[300px] bg-[radial-gradient(ellipse_at_bottom_right,rgba(190,123,43,0.06)_0%,transparent_65%)] pointer-events-none" />
+          <div className="flex items-center gap-2 text-sm">
+            <svg className="w-4 h-4 shrink-0" style={{ color: '#0f541e' }} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span style={{ color: '#0f541e' }}>
+              {isVi ? 'T2–T7: 8:00–18:00' : 'Mon–Sat: 8:00 AM – 6:00 PM'}
+            </span>
+          </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 md:pt-24 pb-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
+          <div className="flex gap-2">
+            {socialLinks.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="w-9 h-9 flex items-center justify-center border transition-all duration-200 hover:border-[#c7dc49] hover:text-[#c7dc49]"
+                style={{ borderColor: 'rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.5)' }}
+              >
+                {s.icon}
+              </a>
+            ))}
+          </div>
+        </div>
 
-          {/* Brand column */}
-          <div className="col-span-2 md:col-span-2">
-            <div className="mb-5">
-              <Link href={`/${locale}`} className="inline-block">
-                <div className="px-3 py-2 rounded-xl bg-white/8 hover:bg-white/14 transition-colors duration-300 inline-block border border-white/10">
-                  <Image
-                    src="/logo.png"
-                    alt="Lapla Landscape"
-                    width={120}
-                    height={40}
-                    className="h-9 w-auto object-contain drop-shadow-[0_1px_8px_rgba(50,132,66,0.4)]"
-                  />
+        {/* Main 4-column grid */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+
+          {/* Col 1: CTA + phone + email */}
+          <div>
+            <p className="text-xs tracking-[0.25em] uppercase font-bold mb-3" style={{ color: '#0f541e' }}>
+              {isVi ? 'Liên hệ ngay' : 'Get In Touch'}
+            </p>
+            <h3 className="font-display font-bold text-xl text-white leading-snug mb-5">
+              {isVi ? 'Tư vấn miễn phí cho dự án của bạn' : 'Free consultation for your project'}
+            </h3>
+            <Link
+              href={`/${locale}#contact`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 text-white text-xs font-bold uppercase tracking-wider mb-6 transition-all duration-200 hover:opacity-90"
+              style={{ backgroundColor: '#c7dc49', color: '#141414', borderRadius: '10px', }}
+            >
+              {isVi ? 'Liên hệ' : 'Contact Us'}
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+
+            <div className="space-y-3">
+              <a
+                href="tel:+84901234567"
+                className="flex items-center gap-3 text-sm transition-colors duration-200 hover:text-[#c7dc49]"
+                style={{ color: 'rgba(255,255,255,0.6)' }}
+              >
+                <div className="w-8 h-8 flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(130,180,64,0.15)' }}>
+                  <svg className="w-4 h-4" style={{ color: '#0f541e' }} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                  </svg>
                 </div>
-              </Link>
-            </div>
-            <p className="text-white leading-relaxed max-w-sm text-sm">{t('description')}</p>
-
-            {/* Social icons */}
-            <div className="flex gap-2.5 mt-6">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.2 }}
-                  className="w-9 h-9 rounded-full bg-white/8 border border-white/10 flex items-center justify-center hover:bg-green-600 hover:border-green-500 transition-colors duration-300 text-white hover:text-white"
-                >
-                  {social.icon}
-                </motion.a>
-              ))}
+                (+84) 90 123 4567
+              </a>
+              <a
+                href="mailto:info@lapla.vn"
+                className="flex items-center gap-3 text-sm transition-colors duration-200 hover:text-[#c7dc49]"
+                style={{ color: 'rgba(255,255,255,0.6)' }}
+              >
+                <div className="w-8 h-8 flex items-center justify-center shrink-0" style={{ backgroundColor: 'rgba(130,180,64,0.15)' }}>
+                  <svg className="w-4 h-4" style={{ color: '#0f541e' }} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                  </svg>
+                </div>
+                info@lapla.vn
+              </a>
             </div>
           </div>
 
-          {/* Quick links */}
+          {/* Col 2: Company links */}
           <div>
-            <h4 className="text-white font-semibold mb-5 text-xs tracking-widest uppercase">{t('quickLinks')}</h4>
+            <h4 className="font-bold text-white mb-5 text-xs tracking-[0.2em] uppercase">
+              {isVi ? 'Công ty' : 'Company'}
+            </h4>
             <ul className="space-y-3">
               {[
-                { href: `/${locale}`,           label: locale === 'vi' ? 'Trang chủ'     : 'Home' },
-                { href: `/${locale}/projects`,  label: locale === 'vi' ? 'Dự án'         : 'Projects' },
-                { href: `/${locale}/about`,     label: locale === 'vi' ? 'Về chúng tôi'  : 'About Us' },
-                { href: `/${locale}/services`,  label: locale === 'vi' ? 'Dịch vụ'       : 'Services' },
-                { href: `/${locale}/partners`,  label: locale === 'vi' ? 'Đối tác'       : 'Partners' },
-                { href: `/${locale}/news`,      label: locale === 'vi' ? 'Tin tức'       : 'News' },
-                { href: `/${locale}/careers`,   label: locale === 'vi' ? 'Tuyển dụng'    : 'Careers' },
+                { href: `/${locale}/about`,    vi: 'Về chúng tôi',  en: 'About Us' },
+                { href: `/${locale}/projects`, vi: 'Dự án',         en: 'Projects' },
+                { href: `/${locale}/partners`, vi: 'Đối tác',       en: 'Partners' },
+                { href: `/${locale}/news`,     vi: 'Tin tức',       en: 'News' },
+                { href: `/${locale}/careers`,  vi: 'Tuyển dụng',    en: 'Careers' },
               ].map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href} className="text-white hover:text-green-300 transition-colors text-sm flex items-center gap-1.5 group">
-                    <span className="w-0 h-px bg-green-400 transition-all duration-300 group-hover:w-3" />
-                    {link.label}
+                  <Link
+                    href={link.href}
+                    className="text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    style={{ color: 'rgba(255,255,255,0.55)' }}
+                    onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#c7dc49')}
+                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.55)')}
+                  >
+                    <span
+                      className="w-0 h-px transition-all duration-200 group-hover:w-3 shrink-0"
+                      style={{ backgroundColor: '#c7dc49' }}
+                    />
+                    {isVi ? link.vi : link.en}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Col 3: Services */}
           <div>
-            <h4 className="text-white font-semibold mb-5 text-xs tracking-widest uppercase">{t('contact')}</h4>
-            <ul className="space-y-4 text-sm text-white">
-              <li className="flex gap-2.5 items-start">
-                <svg className="w-4 h-4 shrink-0 mt-0.5 text-green-500/70" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                </svg>
-                <span className="leading-relaxed">{t('address')}</span>
-              </li>
-              <li className="flex gap-2.5 items-start">
-                <svg className="w-4 h-4 shrink-0 mt-0.5 text-green-500/70" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
-                </svg>
-                <span>{t('phone')}</span>
-              </li>
-              <li className="flex gap-2.5 items-start">
-                <svg className="w-4 h-4 shrink-0 mt-0.5 text-green-500/70" fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                </svg>
-                <span>{t('email')}</span>
-              </li>
+            <h4 className="font-bold text-white mb-5 text-xs tracking-[0.2em] uppercase">
+              {isVi ? 'Dịch vụ' : 'Services'}
+            </h4>
+            <ul className="space-y-3">
+              {[
+                { vi: 'Thiết kế & Thi công',   en: 'Garden Design' },
+                { vi: 'Cây xanh & Thảm cỏ',    en: 'Plants & Turf' },
+                { vi: 'Cảnh quan cứng',         en: 'Hard Scaping' },
+                { vi: 'Cảnh quan công cộng',    en: 'Public Garden' },
+                { vi: 'Sân Golf & Resort',      en: 'Golf & Resort' },
+                { vi: 'Bảo dưỡng',              en: 'Maintenance' },
+              ].map((item) => (
+                <li key={item.en}>
+                  <Link
+                    href={`/${locale}/services`}
+                    className="text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    style={{ color: 'rgba(255,255,255,0.55)' }}
+                    onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#c7dc49')}
+                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.55)')}
+                  >
+                    <span
+                      className="w-0 h-px transition-all duration-200 group-hover:w-3 shrink-0"
+                      style={{ backgroundColor: '#c7dc49' }}
+                    />
+                    {isVi ? item.vi : item.en}
+                  </Link>
+                </li>
+              ))}
             </ul>
+          </div>
+
+          {/* Col 4: Newsletter */}
+          <div>
+            <h4 className="font-bold text-white mb-3 text-xs tracking-[0.2em] uppercase">
+              {isVi ? 'Đăng ký nhận tin' : 'Newsletter'}
+            </h4>
+            <p className="text-sm mb-5" style={{ color: 'rgba(255,255,255,0.55)', lineHeight: '22px' }}>
+              {isVi
+                ? 'Nhận thông tin mới nhất về cảnh quan và ưu đãi từ Lapla.'
+                : 'Get the latest landscaping tips and exclusive offers from Lapla.'}
+            </p>
+            {subscribed ? (
+              <p className="text-sm font-semibold" style={{ color: '#0f541e' }}>
+                {isVi ? '✓ Cảm ơn bạn đã đăng ký!' : '✓ Thank you for subscribing!'}
+              </p>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
+                <input
+                  type="email"
+                  required
+                  value={email}
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder={isVi ? 'Email của bạn' : 'Your email address'}
+                  className="w-full px-4 py-3 text-sm bg-white/10 border border-white/15 text-white placeholder-white/40 outline-none transition-colors duration-200 focus:border-[#c7dc49]"
+                />
+                <button
+                  type="submit"
+                  className="w-full py-3 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
+                  style={{ backgroundColor: '#c7dc49', color: '#141414', borderRadius: '10px', }}
+                >
+                  {isVi ? 'Đăng ký' : 'Subscribe'}
+                </button>
+              </form>
+            )}
           </div>
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-green-900/60 pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white">
-          <p>© {new Date().getFullYear()} Công Ty Cổ Phần Cảnh Quan LA-PLA (Lapla). {t('rights')}</p>
-          <div className="flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-green-500/50" />
-            <span className="text-white">landscape · artwork · golf · maintenance</span>
+        <div
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
+          style={{ borderTop: '1px solid rgba(255,255,255,0.08)', color: 'rgba(255,255,255,0.35)' }}
+        >
+          <p>© {new Date().getFullYear()} Lapla Landscape. {isVi ? 'Bảo lưu mọi quyền.' : 'All rights reserved.'}</p>
+          <div className="flex items-center gap-4">
+            <Link href={`/${locale}`} className="hover:text-white transition-colors duration-200">
+              {isVi ? 'Điều khoản sử dụng' : 'Terms & Conditions'}
+            </Link>
+            <span className="w-1 h-1 rounded-full bg-white/30" />
+            <Link href={`/${locale}`} className="hover:text-white transition-colors duration-200">
+              {isVi ? 'Chính sách bảo mật' : 'Privacy Policy'}
+            </Link>
           </div>
         </div>
       </div>

@@ -1,211 +1,184 @@
 'use client';
-import { useTranslations, useLocale } from 'next-intl';
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
-import Image from 'next/image';
+import { useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useState } from 'react';
 import { projects } from '@/lib/data';
+import ScrollReveal from './ScrollReveal';
+
+const TABS = [
+  { keyVi: 'Tất cả', keyEn: 'All' },
+  { keyVi: 'Dân dụng', keyEn: 'Residential' },
+  { keyVi: 'Thương mại', keyEn: 'Commercial' },
+  { keyVi: 'Golf & Resort', keyEn: 'Golf & Resort' },
+];
 
 export default function ProjectsSection() {
-  const t = useTranslations('projects');
   const locale = useLocale();
   const isVi = locale === 'vi';
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
+  const [activeTab, setActiveTab] = useState(0);
 
-  // Featured layout: 1 large + 2 small
-  const featured = projects.slice(0, 6);
-  const main = featured[0];
-  const secondary = featured.slice(1, 3);
-  const rest = featured.slice(3, 6);
-
-  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const featured = projects.slice(0, 8);
 
   return (
-    <section ref={ref} className="py-20 md:py-32 bg-white overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="leafix-section overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="text-[10px] tracking-[0.35em] uppercase font-semibold text-[#328442] mb-3">
-              {isVi ? 'Dự án' : 'Works'}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+          <ScrollReveal>
+            <p className="text-xs tracking-[0.3em] uppercase font-bold mb-3" style={{ color: '#0f541e' }}>
+              {isVi ? 'Dự án' : 'Our Works'}
             </p>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1]">
-              {isVi ? (
-                <>Khám phá những<br />công trình <span className="text-[#328442]">mới nhất</span></>
-              ) : (
-                <>Get to know our<br /><span className="text-[#328442]">latest</span> garden works</>
-              )}
+            <h2
+              className="font-display font-bold leading-tight"
+              style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#111111' }}
+            >
+              {isVi
+                ? <>Khám phá những công trình <span style={{ color: '#0f541e' }}>mới nhất</span></>
+                : <>Our <span style={{ color: '#0f541e' }}>latest</span> garden works</>
+              }
             </h2>
-          </motion.div>
+          </ScrollReveal>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <ScrollReveal delay={2}>
             <Link
               href={`/${locale}/projects`}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#328442] hover:text-[#48a85a] transition-colors group"
+              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:gap-3"
+              style={{ color: '#0f541e' }}
             >
               {isVi ? 'Xem tất cả dự án' : 'View All Projects'}
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
               </svg>
             </Link>
-          </motion.div>
+          </ScrollReveal>
         </div>
 
-        {/* Main featured layout: large + 2 side */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-4">
-          {/* Large main project */}
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="lg:col-span-2"
-          >
-            <Link
-              href={`/${locale}/projects/${main.slug}`}
-              className="group block relative rounded-3xl overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[520px]"
-              onMouseEnter={() => setHoveredIdx(0)}
-              onMouseLeave={() => setHoveredIdx(null)}
-            >
-              <Image
-                src={main.image}
-                alt={isVi ? main.title : main.titleEn}
-                fill
-                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                sizes="(max-width: 1024px) 100vw, 66vw"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-              {/* Project info */}
-              <div className="absolute bottom-0 left-0 right-0 p-7">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="w-6 h-px bg-[#48a85a]" />
-                  <span className="text-[10px] tracking-widest uppercase text-[#48a85a] font-semibold">
-                    {String(1).padStart(2, '0')} — {main.category}
-                  </span>
-                </div>
-                <h3 className="font-display text-2xl md:text-3xl font-bold text-white leading-snug mb-2">
-                  {isVi ? main.title : main.titleEn}
-                </h3>
-                <p className="text-white/50 text-sm">
-                  {main.location} · {main.year}
-                </p>
-              </div>
-
-              {/* Hover arrow */}
-              <div className={`absolute top-6 right-6 w-12 h-12 rounded-full bg-[#328442] flex items-center justify-center transition-all duration-300 ${hoveredIdx === 0 ? 'opacity-100 scale-100' : 'opacity-0 scale-75'}`}>
-                <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
-                </svg>
-              </div>
-            </Link>
-          </motion.div>
-
-          {/* 2 side projects stacked */}
-          <div className="flex flex-row lg:flex-col gap-4">
-            {secondary.map((project, i) => (
-              <motion.div
-                key={project.id}
-                initial={{ opacity: 0, y: 32 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.2 + i * 0.1 }}
-                className="flex-1 lg:flex-none"
+        {/* Filter tabs */}
+        <ScrollReveal delay={1} className="mb-8">
+          <div className="flex flex-wrap gap-2">
+            {TABS.map((tab, i) => (
+              <button
+                key={tab.keyEn}
+                onClick={() => setActiveTab(i)}
+                className="px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all duration-200"
+                style={{
+                  backgroundColor: activeTab === i ? '#c7dc49' : 'white',
+                  color: activeTab === i ? 'white' : '#545454',
+                  boxShadow: activeTab === i ? 'rgb(111,154,55) 0px 2px 0px 0px' : '0 1px 4px rgba(0,0,0,0.08)',
+                }}
               >
-                <Link
-                  href={`/${locale}/projects/${project.slug}`}
-                  className="group block relative rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-auto lg:h-[250px]"
-                  onMouseEnter={() => setHoveredIdx(i + 1)}
-                  onMouseLeave={() => setHoveredIdx(null)}
-                >
-                  <Image
-                    src={project.image}
-                    alt={isVi ? project.title : project.titleEn}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-                    sizes="(max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4 md:p-5">
-                    <p className="text-[10px] tracking-widest uppercase text-[#48a85a] font-semibold mb-1">
-                      {project.category}
-                    </p>
-                    <h3 className="font-semibold text-white text-sm md:text-base leading-snug">
-                      {isVi ? project.title : project.titleEn}
-                    </h3>
-                    <p className="text-white/40 text-xs mt-1">{project.location}</p>
-                  </div>
-                </Link>
-              </motion.div>
+                {isVi ? tab.keyVi : tab.keyEn}
+              </button>
             ))}
           </div>
-        </div>
+        </ScrollReveal>
 
-        {/* Bottom row: 3 equal cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {rest.map((project, i) => (
-            <motion.div
-              key={project.id}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + i * 0.1 }}
-            >
+        {/* 4 equal-width image row — first row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-3">
+          {featured.slice(0, 4).map((project, i) => (
+            <ScrollReveal key={project.id} delay={i % 4} duration={600}>
               <Link
                 href={`/${locale}/projects/${project.slug}`}
-                className="group block relative rounded-2xl overflow-hidden aspect-[4/3]"
-                onMouseEnter={() => setHoveredIdx(i + 3)}
-                onMouseLeave={() => setHoveredIdx(null)}
+                className="group block relative overflow-hidden rounded"
+                style={{ aspectRatio: '3/4' }}
               >
                 <Image
                   src={project.image}
                   alt={isVi ? project.title : project.titleEn}
                   fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
-                  sizes="(max-width: 640px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.07]"
+                  sizes="(max-width: 640px) 50vw, 25vw"
                 />
+                {/* Gradient */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-4">
-                  <p className="text-[9px] tracking-widest uppercase text-[#48a85a] font-semibold mb-1">
+                {/* Green border on hover */}
+                <div
+                  className="absolute inset-0 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ boxShadow: 'inset 0 0 0 3px #c7dc49' }}
+                />
+                {/* Info */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                  <p className="text-[10px] tracking-widest uppercase font-bold mb-1" style={{ color: '#0f541e' }}>
                     {project.category}
                   </p>
-                  <h3 className="font-semibold text-white text-sm leading-snug">
+                  <h3 className="font-display font-bold text-white text-sm leading-snug">
                     {isVi ? project.title : project.titleEn}
                   </h3>
+                  <p className="text-white/50 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {project.location}
+                  </p>
                 </div>
-
-                {/* Hover overlay */}
-                <div className={`absolute inset-0 border-2 border-[#328442]/0 rounded-2xl transition-all duration-300 ${hoveredIdx === i + 3 ? 'border-[#328442]/60' : ''}`} />
+                {/* Arrow */}
+                <div
+                  className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-all duration-200 scale-75 group-hover:scale-100"
+                  style={{ backgroundColor: '#c7dc49' }}
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
+                  </svg>
+                </div>
               </Link>
-            </motion.div>
+            </ScrollReveal>
           ))}
         </div>
 
-        {/* CTA row */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, delay: 0.7 }}
-          className="mt-10 flex justify-center"
-        >
+        {/* Second row — wider cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {featured.slice(4, 7).map((project, i) => (
+            <ScrollReveal key={project.id} delay={i % 3} duration={600}>
+              <Link
+                href={`/${locale}/projects/${project.slug}`}
+                className="group block relative overflow-hidden rounded"
+                style={{ aspectRatio: '16/9' }}
+              >
+                <Image
+                  src={project.image}
+                  alt={isVi ? project.title : project.titleEn}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                  sizes="(max-width: 640px) 100vw, 33vw"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div
+                  className="absolute inset-0 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ boxShadow: 'inset 0 0 0 3px #c7dc49' }}
+                />
+                <div className="absolute bottom-0 left-0 right-0 p-4">
+                  <p className="text-[10px] tracking-widest uppercase font-bold mb-1" style={{ color: '#0f541e' }}>
+                    {project.category}
+                  </p>
+                  <h3 className="font-display font-bold text-white text-sm leading-snug">
+                    {isVi ? project.title : project.titleEn}
+                  </h3>
+                </div>
+              </Link>
+            </ScrollReveal>
+          ))}
+        </div>
+
+        {/* CTA */}
+        <ScrollReveal delay={2} className="mt-10 flex justify-center">
           <Link
             href={`/${locale}/projects`}
-            className="inline-flex items-center gap-3 px-8 py-4 border border-[#328442]/50 text-[#328442] font-semibold text-sm rounded-full hover:bg-[#328442] hover:text-white hover:border-[#328442] transition-all duration-300 group"
+            className="inline-flex items-center gap-3 px-8 py-3.5 text-sm font-bold uppercase tracking-wider transition-all duration-200"
+            style={{ border: '2px solid #c7dc49', color: '#141414' }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = '#c7dc49';
+              (e.currentTarget as HTMLElement).style.color = '#fff';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.backgroundColor = 'transparent';
+              (e.currentTarget as HTMLElement).style.color = '#c7dc49';
+            }}
           >
-            {isVi ? 'Xem toàn bộ dự án' : t('viewAll')}
-            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+            {isVi ? 'Xem toàn bộ dự án' : 'View All Projects'}
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
             </svg>
           </Link>
-        </motion.div>
+        </ScrollReveal>
       </div>
     </section>
   );

@@ -1,156 +1,129 @@
 'use client';
 import { useLocale } from 'next-intl';
-import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
+import ScrollReveal from './ScrollReveal';
 
 export default function VideoSection() {
   const locale = useLocale();
   const isVi = locale === 'vi';
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-80px' });
   const [playing, setPlaying] = useState(false);
 
   return (
-    <section ref={ref} className="py-20 md:py-32 bg-[#f7faf7] overflow-hidden relative">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(50,132,66,0.06)_0%,transparent_70%)] pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="leafix-section relative overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7 }}
-          >
-            <p className="text-[10px] tracking-[0.35em] uppercase font-semibold text-[#328442] mb-3">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+          <ScrollReveal>
+            <p className="text-xs tracking-[0.3em] uppercase font-bold mb-3" style={{ color: '#0f541e' }}>
               Showreel
             </p>
-            <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.1]">
-              {isVi ? (
-                <>Hành trình<br />kiến tạo <span className="text-[#328442]">cảnh quan</span></>
-              ) : (
-                <>The art of<br /><span className="text-[#328442]">landscape</span> making</>
-              )}
+            <h2
+              className="font-display font-bold leading-tight"
+              style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: '#111111' }}
+            >
+              {isVi
+                ? <span>Hành trình<br />kiến tạo <span style={{ color: '#0f541e' }}>cảnh quan</span></span>
+                : <span>The Art of<br /><span style={{ color: '#0f541e' }}>Landscape</span> Making</span>
+              }
             </h2>
-          </motion.div>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={inView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-gray-400 text-sm md:text-base max-w-xs leading-relaxed md:text-right"
-          >
-            {isVi
-              ? 'Xem video giới thiệu về hành trình và các dự án tiêu biểu của Lapla.'
-              : 'Watch our showreel to experience the journey and featured projects of Lapla.'}
-          </motion.p>
+          </ScrollReveal>
+          <ScrollReveal delay={2}>
+            <p className="text-sm max-w-xs leading-relaxed" style={{ color: '#545454' }}>
+              {isVi
+                ? 'Xem video giới thiệu về hành trình và các dự án tiêu biểu của Lapla.'
+                : 'Watch our showreel to experience the journey and featured projects of Lapla.'}
+            </p>
+          </ScrollReveal>
         </div>
 
-        {/* Video player */}
-        <motion.div
-          initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="relative"
-        >
-          {/* Decorative border frame */}
-          <div className="absolute -inset-4 md:-inset-6 rounded-[32px] border border-[#328442]/15 pointer-events-none" />
+        {/* Video */}
+        <ScrollReveal duration={800}>
+          <div className="relative">
+            {/* Decorative border */}
+            <div
+              className="absolute -inset-3 pointer-events-none"
+              style={{ border: '1px solid rgba(130,180,64,0.2)' }}
+            />
+            <div className="relative overflow-hidden" style={{ aspectRatio: '16/9' }}>
+              {!playing ? (
+                <div
+                  className="relative w-full h-full group cursor-pointer"
+                  onClick={() => setPlaying(true)}
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="https://img.youtube.com/vi/B9VRvOKKwfs/maxresdefault.jpg"
+                    alt="Lapla Showreel"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+                  <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.1) 100%)' }} />
 
-          <div className="relative aspect-video rounded-2xl overflow-hidden">
-            {!playing ? (
-              <div
-                className="relative w-full h-full group cursor-pointer"
-                onClick={() => setPlaying(true)}
-              >
-                <img
-                  src="https://img.youtube.com/vi/B9VRvOKKwfs/maxresdefault.jpg"
-                  alt="Lapla Showreel"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-                />
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
+                  {/* Play button */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative">
+                      {/* Pulse rings */}
+                      <span
+                        className="absolute inset-0 rounded-full animate-ping"
+                        style={{ backgroundColor: 'rgba(130,180,64,0.3)', animationDuration: '2s' }}
+                      />
+                      <div
+                        className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-white flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+                        style={{ boxShadow: '0 0 0 8px rgba(255,255,255,0.15)' }}
+                      >
+                        <svg className="w-8 h-8 translate-x-0.5" style={{ color: '#0f541e' }} fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
 
-                {/* Center play button */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-5">
-                  <div className="relative">
-                    {/* Pulse rings */}
-                    <motion.div
-                      animate={{ scale: [1, 1.7], opacity: [0.3, 0] }}
-                      transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut' }}
-                      className="absolute inset-0 rounded-full bg-[#328442]/40"
-                    />
-                    <motion.div
-                      animate={{ scale: [1, 1.4], opacity: [0.25, 0] }}
-                      transition={{ duration: 2.2, repeat: Infinity, ease: 'easeOut', delay: 0.5 }}
-                      className="absolute inset-0 rounded-full bg-white/15"
-                    />
-                    <motion.div
-                      whileHover={{ scale: 1.08 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="relative w-20 h-20 md:w-24 md:h-24 rounded-full bg-white flex items-center justify-center shadow-2xl"
+                  {/* Bottom caption */}
+                  <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+                    <div>
+                      <p className="text-xs uppercase tracking-widest mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>Lapla Landscape</p>
+                      <p className="text-white font-bold text-lg leading-snug">
+                        {isVi ? 'Hành Trình Kiến Tạo Cảnh Quan' : 'The Art of Landscape Making'}
+                      </p>
+                    </div>
+                    <span
+                      className="shrink-0 ml-4 px-3 py-1.5 text-white text-[10px] font-bold tracking-widest uppercase"
+                      style={{ backgroundColor: '#c7dc49' }}
                     >
-                      <svg className="w-8 h-8 md:w-9 md:h-9 text-[#328442] translate-x-0.5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </motion.div>
+                      Showreel
+                    </span>
                   </div>
-                  <span className="text-white/70 text-xs tracking-[0.3em] uppercase font-medium">
-                    {isVi ? 'Xem video' : 'Watch now'}
-                  </span>
                 </div>
-
-                {/* Bottom caption */}
-                <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
-                  <div>
-                    <p className="text-white/40 text-[10px] tracking-widest uppercase mb-1">Lapla Landscape</p>
-                    <p className="text-white font-semibold text-base md:text-lg leading-snug">
-                      {isVi ? 'Hành Trình Kiến Tạo Cảnh Quan' : 'The Art of Landscape Making'}
-                    </p>
-                  </div>
-                  <span className="shrink-0 ml-4 px-3 py-1.5 rounded-full bg-[#328442] text-white text-[10px] font-semibold tracking-widest uppercase">
-                    Showreel
-                  </span>
-                </div>
-              </div>
-            ) : (
-              <iframe
-                className="w-full h-full"
-                src="https://www.youtube.com/embed/B9VRvOKKwfs?autoplay=1&mute=1&rel=0"
-                title="Lapla Landscape Showreel"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            )}
+              ) : (
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/B9VRvOKKwfs?autoplay=1&mute=1&rel=0"
+                  title="Lapla Landscape Showreel"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              )}
+            </div>
           </div>
-        </motion.div>
+        </ScrollReveal>
 
         {/* Stats strip */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-10 md:mt-14 flex flex-col sm:flex-row items-center justify-center gap-8 md:gap-16"
-        >
-          {[
-            { value: '17+', labelVi: 'Năm kinh nghiệm', labelEn: 'Years of expertise' },
-            { value: '200+', labelVi: 'Dự án hoàn thành', labelEn: 'Projects delivered' },
-            { value: '5★', labelVi: 'Đánh giá khách hàng', labelEn: 'Client rating' },
-          ].map((s, i) => (
-            <motion.div
-              key={s.value}
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
-              className="flex items-center gap-4"
-            >
-              <span className="text-3xl md:text-4xl font-bold text-gray-900">{s.value}</span>
-              <span className="text-[11px] text-gray-400 tracking-wide leading-tight max-w-[80px] uppercase">
-                {isVi ? s.labelVi : s.labelEn}
-              </span>
-            </motion.div>
-          ))}
-        </motion.div>
+        <ScrollReveal delay={2} className="mt-12">
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+            {[
+              { value: '17+', vi: 'Năm kinh nghiệm', en: 'Years of expertise' },
+              { value: '200+', vi: 'Dự án hoàn thành', en: 'Projects delivered' },
+              { value: '5★', vi: 'Đánh giá khách hàng', en: 'Client rating' },
+            ].map((s) => (
+              <div key={s.value} className="flex items-center gap-4">
+                <span className="font-display font-bold text-3xl md:text-4xl" style={{ color: '#0f541e' }}>{s.value}</span>
+                <span className="text-[11px] uppercase tracking-wider leading-tight max-w-[80px]" style={{ color: '#545454' }}>
+                  {isVi ? s.vi : s.en}
+                </span>
+              </div>
+            ))}
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

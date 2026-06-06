@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Be_Vietnam_Pro, Playfair_Display } from 'next/font/google';
+import { Bricolage_Grotesque, Public_Sans, Be_Vietnam_Pro } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -7,18 +7,32 @@ import { routing } from '@/i18n/routing';
 import BackToTop from '@/components/BackToTop';
 import '../globals.css';
 
+/* Bricolage Grotesque — heading font (same as Leafix) */
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-bricolage',
+  display: 'swap',
+});
+
+/* Public Sans — body font (same as Leafix) */
+const publicSans = Public_Sans({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-public-sans',
+  display: 'swap',
+});
+
+/* Be Vietnam Pro for Vietnamese character support */
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-be-vietnam',
-});
-const playfair = Playfair_Display({
-  subsets: ['latin', 'vietnamese'],
-  variable: '--font-playfair',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Landscape Company - Thiết Kế Cảnh Quan',
+  title: 'Lapla Landscape - Thiết Kế Cảnh Quan',
   description: 'Chuyên thiết kế và thi công cảnh quan cao cấp',
 };
 
@@ -41,7 +55,7 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
   return (
     <html lang={locale}>
-      <body className={`${beVietnamPro.variable} ${playfair.variable} font-sans`}>
+      <body className={`${bricolage.variable} ${publicSans.variable} ${beVietnamPro.variable}`}>
         <NextIntlClientProvider messages={messages}>
           {children}
           <BackToTop />

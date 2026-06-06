@@ -256,7 +256,127 @@ Tất cả inner pages (About, Services, Careers, News, Projects) dùng cùng he
 
 ---
 
-## 12. Component Checklist (khi tạo section mới)
+## 12. Leafix Reference Design System
+
+> Nguồn tham khảo: [Leafix Landscaping & Gardening Services HTML Template](https://preview.themeforest.net/item/leafix-landscaping-gardening-services-html-template/full_screen_preview/63282752)
+> Dùng để đối chiếu và bổ sung khi cần thiết — không override FAM brand tokens.
+
+### Design Tokens (Leafix)
+
+| Token | Value | Ghi chú |
+|---|---|---|
+| `font.family.primary` | `Helvetica Neue, Helvetica, Arial, sans-serif` | Base font stack |
+| `font.size.base` | `16px` | Body text |
+| `font.weight.base` | `400` | Regular |
+| `font.lineHeight.base` | `24px` | 1.5 ratio |
+| `font.size.xs` | `12px` | Caption, meta |
+| `font.size.sm` | `14px` | Secondary labels |
+| `color.text.primary` | `#545454` | Main body text |
+| `color.text.secondary` | `#0000ee` | Links (default browser) |
+| `color.text.tertiary` | `#ffffff` | Text on dark surfaces |
+| `color.surface.base` | `#000000` | Dark surface |
+| `color.surface.muted` | `#82b440` | Green accent / badge bg |
+| `space.1` | `5px` | Micro spacing |
+| `space.2` | `20px` | Standard gap |
+| `radius.xs` | `4px` | Subtle rounding |
+| `shadow.1` | `rgb(111, 154, 55) 0px 2px 0px 0px` | Green underline shadow |
+| `motion.duration.instant` | `200ms` | Fast transitions |
+
+> **Mapping sang FAM tokens:** `color.surface.muted (#82b440)` → tương đương `green-400 (#48a85a)`. Dùng FAM token khi implement thực tế.
+
+---
+
+### Component Rules (Leafix → FAM Mapping)
+
+#### Anatomy chung
+Mỗi component phải định nghĩa đủ 7 states: **default, hover, focus-visible, active, disabled, loading, error**.
+
+#### Buttons
+| State | Visual rule |
+|---|---|
+| Default | `bg-[color.surface.muted]` text-white, `border-radius: radius.xs` |
+| Hover | Lighten bg ~10%, `transition: motion.duration.instant` |
+| Focus-visible | `outline: 2px solid color.surface.muted`, `outline-offset: 2px` — **never hidden** |
+| Active | Darken bg ~10%, `box-shadow: shadow.1` |
+| Disabled | `opacity: 0.4`, `cursor: not-allowed`, no pointer events |
+| Loading | Spinner replaces label, same dimensions, `aria-busy="true"` |
+| Error | Red border `2px`, error message below với `role="alert"` |
+
+#### Links (2 per page — low density)
+- Default: `color.text.secondary` (`#0000ee`) hoặc FAM `#328442`
+- Hover: underline + darken
+- Focus-visible: `outline` visible — không dùng `outline: none` không kèm replacement
+- Keyboard: `Enter` activates
+
+#### Interactive elements — Keyboard / Pointer / Touch
+- **Keyboard:** Tab để focus, Enter/Space để activate buttons, Escape để đóng modals/dropdowns
+- **Pointer:** Click, hover states rõ ràng với `cursor: pointer`
+- **Touch:** Min touch target `44×44px` (`min-h-[44px] min-w-[44px]`)
+
+#### Spacing & Typography
+- Mọi spacing phải dùng `space.1 (5px)` hoặc `space.2 (20px)` hoặc bội số của chúng
+- Không dùng giá trị spacing tùy tiện (one-off)
+- Font size chỉ dùng scale đã định nghĩa: `12 / 14 / 16px`
+
+#### Overflow & Edge Cases
+- **Long text:** Dùng `text-overflow: ellipsis` với `overflow: hidden` và `white-space: nowrap` cho 1 dòng; `-webkit-line-clamp` cho multi-line
+- **Empty states:** Luôn có fallback UI — placeholder text hoặc skeleton, không để trống
+- **Image lỗi:** `onerror` fallback sang placeholder image
+
+---
+
+### Accessibility Requirements (WCAG 2.2 AA)
+
+| Rule | Pass | Fail |
+|---|---|---|
+| Text contrast | ≥ 4.5:1 cho body, ≥ 3:1 cho large text | `#545454` trên `#ffffff` = 7.4:1 ✅ |
+| Focus indicator | Visible, `min 2px` outline | `outline: none` không replacement ❌ |
+| Touch target | `≥ 44×44px` | Buttons `< 44px` ❌ |
+| Reduced motion | `prefers-reduced-motion` respected | Auto-play không tắt khi prefer-reduced ❌ |
+| Link labels | Descriptive, không "click here" | `<a>click here</a>` ❌ |
+| Form errors | `role="alert"`, liên kết với input qua `aria-describedby` | Error chỉ màu đỏ, không text ❌ |
+| Loading state | `aria-busy="true"` trên container | Spinner không có accessible label ❌ |
+
+---
+
+### Content & Tone
+
+- **Concise, confident, implementation-focused** — không dùng từ mơ hồ như "nice", "good"
+- Labels phải descriptive: "Thêm dự án mới" thay vì "Thêm"
+- CTA phải nói rõ action: "Xem tất cả dự án" thay vì "Xem thêm"
+- Error messages phải actionable: "Email không hợp lệ — kiểm tra lại định dạng"
+
+---
+
+### Anti-Patterns (Cấm)
+
+| ❌ Cấm | ✅ Thay bằng |
+|---|---|
+| `outline: none` không replacement | `focus-visible:ring-2 focus-visible:ring-green-500` |
+| Low-contrast text (`< 4.5:1`) | Dùng token đã đảm bảo contrast |
+| Spacing one-off (vd: `mt-[17px]`) | Nearest Tailwind spacing token |
+| Label mơ hồ: "OK", "Submit" | "Lưu thay đổi", "Xác nhận xóa" |
+| Component không có `disabled` state | Định nghĩa đủ 7 states |
+| Animation không có `useReducedMotion` guard | Luôn wrap continuous/auto-play animation |
+
+---
+
+### QA Checklist (Leafix Reference)
+
+- [ ] Mọi component có đủ 7 states (default → error)
+- [ ] Contrast ratio ≥ 4.5:1 đã kiểm tra (dùng browser DevTools hoặc axe)
+- [ ] Focus indicator visible trên keyboard navigation
+- [ ] Touch targets ≥ 44×44px trên mobile
+- [ ] `prefers-reduced-motion` respected với `useReducedMotion()`
+- [ ] Labels descriptive, không ambiguous
+- [ ] Empty states và error states có UI fallback
+- [ ] Long text overflow handled (ellipsis hoặc clamp)
+- [ ] `aria-busy`, `aria-label`, `aria-describedby` đúng chỗ
+- [ ] Không có spacing/typography one-off exceptions
+
+---
+
+## 13. Component Checklist (khi tạo section mới)
 
 - [ ] Dark bg → dùng `#07130a` + 3 overlay layers (dot grid, green glow, gold glow)
 - [ ] Light bg → dùng `#f7faf7` (không phải `bg-gray-50`)
