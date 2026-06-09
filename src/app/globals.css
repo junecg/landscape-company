@@ -4,9 +4,9 @@
 :root {
   /* ─── Color tokens ─────────────────────────────── */
   --color-text-primary:    #141414;   /* headings, strong text */
-  --color-text-secondary:  #54595f;   /* body, descriptions */
+  --color-text-secondary:  #3d4348;   /* body, descriptions */
   --color-text-tertiary:   #ffffff;   /* text on dark bg */
-  --color-text-muted:      #888888;   /* placeholders, meta */
+  --color-text-muted:      #6b7280;   /* placeholders, meta */
 
   --color-brand:           #0f541e;   /* dark green — primary brand */
   --color-brand-dark:      #0a3a14;   /* hover on dark green */

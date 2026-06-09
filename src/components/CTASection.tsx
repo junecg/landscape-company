@@ -45,7 +45,7 @@ export default function CTASection() {
                 : <>Request a Free<br /><span style={{ color: 'var(--color-brand)' }}>Landscaping</span> Estimate</>
               }
             </h2>
-            <p className="text-base leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.65)', lineHeight: '26px' }}>
+            <p className="text-base leading-relaxed mb-10" style={{ color: 'rgba(255,255,255,0.82)', lineHeight: '26px' }}>
               {isVi
                 ? 'Hãy để Lapla biến không gian sống của bạn thành khu vườn đẹp như mơ. Liên hệ ngay để nhận tư vấn miễn phí từ chuyên gia của chúng tôi.'
                 : 'Let Lapla transform your living space into a dream garden. Contact us now for a free consultation from our landscape experts.'}
@@ -91,7 +91,7 @@ export default function CTASection() {
                     {item.icon}
                   </div>
                   <div>
-                    <p className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                    <p className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: 'rgba(255,255,255,0.6)' }}>
                       {item.label}
                     </p>
                     <p className="text-sm font-semibold" style={{ color: 'rgba(255,255,255,0.85)' }}>

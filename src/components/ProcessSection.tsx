@@ -139,7 +139,7 @@ export default function ProcessSection() {
             className="flex flex-col sm:flex-row items-center justify-between gap-4 px-8 py-5"
             style={{ backgroundColor: '#0e2208' }}
           >
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.65)' }}>
+            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.82)' }}>
               {isVi
                 ? '✦ Hơn 500 khách hàng tin tưởng chúng tôi trong 17 năm qua'
                 : '✦ Over 500 clients have trusted us over the past 17 years'}

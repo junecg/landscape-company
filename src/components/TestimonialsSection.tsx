@@ -117,7 +117,7 @@ export default function TestimonialsSection() {
 
               <div key={current} style={{ animation: 'fadeSlideUp 0.4s ease forwards' }}>
                 <p
-                  className="text-base md:text-lg leading-relaxed font-light italic mb-8"
+                  className="text-base md:text-lg leading-relaxed italic mb-8"
                   style={{ color: 'var(--color-text-secondary)', lineHeight: '30px' }}
                 >
                   &ldquo;{isVi ? t.quoteVi : t.quoteEn}&rdquo;
