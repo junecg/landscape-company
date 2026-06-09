@@ -50,7 +50,7 @@ function MemberModal({ member, onClose, isVi }: { member: Member; onClose: () =>
         {/* Body */}
         <div className="px-8 py-6">
           <p className="text-[10px] font-bold uppercase tracking-widest mb-2" style={{ color: 'var(--color-text-secondary)' }}>{isVi ? 'Giới thiệu' : 'About'}</p>
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{isVi ? member.description : member.descriptionEn}</p>
+          <p className="text-sm leading-relaxed" style={{ color: 'var(--color-text-secondary)' }}>{isVi ? member.descVi : member.descEn}</p>
         </div>
         <div className="px-8 py-4 flex items-center gap-2" style={{ borderTop: '1px solid rgba(0,0,0,0.06)', backgroundColor: '#fafafa' }}>
           <div className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--color-brand)' }} />
@@ -117,7 +117,7 @@ export default function MemberCompaniesSection() {
                   <h3 className="font-display text-2xl font-bold text-white leading-snug">{featured.name}</h3>
                 </div>
                 <div className="flex items-end justify-between mt-6">
-                  <p className="text-sm leading-relaxed max-w-[200px]" style={{ color: 'rgba(255,255,255,0.6)' }}>{isVi ? featured.description : featured.descriptionEn}</p>
+                  <p className="text-sm leading-relaxed max-w-[200px]" style={{ color: 'rgba(255,255,255,0.6)' }}>{isVi ? featured.descVi : featured.descEn}</p>
                   <div className="w-10 h-10 flex items-center justify-center shrink-0 ml-4 transition-colors" style={{ backgroundColor: 'rgba(255,255,255,0.15)', borderRadius: '50%' }}>
                     <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" /></svg>
                   </div>
@@ -147,7 +147,7 @@ export default function MemberCompaniesSection() {
                   <div>
                     <p className="text-[10px] font-semibold tracking-widest uppercase mb-1.5" style={{ color: 'rgba(15,84,30,0.5)' }}>{company.tagline}</p>
                     <h3 className="font-bold text-sm leading-snug mb-2 group-hover:text-[var(--color-brand)] transition-colors" style={{ color: 'var(--color-text-primary)' }}>{company.name}</h3>
-                    <p className="text-xs leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>{isVi ? company.description : company.descriptionEn}</p>
+                    <p className="text-xs leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>{isVi ? company.descVi : company.descEn}</p>
                   </div>
                 </button>
               </ScrollReveal>
