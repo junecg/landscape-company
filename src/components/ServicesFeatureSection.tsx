@@ -50,7 +50,8 @@ export default function ServicesFeatureSection() {
   const isVi = locale === 'vi';
 
   return (
-    <section className="leafix-section overflow-hidden" style={{ backgroundColor: '#fff' }}>
+    <section className="leafix-section overflow-hidden relative" style={{ backgroundColor: '#fff' }}>
+      <div className="absolute inset-0 pointer-events-none select-none" style={{ backgroundImage: 'url(/images/shapes/service-bg-shape.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center', backgroundSize: 'cover', opacity: 0.3 }} />
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 

@@ -40,7 +40,7 @@ function PartnerModal({ partner, onClose, isVi }: { partner: Partner; onClose: (
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
           <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-[var(--color-brand)] bg-[var(--color-brand)]/20 px-3 py-1 rounded-full border border-[var(--color-brand)]/30 mb-3">
-            {isVi ? partner.sector : partner.sectorEn}
+            {isVi ? partner.sectorVi : partner.sectorEn}
           </span>
           <h3 className="text-2xl font-bold text-white mt-1">{partner.name}</h3>
           <p className="text-white/40 text-xs mt-1">
@@ -124,7 +124,7 @@ function MarqueeRow({
               {partner.name}
             </span>
             <span className="text-gray-300 text-[10px] tracking-widest uppercase group-hover:text-white/60 transition-colors whitespace-nowrap">
-              {partner.sector}
+              {partner.sectorVi}
             </span>
           </button>
         ))}

@@ -124,10 +124,10 @@ export default function TimelineSection() {
                     </div>
 
                     <h3 className="font-bold text-[var(--color-text-primary)] text-lg md:text-xl leading-snug mb-2 group-hover:text-[var(--color-brand)] transition-colors">
-                      {isVi ? item.title : item.titleEn}
+                      {isVi ? item.titleVi : item.titleEn}
                     </h3>
                     <p className="text-gray-400 text-sm leading-relaxed">
-                      {isVi ? item.description : item.descriptionEn}
+                      {isVi ? item.descVi : item.descEn}
                     </p>
                   </motion.div>
 

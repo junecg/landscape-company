@@ -69,6 +69,7 @@ export default function OurServicesSection() {
 
   return (
     <section className="leafix-section relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface-alt)' }}>
+      <div className="absolute inset-0 pointer-events-none select-none" style={{ backgroundImage: 'url(/images/shapes/service-bg-shape.png)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center', backgroundSize: 'cover', opacity: 0.35 }} />
       {/* Decorative background text */}
       <div
         className="absolute top-0 right-0 font-display font-bold select-none pointer-events-none leading-none"

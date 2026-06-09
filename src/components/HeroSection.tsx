@@ -278,20 +278,30 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Wave shape */}
+      {/* Floating hero-shape-1 — bottom center, oscillates left-right */}
       <div
         style={{
-          position: 'absolute', bottom: 0, left: 0, right: 0,
-          zIndex: 5,
-          animation: 'float-bob-x 3s linear infinite',
-          lineHeight: 0,
+          position: 'absolute',
+          bottom: '-20px',
+          left: '0',
+          right: '0',
+          height: '220px',
+          zIndex: 4,
+          animation: 'float-bob-x 4s ease-in-out infinite',
+          pointerEvents: 'none',
+          opacity: 0.45,
         }}
       >
-        <svg viewBox="0 0 1920 173" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style={{ width: '110%', height: '90px', display: 'block', marginLeft: '-5%' }}>
-          <path d="M0,80 C160,20 320,140 480,100 C640,60 800,120 960,60 C1120,0 1280,100 1440,80 C1560,65 1700,120 1920,80 L1920,173 L0,173 Z" fill="rgba(255,255,255,0.18)" />
-          <path d="M0,120 C200,70 400,150 600,110 C800,70 1000,145 1200,100 C1400,55 1650,135 1920,100 L1920,173 L0,173 Z" fill="rgba(255,255,255,0.10)" />
-        </svg>
+        <Image
+          src="/images/shapes/hero-shape-1.png"
+          alt=""
+          fill
+          className="object-contain object-bottom"
+          sizes="100vw"
+          priority
+        />
       </div>
+
 
       <style>{`
         @keyframes heroReveal {
@@ -303,9 +313,9 @@ export default function HeroSection() {
           animation: heroReveal 0.85s cubic-bezier(0.22, 1, 0.36, 1) forwards;
         }
         @keyframes float-bob-x {
-          0%   { transform: translateX(30px); }
-          50%  { transform: translateX(10px); }
-          100% { transform: translateX(30px); }
+          0%   { transform: translateX(0px); }
+          50%  { transform: translateX(-28px); }
+          100% { transform: translateX(0px); }
         }
       `}</style>
     </section>

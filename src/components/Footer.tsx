@@ -92,9 +92,6 @@ export default function Footer() {
             <svg className="w-4 h-4 shrink-0" style={{ color: 'var(--color-brand)' }} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span style={{ color: 'var(--color-brand)' }}>
-              {isVi ? 'T2–T7: 8:00–18:00' : 'Mon–Sat: 8:00 AM – 6:00 PM'}
-            </span>
           </div>
 
           <div className="flex gap-2">
