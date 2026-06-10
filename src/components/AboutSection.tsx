@@ -23,7 +23,7 @@ export default function AboutSection() {
 
   return (
     <section className="leafix-section overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      <div className="max-w-[1100px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* ── LEFT: image collage ── */}

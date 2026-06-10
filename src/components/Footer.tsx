@@ -75,7 +75,7 @@ export default function Footer() {
       <div className="relative z-10">
         {/* Top bar: logo + hours + socials */}
         <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center gap-4 justify-between"
+          className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 py-6 flex flex-col sm:flex-row items-center gap-4 justify-between"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.15)' }}
         >
           <Link href={`/${locale}`}>
@@ -112,7 +112,7 @@ export default function Footer() {
         </div>
 
         {/* Main 4-column grid */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 py-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Col 1: CTA + phone + email */}
           <div>
@@ -264,7 +264,7 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div
-          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
+          className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
           style={{ borderTop: '1px solid rgba(255,255,255,0.15)', color: 'rgba(255,255,255,0.65)' }}
         >
           <p>© {new Date().getFullYear()} Lapla Landscape. {isVi ? 'Bảo lưu mọi quyền.' : 'All rights reserved.'}</p>

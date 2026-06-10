@@ -91,7 +91,6 @@ export default function Navbar() {
                 width={140}
                 height={48}
                 className="h-12 w-auto object-contain"
-                style={{ filter: 'brightness(0) invert(1)' }}
                 priority
               />
             </Link>
@@ -270,14 +269,6 @@ export default function Navbar() {
                   </Link>
                 ))}
               </div>
-              <Link
-                href={`/${locale}#contact`}
-                onClick={() => setMobileOpen(false)}
-                className="block w-full text-center py-3.5 text-xs font-black uppercase tracking-widest transition-opacity hover:opacity-90"
-                style={{ backgroundColor: "var(--color-accent)", color: "var(--color-text-primary)", borderRadius: "10px" }}
-              >
-                {locale === "vi" ? "Yêu cầu báo giá" : "Request A Quote"}
-              </Link>
             </div>
           </div>
         </>

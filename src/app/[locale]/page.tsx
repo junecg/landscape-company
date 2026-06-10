@@ -9,6 +9,7 @@ import CTASection from '@/components/CTASection';
 import MemberCompaniesSection from '@/components/MemberCompaniesSection';
 import PartnersSection from '@/components/PartnersSection';
 import Footer from '@/components/Footer';
+import ServicesFeatureSection from '@/components/ServicesFeatureSection';
 
 export default async function HomePage({
   params,
@@ -23,9 +24,8 @@ export default async function HomePage({
       <HeroSection />
       <ProjectsSection />
       <AboutSection />
-      <OurServicesSection />
+      <ServicesFeatureSection/>
       <BenefitsSection />
-      <CTASection />
       <MemberCompaniesSection />
       <PartnersSection />
       <Footer />

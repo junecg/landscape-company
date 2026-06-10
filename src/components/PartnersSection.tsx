@@ -158,7 +158,7 @@ export default function PartnersSection() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(50,132,66,0.06)_0%,transparent_70%)] pointer-events-none" />
 
         {/* Header */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 md:mb-16">
+        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 mb-12 md:mb-16">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
