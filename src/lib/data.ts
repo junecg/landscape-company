@@ -775,7 +775,7 @@ export const partners = [
 export const memberCompanies = [
   {
     abbr: 'LAPLA',
-    name: 'Công ty CP Cảnh Quan LA-PLA',
+    name: 'Công ty CP Cảnh Quan LAPLA',
     tagline: 'Core · Landscape & Golf',
     description: 'Đơn vị cốt lõi của hệ sinh thái, chuyên thiết kế và thi công cảnh quan toàn diện, sân golf quốc tế, resort và khu đô thị tại Việt Nam.',
     descriptionEn: 'The core entity of the ecosystem, specialising in comprehensive landscape design and construction, international golf courses, resorts, and urban developments across Vietnam.',
