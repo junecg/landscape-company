@@ -83,8 +83,8 @@ export default function ServicesFeatureSection() {
                 <p className="text-[10px] font-bold uppercase tracking-widest" style={{ color: 'rgba(199,220,73,0.8)' }}>
                   {isVi ? 'Cần hỗ trợ?' : 'Need Any Help?'}
                 </p>
-                <a href="tel:+84901234567" className="font-bold" style={{ color: '#ffffff', fontSize: '1.1rem', letterSpacing: '0.02em' }}>
-                  (+84) 90 123 4567
+                <a href="tel:+842363695166" className="font-bold" style={{ color: '#ffffff', fontSize: '1.1rem', letterSpacing: '0.02em' }}>
+                  0236 3695 166
                 </a>
               </div>
             </div>

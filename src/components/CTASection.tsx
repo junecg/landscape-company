@@ -109,7 +109,7 @@ export default function CTASection() {
                       </svg>
                     ),
                     label: isVi ? 'Điện thoại' : 'Call Us',
-                    value: '(+84) 90 123 4567',
+                    value: '0236 3695 166',
                   },
                   {
                     icon: (
@@ -118,7 +118,7 @@ export default function CTASection() {
                       </svg>
                     ),
                     label: isVi ? 'Email' : 'Email Us',
-                    value: 'info@lapla.vn',
+                    value: 'info@lapla.com.vn',
                   },
                   {
                     icon: (
@@ -128,7 +128,9 @@ export default function CTASection() {
                       </svg>
                     ),
                     label: isVi ? 'Địa chỉ' : 'Our Office',
-                    value: isVi ? 'TP. Hồ Chí Minh, Việt Nam' : 'Ho Chi Minh City, Vietnam',
+                    value: isVi
+                      ? '44 Hóa Mỹ, P. Khuê Trung, Q. Cẩm Lệ, TP. Đà Nẵng'
+                      : '44 Hoa My, Khue Trung Ward, Cam Le District, Da Nang City',
                   },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4">

@@ -383,7 +383,6 @@ export default function AboutPageContent() {
                 {isVi ? (
                   <>
                     Thiết kế không gian ngoài trời
-                    <br />
                     truyền cảm hứng
                   </>
                 ) : (
@@ -522,11 +521,11 @@ export default function AboutPageContent() {
                       {isVi ? "Gọi bất cứ lúc nào" : "Call Us Any Time"}
                     </p>
                     <a
-                      href="tel:+84901234567"
+                      href="tel:+842363695166"
                       className="text-sm font-bold"
                       style={{ color: "var(--color-text-primary)" }}
                     >
-                      (+84) 90 123 4567
+                      0236 3695 166
                     </a>
                   </div>
                 </div>

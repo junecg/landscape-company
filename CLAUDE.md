@@ -301,13 +301,14 @@ src/
 └── messages/                  # vi.json, en.json
 ```
 
-## Design System
+## Design System (Leafix style)
 
-- **Primary:** `#328442` (green-500), hover `#48a85a`
-- **Secondary:** `#BE7B2B` (gold)
-- **Dark bg:** `#07130a` (header, hero, footer)
-- **Light bg:** `#f7faf7` (page background, NOT gray-50)
-- **Fonts:** Geist (sans) + Playfair Display (serif)
+- **Brand:** `#0F541E` (dark green), hover `#0A3A14`
+- **Accent:** `#C7DC49` (lime CTA), hover `#B0C83A`
+- **Dark bg:** `#0A1606` (hero overlay, footer, dark CTA)
+- **Light bg:** `#FFFFFF` + section xen kẽ `#F8F7F3` / `#F7F8ED` / `#F5F2EB`
+- **Fonts:** Bricolage Grotesque (headings) + Public Sans (body), fallback Be Vietnam Pro
+- Tokens định nghĩa tại `src/app/globals.css` (`:root`) — luôn dùng CSS var
 - See `DESIGN_SYSTEM.md` for full details
 
 ## Data in `src/lib/data.ts`

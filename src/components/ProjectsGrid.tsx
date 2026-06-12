@@ -71,10 +71,10 @@ export default function ProjectsGrid() {
                 <motion.div key={project.id} layout initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, delay: i * 0.05 }}>
                   <Link href={`/${locale}/projects/${project.slug}`} className="group block relative overflow-hidden" style={{ aspectRatio: '4/3', borderRadius: '20px' }}>
                     <Image src={project.image} alt={isVi ? project.title : project.titleEn} fill className="object-cover transition-transform duration-700 group-hover:scale-[1.06]" sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" />
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6" style={{ background: 'linear-gradient(to top, rgba(10,22,6,0.88) 0%, rgba(10,22,6,0.3) 60%, transparent 100%)' }}>
-                      <p className="text-xs font-bold uppercase tracking-widest mb-1.5" style={{ color: 'var(--color-accent)' }}>{project.category}</p>
+                    <div className="absolute inset-0 flex flex-col justify-end p-6" style={{ background: 'linear-gradient(to top, rgba(10,22,6,0.85) 0%, rgba(10,22,6,0.25) 55%, transparent 100%)' }}>
+                      <p className="text-xs font-bold uppercase tracking-widest mb-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ color: 'var(--color-accent)' }}>{project.category}</p>
                       <h3 className="text-white font-display font-bold text-base leading-snug">{isVi ? project.title : project.titleEn}</h3>
-                      <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{project.location} · {project.year}</p>
+                      <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.65)' }}>{project.location} · {project.year}</p>
                     </div>
                     <div className="absolute top-4 right-4 w-9 h-9 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-200 scale-75 group-hover:scale-100" style={{ backgroundColor: 'var(--color-accent)', borderRadius: '50%' }}>
                       <svg className="w-4 h-4" fill="none" stroke="var(--color-text-primary)" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" /></svg>

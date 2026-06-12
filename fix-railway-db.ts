@@ -6,13 +6,19 @@ const connectionString = process.env.DATABASE_URL!
 const pool = new pg.Pool({ connectionString })
 
 async function main() {
-  // 1. Mark failed migration as applied
-  await pool.query(`
-    UPDATE _prisma_migrations
-    SET finished_at = NOW(), rolled_back_at = NULL, logs = NULL
-    WHERE migration_name = '20260408_rename_project_table'
-  `)
-  console.log('✅ Fixed failed migration')
+  // 1. Mark any failed migrations as applied
+  const failedMigrations = [
+    '20260408_rename_project_table',
+    '20260527000001_add_sketch_logo_newstype',
+  ]
+  for (const name of failedMigrations) {
+    await pool.query(`
+      UPDATE _prisma_migrations
+      SET finished_at = NOW(), rolled_back_at = NULL, logs = NULL
+      WHERE migration_name = $1
+    `, [name])
+  }
+  console.log('✅ Fixed failed migrations')
 
   // 2. Create hero_slide table if not exists
   await pool.query(`

@@ -96,60 +96,60 @@ const ProjectPage = forwardRef<HTMLDivElement, ProjectPageProps>(
     const desc = ((isVi ? p.description : p.descriptionEn) || '');
     return (
       <div ref={ref}
-        style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', backgroundColor: '#0c1e0f' }}>
+        style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden', backgroundColor: '#ffffff' }}>
 
         {/* TOP: hero image — 62% height */}
         <div style={{ height: '62%', flexShrink: 0, position: 'relative', overflow: 'hidden' }}>
           <Img src={p.image} alt={isVi ? p.title : p.titleEn} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top,rgba(7,19,10,0.75) 0%,transparent 55%)' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom,rgba(10,22,6,0.45) 0%,transparent 30%)' }} />
 
           {/* Page number + category */}
           <div style={{ position: 'absolute', top: 12, left: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
             <span style={{ fontFamily: 'monospace', fontSize: 9, color: '#c7dc49' }}>
               {String(idx).padStart(2, '0')}
             </span>
-            <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.4)', letterSpacing: '0.12em' }}>·</span>
-            <span style={{ fontSize: 8, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.55)' }}>
+            <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.12em' }}>·</span>
+            <span style={{ fontSize: 8, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)' }}>
               {p.category}
             </span>
           </div>
         </div>
 
         {/* BOTTOM: thumbnail + info — 38% height */}
-        <div style={{ flex: 1, display: 'flex', overflow: 'hidden', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ flex: 1, display: 'flex', overflow: 'hidden', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
 
           {/* Left: second image */}
-          <div style={{ width: '42%', flexShrink: 0, position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
-            <Img src={secondImg} style={{ opacity: 0.85 }} />
+          <div style={{ width: '42%', flexShrink: 0, position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(0,0,0,0.08)' }}>
+            <Img src={secondImg} />
           </div>
 
           {/* Right: text info */}
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px 14px' }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: '12px 14px', backgroundColor: '#ffffff' }}>
             {/* Top: category tag */}
-            <span style={{ display: 'inline-block', fontSize: 8, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#c7dc49', border: '1px solid rgba(199,220,73,0.3)', padding: '2px 7px', alignSelf: 'flex-start' }}>
+            <span style={{ display: 'inline-block', fontSize: 8, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#0f541e', border: '1px solid rgba(15,84,30,0.25)', backgroundColor: '#f7f8ed', padding: '2px 7px', alignSelf: 'flex-start', borderRadius: 4 }}>
               {p.category}
             </span>
 
             {/* Middle: title + desc */}
             <div>
-              <h3 style={{ fontFamily: 'var(--font-display),serif', fontWeight: 700, color: '#fff', fontSize: '0.85rem', lineHeight: 1.3, margin: '0 0 5px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              <h3 style={{ fontFamily: 'var(--font-display),serif', fontWeight: 700, color: '#141414', fontSize: '0.85rem', lineHeight: 1.3, margin: '0 0 5px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                 {isVi ? p.title : p.titleEn}
               </h3>
-              <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.4)', lineHeight: 1.55, margin: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+              <p style={{ fontSize: 9, color: '#6b7280', lineHeight: 1.55, margin: 0, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                 {desc}
               </p>
             </div>
 
             {/* Bottom: location / year / client */}
-            <div style={{ borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 8 }}>
+            <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: 8 }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 3 }}>
-                <span style={{ fontSize: 8, color: 'rgba(255,255,255,0.25)' }}>↗</span>
-                <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.45)' }}>{p.location}</span>
+                <span style={{ fontSize: 8, color: '#9ca3af' }}>↗</span>
+                <span style={{ fontSize: 9, color: '#3d4348' }}>{p.location}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)' }}>{p.year}</span>
+                <span style={{ fontSize: 9, color: '#9ca3af' }}>{p.year}</span>
                 <a href={`/${locale}/projects/${p.slug}`}
-                  style={{ fontSize: 8, fontWeight: 700, color: '#c7dc49', textDecoration: 'none', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
+                  style={{ fontSize: 8, fontWeight: 800, color: '#0f541e', textDecoration: 'none', letterSpacing: '0.14em', textTransform: 'uppercase' }}>
                   {isVi ? 'Xem →' : 'View →'}
                 </a>
               </div>
@@ -195,8 +195,9 @@ BackCoverPage.displayName = 'BackCoverPage';
 
 /* ─────────────────────── Main viewer ─────────────────────────────────────── */
 const ZOOM_MIN = 0.5;
-const ZOOM_MAX = 1.3;
+const ZOOM_MAX = 2;
 const ZOOM_STEP = 0.1;
+const CONTROLS_SPACE = 150; // vertical space reserved for controls + hint + gaps
 
 export default function CatalogViewer({ locale }: Props) {
   const isVi = locale === 'vi';
@@ -230,11 +231,32 @@ export default function CatalogViewer({ locale }: Props) {
       .catch(() => setLoading(false));
   }, []);
 
+  // Fit book to available space — recalculated on mount, resize & fullscreen toggle
+  const fitZoom = useCallback(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const w = el.clientWidth;
+    const h = el.clientHeight;
+    if (!w || !h) return;
+    const z = Math.min((w - 100) / (PAGE_W * 2), (h - CONTROLS_SPACE) / PAGE_H);
+    setZoom(Math.max(ZOOM_MIN, Math.min(+z.toFixed(2), ZOOM_MAX)));
+  }, []);
+
   useEffect(() => {
-    const onChange = () => setIsFullscreen(!!document.fullscreenElement);
+    fitZoom();
+    window.addEventListener('resize', fitZoom);
+    return () => window.removeEventListener('resize', fitZoom);
+  }, [fitZoom, loading]);
+
+  useEffect(() => {
+    const onChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+      // wait for fullscreen layout to settle, then refit
+      setTimeout(fitZoom, 80);
+    };
     document.addEventListener('fullscreenchange', onChange);
     return () => document.removeEventListener('fullscreenchange', onChange);
-  }, []);
+  }, [fitZoom]);
 
   const handleFlip = useCallback((e: { data: number }) => {
     setCurrentPage(e.data);
@@ -257,8 +279,8 @@ export default function CatalogViewer({ locale }: Props) {
   const zoomOut = () => setZoom(z => Math.max(+(z - ZOOM_STEP).toFixed(1), ZOOM_MIN));
 
   const toggleFullscreen = () => {
-    if (!document.fullscreenElement) containerRef.current?.requestFullscreen();
-    else document.exitFullscreen();
+    if (!document.fullscreenElement) containerRef.current?.requestFullscreen().catch(() => {});
+    else document.exitFullscreen().catch(() => {});
   };
 
   const TOTAL_PAGES = projects.length + 2;
@@ -266,9 +288,9 @@ export default function CatalogViewer({ locale }: Props) {
   const activeSpread = Math.floor(currentPage / 2);
 
   if (loading) return (
-    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14, backgroundColor: '#07130a' }}>
-      <div style={{ width: 28, height: 28, border: '2px solid #328442', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
-      <p style={{ fontSize: 10, letterSpacing: '0.3em', color: '#4a4a4a', textTransform: 'uppercase', margin: 0 }}>Loading catalog…</p>
+    <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14, backgroundColor: '#f5f2eb' }}>
+      <div style={{ width: 28, height: 28, border: '2px solid #0f541e', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+      <p style={{ fontSize: 10, letterSpacing: '0.3em', color: '#9ca3af', textTransform: 'uppercase', margin: 0 }}>Loading catalog…</p>
       <style>{`@keyframes spin { to { transform: rotate(360deg) } }`}</style>
     </div>
   );
@@ -279,7 +301,7 @@ export default function CatalogViewer({ locale }: Props) {
       .catalog-root * { scrollbar-width: none; -ms-overflow-style: none; }
       .catalog-root *::-webkit-scrollbar { display: none; }
     `}</style>
-    <div ref={containerRef} className="catalog-root" style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#07130a' }}>
+    <div ref={containerRef} className="catalog-root" style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#f5f2eb' }}>
 
       {/* Toolbar */}
       <div style={{ position: 'absolute', top: 10, right: 14, zIndex: 20, display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -287,28 +309,28 @@ export default function CatalogViewer({ locale }: Props) {
           { icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><circle cx="11" cy="11" r="8"/><path strokeLinecap="round" d="m21 21-4.35-4.35M8 11h6"/></svg>, action: zoomOut, disabled: zoom <= ZOOM_MIN, label: 'Thu nhỏ' },
         ].map(({ icon, action, disabled, label }) => (
           <button key={label} onClick={action} disabled={disabled} aria-label={label}
-            style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: disabled ? 'not-allowed' : 'pointer', color: disabled ? '#333' : '#666', transition: 'color 0.15s' }}
-            onMouseEnter={e => !disabled && ((e.currentTarget as HTMLElement).style.color = '#fff')}
-            onMouseLeave={e => !disabled && ((e.currentTarget as HTMLElement).style.color = '#666')}
+            style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: disabled ? 'not-allowed' : 'pointer', color: disabled ? '#cbd5d1' : '#6b7280', transition: 'color 0.15s' }}
+            onMouseEnter={e => !disabled && ((e.currentTarget as HTMLElement).style.color = '#141414')}
+            onMouseLeave={e => !disabled && ((e.currentTarget as HTMLElement).style.color = '#6b7280')}
           >{icon}</button>
         ))}
-        <button onClick={() => setZoom(0.82)}
-          style={{ minWidth: 38, height: 30, background: 'none', border: 'none', cursor: 'pointer', color: '#555', fontSize: 11, fontVariantNumeric: 'tabular-nums', transition: 'color 0.15s' }}
-          onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#fff')}
-          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#555')}
+        <button onClick={fitZoom}
+          style={{ minWidth: 38, height: 30, background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', fontSize: 11, fontVariantNumeric: 'tabular-nums', transition: 'color 0.15s' }}
+          onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#141414')}
+          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#6b7280')}
         >{Math.round(zoom * 100)}%</button>
         <button onClick={zoomIn} disabled={zoom >= ZOOM_MAX} aria-label="Phóng to"
-          style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: zoom >= ZOOM_MAX ? 'not-allowed' : 'pointer', color: zoom >= ZOOM_MAX ? '#333' : '#666', transition: 'color 0.15s' }}
-          onMouseEnter={e => zoom < ZOOM_MAX && ((e.currentTarget as HTMLElement).style.color = '#fff')}
-          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#666')}
+          style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: zoom >= ZOOM_MAX ? 'not-allowed' : 'pointer', color: zoom >= ZOOM_MAX ? '#cbd5d1' : '#6b7280', transition: 'color 0.15s' }}
+          onMouseEnter={e => zoom < ZOOM_MAX && ((e.currentTarget as HTMLElement).style.color = '#141414')}
+          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#6b7280')}
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><circle cx="11" cy="11" r="8"/><path strokeLinecap="round" d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
         </button>
-        <div style={{ width: 1, height: 14, backgroundColor: 'rgba(255,255,255,0.1)', margin: '0 4px' }} />
+        <div style={{ width: 1, height: 14, backgroundColor: 'rgba(0,0,0,0.12)', margin: '0 4px' }} />
         <button onClick={toggleFullscreen} aria-label={isFullscreen ? 'Thoát' : 'Toàn màn hình'}
-          style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: '#666', transition: 'color 0.15s' }}
-          onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#fff')}
-          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#666')}
+          style={{ width: 30, height: 30, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', transition: 'color 0.15s' }}
+          onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = '#141414')}
+          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = '#6b7280')}
         >
           {isFullscreen
             ? <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="15" height="15"><path strokeLinecap="round" strokeLinejoin="round" d="M9 9 4 4m0 0h5m-5 0v5M15 9l5-5m0 0h-5m5 0v5M9 15l-5 5m0 0h5m-5 0v-5M15 15l5 5m0 0h-5m5 0v-5"/></svg>
@@ -320,7 +342,8 @@ export default function CatalogViewer({ locale }: Props) {
       {/* ── Desktop flipbook ───────────────────────────── */}
       {mounted && (
         <div className="hidden md:flex flex-col flex-1 items-center justify-center gap-5">
-          <div style={{ transform: `scale(${zoom})`, transformOrigin: 'center center', transition: 'transform 0.2s ease', filter: 'drop-shadow(0 24px 60px rgba(0,0,0,0.75))' }}>
+          <div style={{ width: PAGE_W * 2 * zoom, height: PAGE_H * zoom, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'width 0.2s ease, height 0.2s ease' }}>
+          <div style={{ transform: `scale(${zoom})`, transformOrigin: 'center center', transition: 'transform 0.2s ease', filter: 'drop-shadow(0 18px 44px rgba(10,22,6,0.28))', flexShrink: 0 }}>
             {/* @ts-ignore – react-pageflip types */}
             <HTMLFlipBook
               ref={bookRef}
@@ -331,10 +354,10 @@ export default function CatalogViewer({ locale }: Props) {
               minHeight={PAGE_H} maxHeight={PAGE_H}
               showCover drawShadow
               usePortrait={false}
-              flippingTime={750}
+              flippingTime={500}
               autoSize={false}
               startPage={0} startZIndex={10}
-              maxShadowOpacity={0.6}
+              maxShadowOpacity={0.25}
               useMouseEvents swipeDistance={30}
               clickEventForward
               mobileScrollSupport={false}
@@ -349,29 +372,30 @@ export default function CatalogViewer({ locale }: Props) {
               <BackCoverPage isVi={isVi} locale={locale} />
             </HTMLFlipBook>
           </div>
+          </div>
 
           {/* Controls */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
             <button onClick={goPrev} aria-label="Trang trước"
-              style={{ width: 36, height: 36, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'none', cursor: 'pointer', color: '#666', fontSize: 18, lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#c7dc49'; (e.currentTarget as HTMLElement).style.color = '#c7dc49'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = '#666'; }}
+              style={{ width: 36, height: 36, borderRadius: '50%', border: '1px solid rgba(0,0,0,0.15)', background: '#ffffff', cursor: 'pointer', color: '#6b7280', fontSize: 18, lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#0f541e'; (e.currentTarget as HTMLElement).style.color = '#0f541e'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,0,0,0.15)'; (e.currentTarget as HTMLElement).style.color = '#6b7280'; }}
             >‹</button>
 
             <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
               {Array.from({ length: TOTAL_SPREADS }).map((_, i) => (
-                <span key={i} style={{ display: 'block', height: 4, borderRadius: 2, transition: 'all 0.3s', width: i === activeSpread ? 18 : 5, backgroundColor: i === activeSpread ? '#c7dc49' : 'rgba(255,255,255,0.1)' }} />
+                <span key={i} style={{ display: 'block', height: 4, borderRadius: 2, transition: 'all 0.3s', width: i === activeSpread ? 18 : 5, backgroundColor: i === activeSpread ? '#0f541e' : 'rgba(0,0,0,0.12)' }} />
               ))}
             </div>
 
             <button onClick={goNext} aria-label="Trang sau"
-              style={{ width: 36, height: 36, borderRadius: '50%', border: '1px solid rgba(255,255,255,0.12)', background: 'none', cursor: 'pointer', color: '#666', fontSize: 18, lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#c7dc49'; (e.currentTarget as HTMLElement).style.color = '#c7dc49'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.12)'; (e.currentTarget as HTMLElement).style.color = '#666'; }}
+              style={{ width: 36, height: 36, borderRadius: '50%', border: '1px solid rgba(0,0,0,0.15)', background: '#ffffff', cursor: 'pointer', color: '#6b7280', fontSize: 18, lineHeight: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'all 0.15s' }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = '#0f541e'; (e.currentTarget as HTMLElement).style.color = '#0f541e'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'rgba(0,0,0,0.15)'; (e.currentTarget as HTMLElement).style.color = '#6b7280'; }}
             >›</button>
           </div>
 
-          <p style={{ color: 'rgba(255,255,255,0.18)', fontSize: 10, letterSpacing: '0.15em', margin: 0 }}>
+          <p style={{ color: 'rgba(10,22,6,0.4)', fontSize: 10, letterSpacing: '0.15em', margin: 0 }}>
             {isVi ? 'Kéo góc trang hoặc nhấn ← → để lật' : 'Drag page corner or press ← → to flip'}
           </p>
         </div>
@@ -379,7 +403,7 @@ export default function CatalogViewer({ locale }: Props) {
 
       {/* ── Mobile scroll-snap ─────────────────────────── */}
       <div className="flex flex-col flex-1 justify-center md:hidden">
-        <p style={{ textAlign: 'center', fontSize: 9, letterSpacing: '0.25em', color: 'rgba(255,255,255,0.2)', textTransform: 'uppercase', marginBottom: 12 }}>
+        <p style={{ textAlign: 'center', fontSize: 9, letterSpacing: '0.25em', color: 'rgba(10,22,6,0.45)', textTransform: 'uppercase', marginBottom: 12 }}>
           {isVi ? 'Vuốt để xem dự án' : 'Swipe to browse'}
         </p>
         <div style={{ display: 'flex', gap: 12, overflowX: 'auto', padding: '0 24px 16px', scrollSnapType: 'x mandatory', scrollbarWidth: 'none' }}>

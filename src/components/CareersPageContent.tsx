@@ -127,9 +127,8 @@ export default function CareersPageContent() {
       </section>
 
       {/* ══════════════════════════════════ POSITIONS ══ */}
-      <section ref={positionsRef} className="py-16 md:py-24 bg-[#07130a] relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle, #4ade80 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-green-500/10 rounded-full blur-[120px] pointer-events-none" />
+      <section ref={positionsRef} className="py-16 md:py-24 relative overflow-hidden" style={{ backgroundColor: 'var(--color-surface-dark)' }}>
+        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: 'radial-gradient(circle, #c7dc49 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
@@ -137,74 +136,112 @@ export default function CareersPageContent() {
             transition={{ duration: 0.7 }}
             className="text-center mb-12 md:mb-16"
           >
-            <p className="text-green-400 text-xs font-semibold tracking-widest uppercase mb-3">
+            <p className="text-xs font-bold tracking-widest uppercase mb-3" style={{ color: 'var(--color-accent)' }}>
               {t('positionsEyebrow')}
             </p>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">{t('positionsTitle')}</h2>
-            <p className="text-green-200/60 text-base md:text-lg max-w-xl mx-auto">{t('positionsSubtitle')}</p>
+            <p className="text-base md:text-lg max-w-xl mx-auto" style={{ color: 'rgba(255,255,255,0.6)' }}>{t('positionsSubtitle')}</p>
           </motion.div>
 
-          <div className="flex flex-col gap-3">
-            {POSITIONS.map((pos, i) => (
-              <motion.div
-                key={pos.titleEn}
-                initial={{ opacity: 0, x: -20 }}
-                animate={positionsInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="bg-green-900/50 border border-green-800/60 hover:border-green-600 rounded-xl overflow-hidden transition-colors"
-              >
-                {/* Header row */}
-                <div className="w-full flex items-center justify-between px-6 py-5 gap-4">
-                  <button
-                    onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                    className="flex items-center gap-4 text-left flex-1 min-w-0 group"
-                  >
-                    <div className="w-2 h-2 rounded-full bg-green-500 shrink-0" />
-                    <div className="min-w-0">
-                      <p className="text-white font-semibold text-base leading-snug">
-                        {isVi ? pos.titleVi : pos.titleEn}
-                      </p>
-                      <p className="text-green-300/60 text-xs mt-0.5">
-                        {isVi ? pos.typeVi : pos.typeEn} · {isVi ? pos.locationVi : pos.locationEn}
-                      </p>
-                    </div>
-                    <svg
-                      className={`w-4 h-4 text-green-400 shrink-0 transition-transform duration-300 ${openIndex === i ? 'rotate-180' : ''}`}
-                      fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"
+          <div className="flex flex-col gap-4">
+            {POSITIONS.map((pos, i) => {
+              const open = openIndex === i;
+              return (
+                <motion.div
+                  key={pos.titleEn}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={positionsInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: i * 0.08 }}
+                  className="overflow-hidden transition-colors duration-300"
+                  style={{
+                    backgroundColor: open ? 'rgba(255,255,255,0.06)' : 'rgba(255,255,255,0.03)',
+                    border: `1px solid ${open ? 'var(--color-accent)' : 'var(--color-border-dark)'}`,
+                    borderRadius: '16px',
+                  }}
+                >
+                  {/* Header row */}
+                  <div className="w-full flex items-center justify-between pl-5 pr-4 sm:pl-7 sm:pr-5 py-5 gap-3 sm:gap-5">
+                    <button
+                      onClick={() => setOpenIndex(open ? null : i)}
+                      aria-expanded={open}
+                      className="flex items-center gap-4 sm:gap-6 text-left flex-1 min-w-0 group"
                     >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <a
-                    href={GOOGLE_FORM}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 bg-green-600 hover:bg-green-500 text-white text-xs font-semibold rounded-full transition-colors"
-                  >
-                    {isVi ? 'Ứng tuyển' : 'Apply'} →
-                  </a>
-                </div>
-
-                {/* Expandable description */}
-                <AnimatePresence initial={false}>
-                  {openIndex === i && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      className="overflow-hidden"
-                    >
-                      <div className="px-6 pb-5 border-t border-green-800/40">
-                        <p className="text-green-100/80 text-sm leading-relaxed mt-4 mb-4">
-                          {isVi ? pos.descVi : pos.descEn}
+                      {/* Index number */}
+                      <span
+                        className="font-display font-bold text-xl sm:text-2xl shrink-0 transition-colors duration-300"
+                        style={{ color: open ? 'var(--color-accent)' : 'rgba(255,255,255,0.25)' }}
+                      >
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <div className="min-w-0">
+                        <p className="font-display text-white font-bold text-base sm:text-lg leading-snug group-hover:text-[var(--color-accent)] transition-colors duration-200">
+                          {isVi ? pos.titleVi : pos.titleEn}
+                        </p>
+                        <p className="text-xs sm:text-sm mt-1" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                          {isVi ? pos.typeVi : pos.typeEn} · {isVi ? pos.locationVi : pos.locationEn}
                         </p>
                       </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-            ))}
+                      {/* Chevron */}
+                      <span
+                        className={`ml-auto w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${open ? 'rotate-180' : ''}`}
+                        style={{
+                          borderColor: open ? 'var(--color-accent)' : 'rgba(255,255,255,0.25)',
+                          color: open ? 'var(--color-accent)' : 'rgba(255,255,255,0.7)',
+                        }}
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </span>
+                    </button>
+                    <a
+                      href={GOOGLE_FORM}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hidden sm:inline-flex shrink-0 items-center gap-2 px-5 py-2.5 text-xs font-black uppercase tracking-widest transition-all duration-200 hover:opacity-90"
+                      style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px' }}
+                    >
+                      {isVi ? 'Ứng tuyển' : 'Apply'}
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+                      </svg>
+                    </a>
+                  </div>
+
+                  {/* Expandable description */}
+                  <AnimatePresence initial={false}>
+                    {open && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: 'easeInOut' }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-5 sm:px-7 pb-6" style={{ borderTop: '1px solid var(--color-border-dark)' }}>
+                          <p className="text-sm leading-relaxed mt-5 max-w-3xl" style={{ color: 'rgba(255,255,255,0.75)' }}>
+                            {isVi ? pos.descVi : pos.descEn}
+                          </p>
+                          {/* Apply button on mobile (hidden on desktop — already in header) */}
+                          <a
+                            href={GOOGLE_FORM}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="sm:hidden mt-5 inline-flex items-center gap-2 px-5 py-3 text-xs font-black uppercase tracking-widest"
+                            style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px' }}
+                          >
+                            {isVi ? 'Ứng tuyển ngay' : 'Apply Now'}
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+                            </svg>
+                          </a>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>

@@ -1,388 +1,163 @@
-# FAM Landscape — Design System
+# Lapla Landscape — Design System (Leafix style)
 
-> Tài liệu này ghi lại toàn bộ quy tắc UI/UX đang được áp dụng trong dự án.
-> Mọi component mới cần tuân theo hướng dẫn này để đảm bảo nhất quán với brand.
+> Tài liệu này ghi lại quy tắc UI/UX **đang được áp dụng thực tế** trong code.
+> Style clone từ [Leafix – Landscaping HTML Template](https://nayonacademy.com/html/leafix/index.html).
+> Mọi token đều được định nghĩa tại `src/app/globals.css` (`:root`) — luôn dùng CSS variable, không hardcode hex trong component.
 
 ---
 
 ## 1. Brand Colors
 
-### Primary — Forest Green
+### Core palette
+| Token (CSS var) | Hex | Dùng cho |
+|---|---|---|
+| `--color-brand` | `#0F541E` | Dark green — navbar scrolled, nút primary, filter active |
+| `--color-brand-dark` | `#0A3A14` | Hover của brand |
+| `--color-accent` | `#C7DC49` | Lime — CTA "Yêu cầu báo giá", link hover, highlight |
+| `--color-accent-dark` | `#B0C83A` | Hover của accent |
+
+### Text
 | Token | Hex | Dùng cho |
 |---|---|---|
-| `green-500` | `#328442` | Buttons, badges, active states, icon accents |
-| `green-400` | `#48a85a` | Hover states của green-500 |
-| `green-600` | `#286b35` | Text on light bg, border accents |
-| `green-900` | `#0a1f0f` | Rarely used dark green |
+| `--color-text-primary` | `#141414` | Headings, strong text |
+| `--color-text-secondary` | `#3D4348` | Body text |
+| `--color-text-tertiary` | `#FFFFFF` | Text trên nền tối |
+| `--color-text-muted` | `#6B7280` | Meta, placeholder |
 
-### Secondary — Gold
+### Surfaces (nền section)
 | Token | Hex | Dùng cho |
 |---|---|---|
-| `secondary-500` | `#BE7B2B` | Artwork/Labour accent, decorative glows |
-| `secondary-400` | `#d4922f` | Hover, gradient end |
+| `--color-surface-base` | `#FFFFFF` | Nền trang, cards |
+| `--color-surface-raised` | `#F8F7F3` | Testimonials, section xen kẽ |
+| `--color-surface-alt` | `#F7F8ED` | Services bg |
+| `--color-surface-warm` | `#F5F2EB` | Projects bg |
+| `--color-surface-dark` | `#0A1606` | Hero overlay, footer, dark CTA |
+| `--color-border` | `rgba(0,0,0,0.08)` | Border trên nền sáng |
+| `--color-border-dark` | `rgba(255,255,255,0.15)` | Border trên nền tối |
 
-### Dark Backgrounds (dark sections)
-| Value | Dùng cho |
-|---|---|
-| `#07130a` | Hero, Stats, Timeline, Footer, dark CTA — tất cả dark section |
-| `#0a1f0f` | Thường dùng trong gradient, không dùng standalone |
-
-> ❌ **Không dùng** `bg-black`, `bg-gray-900` cho dark sections — chỉ dùng `bg-[#07130a]`
-
-### Light Backgrounds
-| Value | Dùng cho |
-|---|---|
-| `#f7faf7` | Sections sáng có tinge xanh (Services list, Contact, About overview) |
-| `#ffffff` | Cards, modals, panels |
-| `#f0fdf4` (green-50) | Card highlight bg, icon bg, bullet list panels |
-
-> ❌ **Không dùng** `bg-gray-50` — thay bằng `bg-[#f7faf7]`
+> ❌ **Không dùng** palette cũ (`#328442`, `#07130a`, gold `#BE7B2B`, `#f7faf7`) — đã thay toàn bộ bằng token Leafix ở trên.
+> ❌ Không dùng `bg-gray-50` / `bg-black` — dùng surface token tương ứng.
 
 ---
 
-## 2. Dark Section Recipe
+## 2. Typography
 
-Mọi section tối (`bg-[#07130a]`) cần có đủ 3 lớp overlay:
-
-```tsx
-{/* 1. Dot grid texture */}
-<div
-  className="absolute inset-0 opacity-[0.06]"
-  style={{ backgroundImage: 'radial-gradient(circle, #4ade80 1px, transparent 1px)', backgroundSize: '32px 32px' }}
-/>
-
-{/* 2. Green ambient glow (top/center) */}
-<div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[400px] bg-green-500/15 rounded-full blur-[140px] pointer-events-none" />
-
-{/* 3. Gold accent glow (bottom-right, optional) */}
-<div className="absolute bottom-0 right-0 w-[400px] h-[200px] bg-secondary-500/10 rounded-full blur-[80px] pointer-events-none" />
-
-{/* Content phải có relative z-10 */}
-<div className="relative z-10 ...">
-```
-
----
-
-## 3. Light Section Recipe
-
-Sections sáng dùng subtle radial gradient (không cần dot grid):
-
-```tsx
-<section className="relative bg-[#f7faf7] overflow-hidden">
-  {/* Optional: green glow corner */}
-  <div className="absolute bottom-0 right-0 w-[500px] h-[300px] bg-green-500/5 rounded-full blur-[120px] pointer-events-none" />
-  ...
-</section>
-```
-
----
-
-## 4. Typography
-
-### Eyebrow labels (section sub-headers)
-```tsx
-// Dark bg
-<p className="text-green-400 text-xs font-semibold tracking-widest uppercase mb-3">
-
-// Light bg
-<p className="text-green-600 text-xs font-semibold tracking-widest uppercase mb-3">
-```
-
-### Section headings
-```tsx
-<h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">  // dark bg
-<h2 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight"> // light bg
-```
-
-### Body text
-```tsx
-<p className="text-gray-600 text-base leading-relaxed">  // light bg
-<p className="text-gray-400 text-base leading-relaxed">  // dark bg
-<p className="text-green-300/70 text-base leading-relaxed"> // dark bg (subtitle near CTA)
-```
-
----
-
-## 5. Buttons
-
-### Primary (CTA chính)
-```tsx
-<button className="inline-flex items-center gap-2 bg-green-500 text-white font-bold px-8 py-4 rounded-full text-sm tracking-wide hover:bg-green-400 transition-colors shadow-xl">
-```
-
-### Secondary (CTA trên dark bg)
-```tsx
-// White pill trên dark section — không còn dùng nữa, thay bằng primary green
-```
-
-### Outline (card CTA)
-```tsx
-<button
-  className="inline-flex items-center gap-2 text-sm font-semibold rounded-full px-5 py-2.5 transition-colors"
-  style={{ backgroundColor: service.accentLight, color: service.accent, border: `1px solid ${service.accentBorder}` }}
->
-```
-
----
-
-## 6. Cards
-
-### Standard light card
-```tsx
-<div className="relative rounded-2xl border border-green-100 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-shadow group">
-  {/* Optional top accent bar — slide in on hover */}
-  <div className="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-green-600 via-green-500 to-secondary-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-  ...
-</div>
-```
-
-### Dark card (positions, jobs)
-```tsx
-<div className="bg-green-900/50 border border-green-800/60 hover:border-green-600 rounded-xl overflow-hidden transition-colors">
-```
-
----
-
-## 7. Service Cards (ServicesPageContent)
-
-Mỗi service dùng 1 trong 2 màu brand:
-
-| Services | accent | accentLight | accentBorder |
-|---|---|---|---|
-| Consulting, Construction, Golf, Materials | `#328442` | `#f0fdf4` | `#86efac` |
-| Artwork, Labour | `#BE7B2B` | `#fdf8f0` | `#f0c87a` |
-
-Top bar dùng gradient: `from: accent → to: accentBorder`
-
----
-
-## 8. Animations (Framer Motion)
-
-### Scroll-triggered fade-up (standard)
-```tsx
-const ref = useRef(null);
-const inView = useInView(ref, { once: true, margin: '-80px' });
-
-<motion.div
-  ref={ref}
-  initial={{ opacity: 0, y: 32 }}
-  animate={inView ? { opacity: 1, y: 0 } : {}}
-  transition={{ duration: 0.7, ease: 'easeOut' }}
->
-```
-
-### Staggered children
-```tsx
-transition={{ duration: 0.6, delay: index * 0.1 }}
-```
-
-### Clip-path wipe (ProjectsSection style — more dramatic)
-```tsx
-initial={{ clipPath: 'inset(100% 0 0 0)' }}
-animate={{ clipPath: 'inset(0% 0 0 0)' }}
-transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-```
-
-### Hover lift (social icons, small cards)
-```tsx
-<motion.div whileHover={{ y: -2 }} transition={{ type: 'spring', stiffness: 300 }}>
-```
-
-### Pulsing ring (play button, CTA emphasis)
-```tsx
-animate={{ scale: [1, 1.6], opacity: [0.4, 0] }}
-transition={{ duration: 2, repeat: Infinity, ease: 'easeOut' }}
-```
-
-### useReducedMotion (accessibility)
-```tsx
-// Luôn dùng trong HeroSection và Navbar
-const prefersReduced = useReducedMotion();
-const duration = prefersReduced ? 0 : 0.8;
-```
-
----
-
-## 9. Accessibility
-
-- Touch targets: `min-h-[44px]` cho tất cả interactive elements
-- Focus rings: `focus:outline-none focus:ring-2 focus:ring-green-500/50 focus:ring-offset-2`
-- `aria-label` trên icon-only buttons
-- `aria-current="page"` trên active nav links
-- Skip link trong Navbar: `<a href="#main-content">`
-- `useReducedMotion()` hook để disable animation khi user prefer
-
----
-
-## 10. Page Hero Pattern
-
-Tất cả inner pages (About, Services, Careers, News, Projects) dùng cùng hero pattern:
-
-```tsx
-<section className="relative bg-black pt-36 md:pt-48 pb-20 md:pb-28 overflow-hidden">
-  {/* Dot grid */}
-  <div className="absolute inset-0 opacity-[0.07]"
-    style={{ backgroundImage: 'radial-gradient(circle, #4ade80 1px, transparent 1px)', backgroundSize: '32px 32px' }} />
-  {/* Green glow */}
-  <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-green-500/15 rounded-full blur-[140px] pointer-events-none" />
-  {/* Gold accent */}
-  <div className="absolute bottom-0 right-0 w-[400px] h-[250px] bg-secondary-500/10 rounded-full blur-[100px] pointer-events-none" />
-
-  <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <motion.div initial={{ opacity: 0, y: 36 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9 }}>
-      <p className="text-green-400 text-xs sm:text-sm font-semibold tracking-widest uppercase mb-6">EYEBROW</p>
-      <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6">Title</h1>
-      <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">Subtitle</p>
-    </motion.div>
-    {/* Scroll indicator line */}
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1 }} className="mt-16 flex justify-center">
-      <div className="w-px h-16 bg-gradient-to-b from-green-500/70 to-transparent" />
-    </motion.div>
-  </div>
-</section>
-```
-
----
-
-## 11. Section Spacing
-
-| Context | Classes |
-|---|---|
-| Standard section | `py-16 md:py-24` |
-| Hero-sized section | `py-20 md:py-32` |
-| Compact section | `py-12 md:py-20` |
-| Container max-width | `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8` |
-| Narrow content (forms, articles) | `max-w-3xl` hoặc `max-w-5xl` |
-
----
-
-## 12. Leafix Reference Design System
-
-> Nguồn tham khảo: [Leafix Landscaping & Gardening Services HTML Template](https://preview.themeforest.net/item/leafix-landscaping-gardening-services-html-template/full_screen_preview/63282752)
-> Dùng để đối chiếu và bổ sung khi cần thiết — không override FAM brand tokens.
-
-### Design Tokens (Leafix)
-
-| Token | Value | Ghi chú |
+| Vai trò | Font | Token |
 |---|---|---|
-| `font.family.primary` | `Helvetica Neue, Helvetica, Arial, sans-serif` | Base font stack |
-| `font.size.base` | `16px` | Body text |
-| `font.weight.base` | `400` | Regular |
-| `font.lineHeight.base` | `24px` | 1.5 ratio |
-| `font.size.xs` | `12px` | Caption, meta |
-| `font.size.sm` | `14px` | Secondary labels |
-| `color.text.primary` | `#545454` | Main body text |
-| `color.text.secondary` | `#0000ee` | Links (default browser) |
-| `color.text.tertiary` | `#ffffff` | Text on dark surfaces |
-| `color.surface.base` | `#000000` | Dark surface |
-| `color.surface.muted` | `#82b440` | Green accent / badge bg |
-| `space.1` | `5px` | Micro spacing |
-| `space.2` | `20px` | Standard gap |
-| `radius.xs` | `4px` | Subtle rounding |
-| `shadow.1` | `rgb(111, 154, 55) 0px 2px 0px 0px` | Green underline shadow |
-| `motion.duration.instant` | `200ms` | Fast transitions |
+| Headings (h1–h6) | **Bricolage Grotesque**, fallback Be Vietnam Pro | `--font-display` / `var(--font-bricolage)` |
+| Body | **Public Sans**, fallback Be Vietnam Pro | `--font-sans` / `var(--font-public-sans)` |
 
-> **Mapping sang FAM tokens:** `color.surface.muted (#82b440)` → tương đương `green-400 (#48a85a)`. Dùng FAM token khi implement thực tế.
+- Be Vietnam Pro là fallback bắt buộc để dấu tiếng Việt render đúng khi glyph thiếu.
+- Body: `16px / 28px`, weight 400. Headings: weight 700, `line-height: 1.2`, `letter-spacing: -0.02em` (set sẵn trong globals.css).
+- Eyebrow label (trên heading section): uppercase, `text-xs`, `font-bold`, `tracking-widest`, màu `--color-brand` (nền sáng) hoặc `--color-accent` (nền tối).
+- Font size scale: `--font-size-xs` 14px → `--font-size-4xl` 24px (xem globals.css). Heading lớn dùng Tailwind responsive (`text-4xl md:text-6xl`...).
 
 ---
 
-### Component Rules (Leafix → FAM Mapping)
+## 3. Radius & Shadow
 
-#### Anatomy chung
-Mỗi component phải định nghĩa đủ 7 states: **default, hover, focus-visible, active, disabled, loading, error**.
-
-#### Buttons
-| State | Visual rule |
-|---|---|
-| Default | `bg-[color.surface.muted]` text-white, `border-radius: radius.xs` |
-| Hover | Lighten bg ~10%, `transition: motion.duration.instant` |
-| Focus-visible | `outline: 2px solid color.surface.muted`, `outline-offset: 2px` — **never hidden** |
-| Active | Darken bg ~10%, `box-shadow: shadow.1` |
-| Disabled | `opacity: 0.4`, `cursor: not-allowed`, no pointer events |
-| Loading | Spinner replaces label, same dimensions, `aria-busy="true"` |
-| Error | Red border `2px`, error message below với `role="alert"` |
-
-#### Links (2 per page — low density)
-- Default: `color.text.secondary` (`#0000ee`) hoặc FAM `#328442`
-- Hover: underline + darken
-- Focus-visible: `outline` visible — không dùng `outline: none` không kèm replacement
-- Keyboard: `Enter` activates
-
-#### Interactive elements — Keyboard / Pointer / Touch
-- **Keyboard:** Tab để focus, Enter/Space để activate buttons, Escape để đóng modals/dropdowns
-- **Pointer:** Click, hover states rõ ràng với `cursor: pointer`
-- **Touch:** Min touch target `44×44px` (`min-h-[44px] min-w-[44px]`)
-
-#### Spacing & Typography
-- Mọi spacing phải dùng `space.1 (5px)` hoặc `space.2 (20px)` hoặc bội số của chúng
-- Không dùng giá trị spacing tùy tiện (one-off)
-- Font size chỉ dùng scale đã định nghĩa: `12 / 14 / 16px`
-
-#### Overflow & Edge Cases
-- **Long text:** Dùng `text-overflow: ellipsis` với `overflow: hidden` và `white-space: nowrap` cho 1 dòng; `-webkit-line-clamp` cho multi-line
-- **Empty states:** Luôn có fallback UI — placeholder text hoặc skeleton, không để trống
-- **Image lỗi:** `onerror` fallback sang placeholder image
-
----
-
-### Accessibility Requirements (WCAG 2.2 AA)
-
-| Rule | Pass | Fail |
+| Token | Value | Dùng cho |
 |---|---|---|
-| Text contrast | ≥ 4.5:1 cho body, ≥ 3:1 cho large text | `#545454` trên `#ffffff` = 7.4:1 ✅ |
-| Focus indicator | Visible, `min 2px` outline | `outline: none` không replacement ❌ |
-| Touch target | `≥ 44×44px` | Buttons `< 44px` ❌ |
-| Reduced motion | `prefers-reduced-motion` respected | Auto-play không tắt khi prefer-reduced ❌ |
-| Link labels | Descriptive, không "click here" | `<a>click here</a>` ❌ |
-| Form errors | `role="alert"`, liên kết với input qua `aria-describedby` | Error chỉ màu đỏ, không text ❌ |
-| Loading state | `aria-busy="true"` trên container | Spinner không có accessible label ❌ |
+| `--radius-xs` | 6px | Badge, input nhỏ |
+| `--radius-sm` | 8px | Inputs |
+| `--radius-md` | 10px | Buttons, filter tabs |
+| `--radius-lg` | 50px | Pill (nav pill, tags) |
+| `--radius-xl` | 100px | Full pill / circle |
+| Cards ảnh (project grid) | `20px` | borderRadius inline |
+
+Shadows: `--shadow-sm/md/lg/brand` — dùng token, không tự chế.
 
 ---
 
-### Content & Tone
+## 4. Buttons
 
-- **Concise, confident, implementation-focused** — không dùng từ mơ hồ như "nice", "good"
-- Labels phải descriptive: "Thêm dự án mới" thay vì "Thêm"
-- CTA phải nói rõ action: "Xem tất cả dự án" thay vì "Xem thêm"
-- Error messages phải actionable: "Email không hợp lệ — kiểm tra lại định dạng"
+### Primary CTA (accent — kiểu "Request A Quote")
+```tsx
+<Link
+  className="inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase tracking-widest hover:opacity-90"
+  style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px' }}
+>
+  Yêu cầu báo giá <ArrowIcon />
+</Link>
+```
 
----
+### Dark button (trên nền sáng — kiểu "Xem dự án", "Liên hệ tư vấn")
+```tsx
+style={{ backgroundColor: 'var(--color-brand)', color: '#fff', borderRadius: '10px' }}
+// hover → var(--color-brand-dark)
+```
 
-### Anti-Patterns (Cấm)
-
-| ❌ Cấm | ✅ Thay bằng |
-|---|---|
-| `outline: none` không replacement | `focus-visible:ring-2 focus-visible:ring-green-500` |
-| Low-contrast text (`< 4.5:1`) | Dùng token đã đảm bảo contrast |
-| Spacing one-off (vd: `mt-[17px]`) | Nearest Tailwind spacing token |
-| Label mơ hồ: "OK", "Submit" | "Lưu thay đổi", "Xác nhận xóa" |
-| Component không có `disabled` state | Định nghĩa đủ 7 states |
-| Animation không có `useReducedMotion` guard | Luôn wrap continuous/auto-play animation |
-
----
-
-### QA Checklist (Leafix Reference)
-
-- [ ] Mọi component có đủ 7 states (default → error)
-- [ ] Contrast ratio ≥ 4.5:1 đã kiểm tra (dùng browser DevTools hoặc axe)
-- [ ] Focus indicator visible trên keyboard navigation
-- [ ] Touch targets ≥ 44×44px trên mobile
-- [ ] `prefers-reduced-motion` respected với `useReducedMotion()`
-- [ ] Labels descriptive, không ambiguous
-- [ ] Empty states và error states có UI fallback
-- [ ] Long text overflow handled (ellipsis hoặc clamp)
-- [ ] `aria-busy`, `aria-label`, `aria-describedby` đúng chỗ
-- [ ] Không có spacing/typography one-off exceptions
+Quy tắc chung: label uppercase + tracking rộng, luôn kèm icon mũi tên `→`, transition 250ms (đã set global cho `a, button`).
 
 ---
 
-## 13. Component Checklist (khi tạo section mới)
+## 5. Sections & Spacing
 
-- [ ] Dark bg → dùng `#07130a` + 3 overlay layers (dot grid, green glow, gold glow)
-- [ ] Light bg → dùng `#f7faf7` (không phải `bg-gray-50`)
-- [ ] Eyebrow label → `text-green-400` (dark) hoặc `text-green-600` (light)
-- [ ] Scroll animation → `useInView` + `once: true`
-- [ ] Cards → `border-green-100` + hover top accent bar gradient
-- [ ] Buttons → `bg-green-500` primary, gold only cho special contexts
-- [ ] Accessibility → `aria-label`, focus ring, min touch 44px
-- [ ] `useReducedMotion()` nếu có auto-play hoặc continuous animation
+- Section chuẩn dùng class `.leafix-section` → `padding: 120px 0` (desktop), `60px 0` (mobile).
+- Container: `max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14`.
+- Nền section xen kẽ: trắng → `--color-surface-alt`/`raised`/`warm` → dark (`--color-surface-dark` cho CTA/footer).
+- Trang trí: hoạ tiết lá/leaf pattern mờ, ảnh cây chậu floating (animation `float-bob-y` / `float-bob-x`) — dùng tiết chế.
+
+---
+
+## 6. Navbar & Footer
+
+- Navbar fixed: transparent trên hero (nav pill nền `rgba(0,0,0,0.45)` + blur), chuyển `#0F541E` đặc khi scroll > 60px.
+- Logo `/logo.png` là bản chữ tối → **bắt buộc** `filter: brightness(0) invert(1)` khi đặt trên nền tối (đã áp dụng ở Navbar + Footer). Mobile drawer nền trắng dùng logo gốc.
+- Link nav: trắng `rgba(255,255,255,0.92)`, hover/active → `--color-accent`; underline animation qua class `.nav-link`.
+- Footer: nền ảnh + overlay `rgba(15,84,30,0.9)`, text trắng, accent lime cho giờ làm việc/links hover.
+
+---
+
+## 7. Cards
+
+### Project card (grid + section trang chủ)
+- Ảnh `aspect-[4/3]`, `borderRadius: 20px`, hover scale ảnh `1.06`.
+- **Tên dự án + địa điểm luôn hiển thị** trên gradient `linear-gradient(to top, rgba(10,22,6,0.85), transparent)` — không được ẩn sau hover (mobile không có hover).
+- Category + nút mũi tên tròn accent chỉ hiện khi hover.
+
+### Card nội dung (news, services)
+- Nền trắng, border `--color-border`, radius `20px`, hover shadow nhẹ.
+- Badge category: pill trắng/brand, uppercase, text-xs.
+
+---
+
+## 8. Animations
+
+- Scroll reveal chuẩn: attribute `data-animate` (globals.css) hoặc Framer Motion `useInView({ once: true })` — fade-up 28px, ~0.7s, ease `cubic-bezier(0.25,0.46,0.45,0.94)`.
+- Hero: class `.hero-reveal` (0.85s).
+- Stagger: `delay: index * 0.05–0.1`.
+- Decorative float: `float-bob-y` / `float-bob-x`.
+- Luôn guard bằng `useReducedMotion()` cho animation liên tục/auto-play.
+
+---
+
+## 9. Hình ảnh
+
+- Upload qua Cloudinary (`CloudinaryUpload` / `CloudinaryGalleryUpload` trong admin) — ảnh production phải nằm trên Cloudinary.
+- ❌ **Không hotlink ảnh stock (unsplash.com...) trong dữ liệu thật** — chỉ chấp nhận làm placeholder dev. Ảnh dự án phải là ảnh công trình thật, đúng nội dung.
+- `next/image` với `sizes` đúng breakpoint; ảnh hero/featured thêm `priority`.
+- Luôn có fallback khi ảnh lỗi (placeholder, không để vỡ layout).
+
+---
+
+## 10. Accessibility
+
+- Touch target ≥ 44×44px cho mọi element tương tác.
+- Focus visible: `focus-visible:ring-2` màu brand/accent — không bao giờ `outline: none` trần.
+- `aria-label` cho icon-only buttons, `aria-current="page"` cho nav active.
+- Contrast ≥ 4.5:1 cho body text. Lưu ý: text lime `#C7DC49` chỉ đạt chuẩn trên nền tối; trên nền trắng phải dùng `--color-brand`.
+- `prefers-reduced-motion` được tôn trọng.
+
+---
+
+## 11. Checklist khi tạo section/component mới
+
+- [ ] Màu lấy từ CSS var trong `globals.css` — không hardcode hex mới
+- [ ] Heading dùng font display (mặc định qua h1–h6), body Public Sans
+- [ ] Section bọc `.leafix-section` + container `max-w-[1400px]`
+- [ ] Nút theo mẫu mục 4 (uppercase + arrow icon)
+- [ ] Card ảnh: title luôn visible, không phụ thuộc hover
+- [ ] Ảnh từ Cloudinary, có `sizes`, có fallback
+- [ ] Scroll reveal `data-animate` hoặc `useInView once`
+- [ ] A11y: focus ring, aria-label, touch 44px, reduced motion

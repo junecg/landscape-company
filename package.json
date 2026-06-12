@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "seed:excel": "tsx prisma/seed-from-excel.ts",
     "dev": "next dev",
     "build": "prisma migrate deploy && next build",
     "postinstall": "prisma generate",
@@ -10,6 +11,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "xlsx": "^0.18.5",
     "@prisma/adapter-pg": "^7.7.0",
     "@prisma/client": "^7.7.0",
     "@tailwindcss/typography": "^0.5.19",

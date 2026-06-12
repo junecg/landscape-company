@@ -172,7 +172,7 @@ const BackCoverPage = forwardRef<HTMLDivElement, BasePageProps>((_, ref) => (
       LAPLA
     </span>
     <span className="text-stone-500 text-[11px] tracking-[0.3em]">
-      lapla.vn
+      lapla.com.vn
     </span>
     <div className="w-8 h-px bg-[#BE7B2B]" />
   </div>
