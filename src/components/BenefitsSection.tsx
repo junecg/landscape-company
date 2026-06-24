@@ -76,7 +76,7 @@ export default function BenefitsSection() {
         }}
       />
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="relative z-10 max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Header */}
         <ScrollReveal className="text-center mb-14">
@@ -85,7 +85,7 @@ export default function BenefitsSection() {
           </p>
           <AnimatedHeading
             className="font-display font-bold mx-auto"
-            style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'var(--color-text-primary)', maxWidth: '640px', lineHeight: 1.15 }}
+            style={{ fontSize: 'clamp(1.8rem, 4vw, 4.8rem)', color: 'var(--color-text-primary)', maxWidth: '780px', lineHeight: 1.15 }}
           >
             {isVi ? 'Giải pháp cho cảnh quan dân dụng và thương mại' : 'Solutions for Residential and Commercial Landscaping'}
           </AnimatedHeading>

@@ -36,7 +36,7 @@ function PartnerModal({ partner, onClose, isVi }: { partner: Partner; onClose: (
         className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl relative overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="bg-[#07130a] px-7 pt-7 pb-6">
+        <div className="px-7 pt-7 pb-6" style={{ background: 'linear-gradient(135deg, #0f541e 0%, #1a7a30 60%, #2d9e4a 100%)' }}>
           <button onClick={onClose} className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white" aria-label="Đóng">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
@@ -171,7 +171,7 @@ export default function PartnersSection() {
         />
 
         {/* Header */}
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 mb-12 md:mb-16">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 mb-12 md:mb-16">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -181,7 +181,7 @@ export default function PartnersSection() {
               <p className="text-[10px] tracking-[0.3em] uppercase font-semibold text-[var(--color-brand)] mb-3">
                 {isVi ? 'Đối tác' : 'Trust'}
               </p>
-              <h2 className="font-display font-bold leading-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", color: "var(--color-text-primary)" }}>
+              <h2 className="font-display font-bold leading-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 4.8rem)", color: "var(--color-text-primary)" }}>
                 {isVi ? (
                   <>Đối tác <span className="text-[var(--color-brand)]">chiến lược</span><br />của Lapla</>
                 ) : (

@@ -41,7 +41,7 @@ export default function ProjectsSection() {
       <div
         className="absolute top-0 right-0 font-display font-bold select-none pointer-events-none leading-none"
         style={{
-          fontSize: 'clamp(8rem, 18vw, 18rem)',
+          fontSize: 'clamp(8rem, 18vw, 21.6rem)',
           color: 'rgba(130,180,64,0.06)',
           lineHeight: 1,
           top: '-2rem',
@@ -51,7 +51,7 @@ export default function ProjectsSection() {
         PROJECT
       </div>
 
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="relative z-10 max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
@@ -61,7 +61,7 @@ export default function ProjectsSection() {
             </p>
             <AnimatedHeading
               className="font-display font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'var(--color-text-primary)' }}
+              style={{ fontSize: 'clamp(1.8rem, 4vw, 4.8rem)', color: 'var(--color-text-primary)' }}
             >
               {isVi ? 'Xem cách chúng tôi biến đổi không gian thành tác phẩm xanh' : 'See how we transform spaces into living works of art'}
             </AnimatedHeading>

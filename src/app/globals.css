@@ -131,11 +131,47 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-bricolage), var(--font-be-vietnam), "Bricolage Grotesque", sans-serif;
+  font-family: var(--font-plus-jakarta), var(--font-be-vietnam), "Plus Jakarta Sans", sans-serif;
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.02em;
   /* No default color — each component sets color explicitly via inline style or Tailwind */
+}
+
+/* ─── Tiếng Việt: dùng Be Vietnam Pro cho toàn bộ site ─────────────────── */
+html[lang="vi"] {
+  --font-sans:    var(--font-be-vietnam), sans-serif;
+  --font-display: var(--font-be-vietnam), sans-serif;
+}
+
+html[lang="vi"] body {
+  font-family: var(--font-be-vietnam), "Be Vietnam Pro", sans-serif;
+}
+
+html[lang="vi"] h1,
+html[lang="vi"] h2,
+html[lang="vi"] h3,
+html[lang="vi"] h4,
+html[lang="vi"] h5,
+html[lang="vi"] h6 {
+  font-family: var(--font-be-vietnam), "Be Vietnam Pro", sans-serif;
+}
+
+/* ─── Màn hình lớn (≥1800px / 24" trở lên): tăng cỡ chữ <16px thêm 2px ── */
+/* Chỉ áp dụng cho site công khai (.site-body), không ảnh hưởng /admin */
+/* Chỉ chỉnh các size <16px (xs, sm, và các text-[Npx] nhỏ) — base (16px) giữ nguyên */
+@media (min-width: 1800px) {
+  .site-body {
+    --text-xs: 0.875rem; /* 12px → 14px */
+    --text-sm: 1rem;     /* 14px → 16px */
+  }
+
+  /* Tailwind arbitrary-value text sizes (text-[Npx]) bypass --text-* vars
+     entirely — override them directly so labels/badges scale up too. */
+  .site-body .text-\[9px\]      { font-size: 11px; }
+  .site-body .text-\[10px\]     { font-size: 12px; }
+  .site-body .text-\[11px\]     { font-size: 13px; }
+  .site-body .sm\:text-\[10px\] { font-size: 12px; }
 }
 
 /* Leafix section padding (120px like original) */

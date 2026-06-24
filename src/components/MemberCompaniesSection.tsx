@@ -25,7 +25,7 @@ function MemberModal({ member, onClose, isVi }: { member: Member; onClose: () =>
         onClick={e => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="px-8 pt-8 pb-6" style={{ backgroundColor: 'var(--color-surface-dark)' }}>
+        <div className="px-8 pt-8 pb-6" style={{ background: 'linear-gradient(135deg, #0f541e 0%, #1a7a30 60%, #2d9e4a 100%)' }}>
           <button
             onClick={onClose}
             className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center text-white transition-opacity hover:opacity-70"
@@ -95,7 +95,7 @@ export default function MemberCompaniesSection() {
           className="absolute pointer-events-none select-none hidden md:block"
           style={{ bottom: '30px', right: '0px', width: '200px', opacity: 0.5, animation: 'float-bob-y 5.5s ease-in-out infinite 1s', zIndex: 20 }}
         />
-        <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
 
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
@@ -103,7 +103,7 @@ export default function MemberCompaniesSection() {
               <p className="text-xs font-bold tracking-[0.3em] uppercase mb-3" style={{ color: 'var(--color-brand)' }}>
                 Ecosystem
               </p>
-              <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'var(--color-text-primary)' }}>
+              <h2 className="font-display font-bold leading-tight" style={{ fontSize: 'clamp(1.8rem, 4vw, 4.8rem)', color: 'var(--color-text-primary)' }}>
                 {isVi ? <>Hệ sinh thái<br /><span style={{ color: 'var(--color-brand)' }}>Lapla Group</span></> : <>The <span style={{ color: 'var(--color-brand)' }}>Lapla</span><br />Ecosystem</>}
               </h2>
             </ScrollReveal>

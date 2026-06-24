@@ -37,7 +37,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
       <Navbar />
 
       {/* Back link + title */}
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 pt-32 pb-8">
+      <div className="max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-14 pt-32 pb-8">
         <Link
           href={`/${locale}/projects`}
           className="inline-flex items-center gap-2 text-xs tracking-widest uppercase font-semibold mb-6 transition-colors hover:opacity-70"
@@ -50,7 +50,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
         </Link>
         <h1
           className="font-display font-bold"
-          style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'var(--color-text-primary)', lineHeight: 1.15 }}
+          style={{ fontSize: 'clamp(1.8rem, 4vw, 4.8rem)', color: 'var(--color-text-primary)', lineHeight: 1.15 }}
         >
           {title}
         </h1>
@@ -60,7 +60,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
       </div>
 
       {/* Image gallery — masonry-like 1 col */}
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 pb-24 flex flex-col gap-4">
+      <div className="max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-14 pb-24 flex flex-col gap-4">
         {allImages.map((img, i) => (
           <button
             key={i}

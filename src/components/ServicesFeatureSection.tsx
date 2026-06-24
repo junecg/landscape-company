@@ -61,7 +61,7 @@ export default function ServicesFeatureSection() {
         className="absolute pointer-events-none select-none hidden md:block"
         style={{ top: '30px', left: '0px', width: '180px', opacity: 0.85, animation: 'float-bob-y 5s ease-in-out infinite', zIndex: 20 }}
       />
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
+      <div className="max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* LEFT: image + phone card */}
@@ -95,7 +95,7 @@ export default function ServicesFeatureSection() {
             <p className="text-lg font-bold uppercase tracking-[0.3em] mb-3" style={{ color: 'var(--color-brand)' }}>
               {isVi ? 'Dịch vụ của chúng tôi' : 'Our Services'}
             </p>
-            <AnimatedHeading className="font-display font-bold mb-6 leading-tight" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.8rem)', color: 'var(--color-text-primary)' }}>
+            <AnimatedHeading className="font-display font-bold mb-6 leading-tight" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 4.2rem)', color: 'var(--color-text-primary)' }}>
               {isVi ? 'Tạo dựng không gian đẹp bằng tâm huyết & chuyên môn' : 'Growing Beautiful Spaces with Care & Expertise'}
             </AnimatedHeading>
 

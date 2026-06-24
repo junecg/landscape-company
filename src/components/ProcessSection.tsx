@@ -10,7 +10,7 @@ const steps = [
     titleEn: 'Design Consultation',
     descVi: 'Chúng tôi lắng nghe và thảo luận về tầm nhìn, mong muốn cho không gian xanh của bạn.',
     descEn: 'We listen and discuss your vision and preferences for your green space.',
-    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.25 8.511c.884.284 1.5 1.128 1.5 2.097v4.286c0 1.136-.847 2.1-1.98 2.193-.34.027-.68.052-1.02.072v3.091l-3-3c-1.354 0-2.694-.055-4.02-.163a2.115 2.115 0 0 1-.825-.242m9.345-8.334a2.126 2.126 0 0 0-.476-.095 48.64 48.64 0 0 0-8.048 0c-1.131.094-1.976 1.057-1.976 2.192v4.286c0 .837.46 1.58 1.155 1.951m9.345-8.334V6.637c0-1.621-1.152-3.026-2.76-3.235A48.455 48.455 0 0 0 11.25 3c-2.115 0-4.198.137-6.24.402-1.608.209-2.76 1.614-2.76 3.235v6.226c0 1.621 1.152 3.026 2.76 3.235.577.075 1.157.14 1.74.194V21l4.155-4.155" /></svg>`,
+    icon: `<svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21V10" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 13c0-3.2-2.6-4.6-5.5-4.6C6.5 11.8 9 13.6 12 13.6" /><path stroke-linecap="round" stroke-linejoin="round" d="M12 10.4c0-3 2.4-4.3 5.2-4.3C17.2 9.3 14.8 11 12 11" /></svg>`,
   },
   {
     num: '02',
@@ -18,7 +18,7 @@ const steps = [
     titleEn: 'Design & Planning',
     descVi: 'Đội ngũ chuyên gia phác thảo thiết kế chi tiết phù hợp với không gian thực tế.',
     descEn: 'Our experts draft a detailed landscape design aligned with your actual space.',
-    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" /></svg>`,
+    icon: `<svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 21v-6.5c0-1.66 1.34-3 3-3s3 1.34 3 3V21" /><path stroke-linecap="round" stroke-linejoin="round" d="M5 21h14" /><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 3.5 20 7m0 0-3.2 3.2-2.3-2.3L18 4.5" /></svg>`,
   },
   {
     num: '03',
@@ -26,7 +26,7 @@ const steps = [
     titleEn: 'Implementation',
     descVi: 'Sau khi thiết kế được duyệt, chúng tôi tiến hành thi công theo đúng kế hoạch.',
     descEn: 'Once approved, we implement the plan with precision and care.',
-    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" /></svg>`,
+    icon: `<svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1.5" stroke-linecap="round" stroke-linejoin="round" /><path stroke-linecap="round" stroke-linejoin="round" d="M7.5 18.5v-4c0-1.4 0.9-2.5 2-2.5s2 1.1 2 2.5v4M13 18.5v-6c0-1.7 1.1-3 2.5-3s2.5 1.3 2.5 3v6" /></svg>`,
   },
   {
     num: '04',
@@ -34,8 +34,15 @@ const steps = [
     titleEn: 'Garden Finishing',
     descVi: 'Chăm chút từng chi tiết để không gian xanh trở nên hoàn hảo như mong muốn.',
     descEn: 'We perfect every detail so your garden looks exactly as envisioned.',
-    icon: `<svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" /></svg>`,
+    icon: `<svg class="w-9 h-9" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21v-5m5 5v-7m5 7v-4" /><path stroke-linecap="round" stroke-linejoin="round" d="M4.7 9.7a3 3 0 0 1 2.7-4.2A3.6 3.6 0 0 1 14 5.8a2.9 2.9 0 0 1 3.4 3.4 2.6 2.6 0 0 1-.8 5.1H7a2.6 2.6 0 0 1-2.3-4.6Z" /></svg>`,
   },
+];
+
+const avatars = [
+  'https://i.pravatar.cc/100?img=12',
+  'https://i.pravatar.cc/100?img=33',
+  'https://i.pravatar.cc/100?img=14',
+  'https://i.pravatar.cc/100?img=48',
 ];
 
 export default function ProcessSection() {
@@ -44,129 +51,148 @@ export default function ProcessSection() {
 
   return (
     <section className="leafix-section overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
 
-        {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-          <ScrollReveal>
+        {/* Header — centered */}
+        <ScrollReveal>
+          <div className="flex flex-col items-center text-center mb-14">
             <p className="text-sm tracking-[0.3em] uppercase font-bold mb-3" style={{ color: 'var(--color-brand)' }}>
               {isVi ? 'Quy trình' : 'How It Works'}
             </p>
             <h2
-              className="font-display font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'var(--color-text-primary)' }}
+              className="font-display font-bold leading-tight max-w-3xl"
+              style={{ fontSize: 'clamp(1.8rem, 4vw, 3.4rem)', color: 'var(--color-text-primary)' }}
             >
               {isVi
-                ? <span>Quy trình mang khu vườn<br /><span style={{ color: 'var(--color-brand)' }}>của bạn vào thực tế</span></span>
-                : <span>How We Bring Your<br /><span style={{ color: 'var(--color-brand)' }}>Garden to Life</span></span>
+                ? 'Quy trình mang khu vườn của bạn vào thực tế'
+                : 'How We Bring Your Garden to Life'
               }
             </h2>
-          </ScrollReveal>
-          <ScrollReveal delay={2}>
-            <Link
-              href={`/${locale}#contact`}
-              className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-wider transition-all duration-200"
-              style={{ color: 'var(--color-brand)' }}
+          </div>
+        </ScrollReveal>
+
+        {/* Single bordered box: icon+title / timeline+numbers / description / CTA bar */}
+        <ScrollReveal delay={1} duration={600}>
+          <div
+            className="relative border border-[#e8e8e8] overflow-hidden"
+            style={{ borderRadius: '28px', boxShadow: '0 12px 40px rgba(15, 84, 30, 0.06)' }}
+          >
+            {/* Decorative leaf graphic, bottom-left */}
+            <svg
+              className="hidden lg:block absolute left-0 bottom-0 w-40 h-40 pointer-events-none"
+              style={{ color: 'var(--color-brand)', opacity: 0.07 }}
+              fill="currentColor"
+              viewBox="0 0 100 100"
             >
-              {isVi ? 'Bắt đầu dự án' : 'Start Your Project'}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
-          </ScrollReveal>
-        </div>
+              <path d="M0 100C0 60 25 20 70 0c10 35-5 65-35 80-15 8-25 14-35 20Z" />
+            </svg>
 
-        {/* 4-step bordered box */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border border-[#e8e8e8]">
-          {steps.map((step, i) => (
-            <ScrollReveal key={step.num} delay={i % 4} duration={600}>
-              <div
-                className="process-step group relative p-8 h-full flex flex-col cursor-default transition-colors duration-300"
-                style={{ borderRight: i < 3 ? '1px solid #e8e8e8' : 'none' }}
-              >
-                {/* Ghost number */}
-                <span
-                  className="absolute top-3 right-4 font-display font-black select-none pointer-events-none leading-none transition-colors duration-300"
-                  style={{ fontSize: '5rem', color: 'rgba(130,180,64,0.08)' }}
-                >
-                  {step.num}
-                </span>
+            {/* Icon + title row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-8 sm:px-12 pt-12">
+              {steps.map((step) => (
+                <div key={step.num} className="flex flex-col items-center text-center px-4 mb-6 lg:mb-0">
+                  <div
+                    className="process-icon w-16 h-16 flex items-center justify-center mb-4 transition-colors duration-300"
+                    style={{ color: 'var(--color-brand)' }}
+                    dangerouslySetInnerHTML={{ __html: step.icon }}
+                  />
+                  <h3
+                    className="font-display font-bold text-lg leading-snug"
+                    style={{ color: 'var(--color-text-primary)' }}
+                  >
+                    {isVi ? step.titleVi : step.titleEn}
+                  </h3>
+                </div>
+              ))}
+            </div>
 
-                {/* Icon */}
-                <div
-                  className="w-14 h-14 flex items-center justify-center mb-6 transition-all duration-300"
-                  style={{ backgroundColor: '#f5f9f0', color: 'var(--color-brand)' }}
-                  dangerouslySetInnerHTML={{ __html: step.icon }}
-                />
+            {/* Timeline line with number nodes */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-8 sm:px-12">
+              {steps.map((step) => (
+                <div key={step.num} className="relative flex items-center justify-center py-6 px-4">
+                  <span className="absolute left-0 right-0 top-1/2 h-px" style={{ backgroundColor: '#e8e8e8' }} />
+                  <span
+                    className="process-num relative z-10 w-12 h-12 rounded-full flex items-center justify-center font-display font-bold text-sm"
+                    style={{ backgroundColor: '#f5f2eb', color: 'var(--color-text-primary)' }}
+                  >
+                    {step.num}
+                  </span>
+                </div>
+              ))}
+            </div>
 
+            {/* Description row */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-8 sm:px-12 pb-12">
+              {steps.map((step) => (
                 <p
-                  className="text-[10px] uppercase tracking-[0.3em] font-bold mb-2 transition-colors duration-300"
-                  style={{ color: 'var(--color-brand)' }}
-                >
-                  {isVi ? `Bước ${step.num}` : `Step ${step.num}`}
-                </p>
-
-                <h3
-                  className="font-display font-bold text-lg mb-3 leading-snug transition-colors duration-300"
-                  style={{ color: 'var(--color-text-primary)' }}
-                >
-                  {isVi ? step.titleVi : step.titleEn}
-                </h3>
-
-                <p
-                  className="text-sm leading-relaxed flex-1 transition-colors duration-300"
+                  key={step.num}
+                  className="text-center text-sm leading-relaxed px-4"
                   style={{ color: 'var(--color-text-secondary)' }}
                 >
                   {isVi ? step.descVi : step.descEn}
                 </p>
+              ))}
+            </div>
 
-                <div
-                  className="mt-6 w-9 h-9 flex items-center justify-center border transition-all duration-300"
-                  style={{ borderColor: '#e0e0e0', color: 'var(--color-text-secondary)' }}
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
-                  </svg>
-                </div>
-              </div>
-            </ScrollReveal>
-          ))}
-        </div>
-
-        {/* Bottom CTA bar */}
-        <ScrollReveal delay={2}>
-          <div
-            className="flex flex-col sm:flex-row items-center justify-between gap-4 px-8 py-5"
-            style={{ backgroundColor: '#0e2208' }}
-          >
-            <p className="text-sm" style={{ color: 'rgba(255,255,255,0.82)' }}>
-              {isVi
-                ? '✦ Hơn 500 khách hàng tin tưởng chúng tôi trong 17 năm qua'
-                : '✦ Over 500 clients have trusted us over the past 17 years'}
-            </p>
-            <Link
-              href={`/${locale}#contact`}
-              className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
-              style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px', }}
+            {/* CTA bar inside the box */}
+            <div
+              className="flex flex-col sm:flex-row items-center justify-between gap-4 px-8 sm:px-12 py-6"
+              style={{ backgroundColor: '#F5F2EB' }}
             >
-              {isVi ? 'Nhận tư vấn miễn phí' : 'Get Free Consultation'}
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
+              <div className="flex items-center gap-4">
+                <div className="flex -space-x-3 shrink-0">
+                  {avatars.map((src, i) => (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      key={i}
+                      src={src}
+                      alt=""
+                      width={40}
+                      height={40}
+                      className="w-10 h-10 rounded-full border-2 border-white object-cover"
+                    />
+                  ))}
+                </div>
+                <p className="font-display font-bold text-sm sm:text-base" style={{ color: 'var(--color-text-primary)' }}>
+                  {isVi
+                    ? 'Bạn đã sẵn sàng biến khu vườn thành không gian ngoài trời tuyệt đẹp?'
+                    : 'Are You Prepared to Make Your Garden a Gorgeous Outdoor Area?'}
+                </p>
+              </div>
+              <Link
+                href={`/${locale}#contact`}
+                className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
+                style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px' }}
+              >
+                {isVi ? 'Liên hệ ngay' : 'Get In Touch'}
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </Link>
+            </div>
           </div>
         </ScrollReveal>
-
-        {/* Hover styles */}
-        <style>{`
-          .process-step:hover { background-color: var(--color-accent); }
-          .process-step:hover h3 { color: white !important; }
-          .process-step:hover p { color: rgba(255,255,255,0.75) !important; }
-          .process-step:hover [style*="f5f9f0"] { background-color: rgba(255,255,255,0.2) !important; color: white !important; }
-          .process-step:hover [style*="e0e0e0"] { border-color: rgba(255,255,255,0.4) !important; color: white !important; }
-          .process-step:hover [style*="rgba(130,180,64,0.08)"] { color: rgba(255,255,255,0.1) !important; }
-        `}</style>
       </div>
+
+      <style>{`
+        .process-icon, .process-num { cursor: default; }
+        .process-icon:hover { animation: processWiggle 0.6s ease-in-out; }
+        .process-num:hover { animation: processSwing 0.6s ease-in-out; }
+        @keyframes processWiggle {
+          0%, 100% { transform: rotate(0deg) scale(1); }
+          20% { transform: rotate(-12deg) scale(1.05); }
+          40% { transform: rotate(10deg) scale(1.05); }
+          60% { transform: rotate(-7deg) scale(1.05); }
+          80% { transform: rotate(5deg) scale(1.05); }
+        }
+        @keyframes processSwing {
+          0%, 100% { transform: translateX(0) rotate(0deg); }
+          20% { transform: translateX(-4px) rotate(-8deg); }
+          40% { transform: translateX(4px) rotate(8deg); }
+          60% { transform: translateX(-3px) rotate(-5deg); }
+          80% { transform: translateX(2px) rotate(3deg); }
+        }
+      `}</style>
     </section>
   );
 }

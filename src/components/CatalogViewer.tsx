@@ -116,7 +116,7 @@ const ProjectPage = forwardRef<HTMLDivElement, ProjectPageProps>(
         </div>
 
         {/* BOTTOM: thumbnail + info — 38% height */}
-        <div style={{ flex: 1, display: 'flex', overflow: 'hidden', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+        <div style={{ height: PAGE_H - Math.round(PAGE_H * 0.62), display: 'flex', overflow: 'hidden', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
 
           {/* Left: second image */}
           <div style={{ width: '42%', flexShrink: 0, position: 'relative', overflow: 'hidden', borderRight: '1px solid rgba(0,0,0,0.08)' }}>
@@ -300,6 +300,9 @@ export default function CatalogViewer({ locale }: Props) {
     <style>{`
       .catalog-root * { scrollbar-width: none; -ms-overflow-style: none; }
       .catalog-root *::-webkit-scrollbar { display: none; }
+      .catalog-root .stf__wrapper { height: ${PAGE_H}px !important; }
+      .catalog-root .stf__block  { height: ${PAGE_H}px !important; }
+      .catalog-root .stf__item   { overflow: hidden !important; }
     `}</style>
     <div ref={containerRef} className="catalog-root" style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', flexDirection: 'column', backgroundColor: '#f5f2eb' }}>
 

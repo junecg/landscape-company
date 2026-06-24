@@ -22,34 +22,21 @@ const FALLBACK_SLIDES = [
   },
 ];
 
+type Slide = { image: string; labelVi: string; labelEn: string };
+
 const SLIDE_DURATION = 5500;
 
-export default function HeroSection() {
+export default function HeroSection({ initialSlides }: { initialSlides?: Slide[] }) {
   const locale = useLocale();
   const isVi = locale === "vi";
   const heroRef = useRef<HTMLDivElement>(null);
-  const [heroSlides, setHeroSlides] = useState<typeof FALLBACK_SLIDES | null>(null);
   const [current, setCurrent] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  // Fetch slides from DB, fallback to hardcoded if unavailable
-  useEffect(() => {
-    fetch('/api/hero-slides')
-      .then(r => r.ok ? r.json() : null)
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setHeroSlides(data)
-        } else {
-          setHeroSlides(FALLBACK_SLIDES)
-        }
-      })
-      .catch(() => setHeroSlides(FALLBACK_SLIDES))
-  }, [])
-
-  // While loading, render nothing — avoids fallback→DB flicker
-  const slides = heroSlides ?? []
-  const loaded = heroSlides !== null
+  // Use server-provided slides, fall back to hardcoded only if none passed
+  const slides = (initialSlides && initialSlides.length > 0) ? initialSlides : FALLBACK_SLIDES;
+  const loaded = true;
 
   const cardThumbImage = slides[slides.length - 1]?.image ?? '';
 
@@ -147,10 +134,10 @@ export default function HeroSection() {
 
       {/* Content */}
       <div
-        className="relative w-full max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14"
+        className="relative w-full max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14"
         style={{ paddingTop: "320px", paddingBottom: "100px", zIndex: 10 }}
       >
-        <div style={{ maxWidth: "720px" }}>
+        <div style={{ maxWidth: "860px" }}>
           {/* Eyebrow */}
           <p
             className="hero-reveal text-sm font-semibold uppercase tracking-widest mb-4 flex items-center gap-2"
@@ -167,11 +154,12 @@ export default function HeroSection() {
 
           {/* Heading — word-by-word reveal */}
           <h1
-            className="font-bold mb-6"
+            className="mb-6"
             style={{
-              fontSize: "clamp(2.5rem, 5.5vw, 4.6rem)",
+              fontSize: "clamp(2.5rem, 5.5vw, 6.5rem)",
               lineHeight: "1.14",
               letterSpacing: "-0.02em",
+              fontWeight: 800,
             }}
           >
             {(isVi

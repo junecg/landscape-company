@@ -32,7 +32,7 @@ export default function AboutSection() {
         className="absolute pointer-events-none select-none hidden md:block"
         style={{ top: '30px', right: '0px', width: '150px', opacity: 0.8, animation: 'float-bob-y 4s ease-in-out infinite', zIndex: 20 }}
       />
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
+      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* ── LEFT: image collage ── */}
@@ -133,7 +133,7 @@ export default function AboutSection() {
 
                 <AnimatedHeading
                   className="font-display font-bold leading-tight mb-4"
-                  style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.4rem)', color: 'var(--color-text-primary)' }}
+                  style={{ fontSize: 'clamp(1.6rem, 2.8vw, 3.4rem)', color: 'var(--color-text-primary)' }}
                 >
                   {isVi ? 'Kiến tạo không gian xanh truyền cảm hứng sống' : 'Crafting Green Spaces That Inspire Living'}
                 </AnimatedHeading>
