@@ -5,7 +5,6 @@ import ProjectsSection from '@/components/ProjectsSection';
 import AboutSection from '@/components/AboutSection';
 import OurServicesSection from '@/components/OurServicesSection';
 import ProcessSection from '@/components/ProcessSection';
-import CTASection from '@/components/CTASection';
 import MemberCompaniesSection from '@/components/MemberCompaniesSection';
 import PartnersSection from '@/components/PartnersSection';
 import Footer from '@/components/Footer';

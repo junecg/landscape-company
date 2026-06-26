@@ -107,12 +107,6 @@ export default function NewsManager() {
     fetchArticles()
   }
 
-  const categoryColor = (cat: string) => {
-    if (cat.includes('Dự Án') || cat.includes('Project')) return 'bg-green-100 text-green-700'
-    if (cat.includes('Kiến Thức') || cat.includes('Knowledge')) return 'bg-blue-100 text-blue-700'
-    return 'bg-amber-100 text-amber-700'
-  }
-
   return (
     <div className="min-h-screen">
       <div className="sticky top-0 z-30 bg-[#f0f4f1]/90 backdrop-blur border-b border-gray-200/60 px-6 py-4 flex items-center justify-between">

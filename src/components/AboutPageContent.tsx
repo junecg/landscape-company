@@ -368,7 +368,7 @@ export default function AboutPageContent() {
             {/* RIGHT: text */}
             <ScrollReveal direction="right" delay={2}>
               <p
-                className="text-lg font-bold uppercase tracking-[0.3em] mb-3"
+                className="text-sm font-bold uppercase tracking-[0.3em] mb-3"
                 style={{ color: "var(--color-brand)" }}
               >
                 {isVi ? "Về chúng tôi" : "About Us"}
@@ -622,7 +622,7 @@ export default function AboutPageContent() {
             {/* LEFT */}
             <ScrollReveal direction="left">
               <p
-                className="text-lg font-bold uppercase tracking-[0.3em] mb-3"
+                className="text-sm font-bold uppercase tracking-[0.3em] mb-3"
                 style={{ color: "var(--color-brand)" }}
               >
                 {isVi ? "Thêm về chúng tôi" : "More About"}
@@ -739,7 +739,7 @@ export default function AboutPageContent() {
           {/* Centered header */}
           <ScrollReveal className="text-center mb-10">
             <p
-              className="text-lg font-bold uppercase tracking-[0.3em] mb-3"
+              className="text-sm font-bold uppercase tracking-[0.3em] mb-3"
               style={{ color: "var(--color-brand)" }}
             >
               {isVi ? "Giải pháp công ty" : "Our Company Solution"}
@@ -859,7 +859,7 @@ export default function AboutPageContent() {
             <div className="px-6 sm:px-10 lg:px-14 py-16 lg:py-20">
               <ScrollReveal>
                 <p
-                  className="text-xs font-bold uppercase tracking-[0.3em] mb-5"
+                  className="text-sm font-bold uppercase tracking-[0.3em] mb-5"
                   style={{ color: "var(--color-accent)" }}
                 >
                   {isVi ? "Sứ mệnh của chúng tôi" : "Our Mission"}
@@ -953,7 +953,7 @@ export default function AboutPageContent() {
         />
         <ScrollReveal className="relative z-10">
           <p
-            className="text-xs font-bold uppercase tracking-[0.3em] mb-5"
+            className="text-sm font-bold uppercase tracking-[0.3em] mb-5"
             style={{ color: "var(--color-brand)" }}
           >
             {isVi ? "Bắt đầu hành trình" : "Start Your Journey"}
@@ -984,7 +984,7 @@ export default function AboutPageContent() {
               : "From concept to completion — Lapla delivers full-package landscape solutions shaped by your vision."}
           </p>
           <a
-            href="#contact-form"
+            href={`/${locale}/contact`}
             className="inline-flex items-center gap-2.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
             style={{
               backgroundColor: "var(--color-brand)",

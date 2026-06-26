@@ -38,12 +38,8 @@ const steps = [
   },
 ];
 
-const avatars = [
-  'https://i.pravatar.cc/100?img=12',
-  'https://i.pravatar.cc/100?img=33',
-  'https://i.pravatar.cc/100?img=14',
-  'https://i.pravatar.cc/100?img=48',
-];
+// Decorative leaf-badge cluster (no fake stock faces)
+const badgeColors = ['#0f541e', '#1a7a30', '#48a85a', '#c7dc49'];
 
 export default function ProcessSection() {
   const locale = useLocale();
@@ -51,7 +47,7 @@ export default function ProcessSection() {
 
   return (
     <section className="leafix-section overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24">
 
         {/* Header — centered */}
         <ScrollReveal>
@@ -141,16 +137,17 @@ export default function ProcessSection() {
             >
               <div className="flex items-center gap-4">
                 <div className="flex -space-x-3 shrink-0">
-                  {avatars.map((src, i) => (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
+                  {badgeColors.map((c, i) => (
+                    <div
                       key={i}
-                      src={src}
-                      alt=""
-                      width={40}
-                      height={40}
-                      className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                    />
+                      className="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center"
+                      style={{ backgroundColor: c }}
+                      aria-hidden="true"
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style={{ color: i === 3 ? '#0f541e' : '#ffffff' }}>
+                        <path d="M12 3C8 3 4 7.5 4 12.5c0 3 2 5.5 8 5.5.5-2 .5-4 0-5.5 1.5 1.2 2.8 3 2.8 5.5 1.5-1.2 2.8-3 2.8-5C17.6 6.5 15 3 12 3z" fill="currentColor"/>
+                      </svg>
+                    </div>
                   ))}
                 </div>
                 <p className="font-display font-bold text-sm sm:text-base" style={{ color: 'var(--color-text-primary)' }}>
@@ -160,7 +157,7 @@ export default function ProcessSection() {
                 </p>
               </div>
               <Link
-                href={`/${locale}#contact`}
+                href={`/${locale}/contact`}
                 className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 text-xs font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
                 style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px' }}
               >

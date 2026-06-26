@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque, Plus_Jakarta_Sans, Public_Sans, Be_Vietnam_Pro } from 'next/font/google';
+import { Bricolage_Grotesque, Public_Sans, Be_Vietnam_Pro } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -12,13 +12,6 @@ const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-bricolage',
-  display: 'swap',
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
-  variable: '--font-plus-jakarta',
   display: 'swap',
 });
 
@@ -60,7 +53,7 @@ export default async function LocaleLayout({
   const messages = await getMessages({ locale });
   return (
     <html lang={locale}>
-      <body className={`site-body ${bricolage.variable} ${plusJakarta.variable} ${publicSans.variable} ${beVietnamPro.variable}`}>
+      <body className={`site-body ${bricolage.variable} ${publicSans.variable} ${beVietnamPro.variable}`}>
         <NextIntlClientProvider messages={messages}>
           <SmoothScroll>
             {children}

@@ -1,7 +1,4 @@
 import type { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-import { verifySession } from '@/lib/auth'
-import Sidebar from './Sidebar'
 import '../globals.css'
 
 export const metadata: Metadata = {

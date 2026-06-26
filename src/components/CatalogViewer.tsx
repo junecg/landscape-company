@@ -179,7 +179,7 @@ const BackCoverPage = forwardRef<HTMLDivElement, BaseProps & { isVi: boolean; lo
           {isVi ? 'Liên hệ để bắt đầu hành trình tạo dựng không gian xanh của bạn.'
                 : 'Contact us to begin your green space journey with our expert team.'}
         </p>
-        <a href={`/${locale}#contact`}
+        <a href={`/${locale}/contact`}
           style={{ display: 'inline-flex', alignItems: 'center', gap: 7, fontSize: 9, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.18em', backgroundColor: '#c7dc49', color: '#07130a', textDecoration: 'none', padding: '10px 22px', borderRadius: 7 }}>
           {isVi ? 'Yêu cầu báo giá' : 'Request A Quote'}
           <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">

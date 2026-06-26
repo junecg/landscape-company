@@ -61,7 +61,7 @@ export default function ServicesFeatureSection() {
         className="absolute pointer-events-none select-none hidden md:block"
         style={{ top: '30px', left: '0px', width: '180px', opacity: 0.85, animation: 'float-bob-y 5s ease-in-out infinite', zIndex: 20 }}
       />
-      <div className="max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
+      <div className="max-w-[1760px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
           {/* LEFT: image + phone card */}
@@ -100,7 +100,7 @@ export default function ServicesFeatureSection() {
             </AnimatedHeading>
 
             <Link
-              href={`/${locale}#contact`}
+              href={`/${locale}/contact`}
               className="inline-flex items-center gap-2.5 text-xs font-black uppercase tracking-widest mb-8 transition-all duration-300 hover:scale-[1.05] hover:shadow-[0_10px_28px_rgba(15,84,30,0.35)]"
               style={{
                 backgroundColor: 'var(--color-brand)', color: '#fff',

@@ -237,7 +237,7 @@ export default function PricingSection() {
               {/* CTA */}
               <div className="px-7 pb-8">
                 <Link
-                  href={`/${locale}#contact`}
+                  href={`/${locale}/contact`}
                   className="flex items-center justify-center gap-2 w-full py-4 text-xs font-black uppercase tracking-widest transition-all duration-200 hover:opacity-90"
                   style={{
                     backgroundColor: plan.popular ? 'white' : '#0e2208',
@@ -269,7 +269,7 @@ export default function PricingSection() {
             </p>
           </div>
           <Link
-            href={`/${locale}#contact`}
+            href={`/${locale}/contact`}
             className="inline-flex items-center gap-2 px-7 py-4 text-xs font-black uppercase tracking-widest transition-all duration-200 hover:opacity-90 shrink-0"
             style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px' }}
           >

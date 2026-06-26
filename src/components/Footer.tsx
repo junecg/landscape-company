@@ -63,7 +63,7 @@ export default function Footer() {
       <div className="relative z-10">
         {/* ── Top bar: logo + hours + socials ── */}
         <div
-          className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 py-4 sm:py-6 flex flex-row flex-wrap items-center gap-3 justify-between"
+          className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 py-4 sm:py-6 flex flex-row flex-wrap items-center gap-3 justify-between"
           style={{ borderBottom: '1px solid rgba(255,255,255,0.12)' }}
         >
           {/* Logo */}
@@ -74,7 +74,6 @@ export default function Footer() {
               width={100}
               height={34}
               className="h-8 sm:h-10 w-auto object-contain"
-              style={{ filter: 'brightness(0) invert(1)' }}
             />
           </Link>
 
@@ -84,7 +83,7 @@ export default function Footer() {
               {isVi ? 'Thứ 2 – Thứ 6:' : 'Mon – Fri:'}
             </span>
             {' '}8.00 am – 6.00pm
-            {'  ·  '}
+fo            {'  ·  '}
             <span className="font-bold" style={{ color: 'var(--color-accent)' }}>
               {isVi ? 'Thứ 7:' : 'Saturday:'}
             </span>
@@ -109,7 +108,7 @@ export default function Footer() {
         </div>
 
         {/* ── Main 3-column grid ── */}
-        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 py-8 sm:py-14 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-10">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-14 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-10">
 
           {/* Col 1: CTA + contact — full width on mobile */}
           <div className="col-span-2 sm:col-span-1">
@@ -119,7 +118,7 @@ export default function Footer() {
                 : 'Ready to Transform\nYour Outdoor Space?'}
             </h3>
             <Link
-              href={`/${locale}#contact`}
+              href={`/${locale}/contact`}
               className="inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase tracking-wider mb-5 sm:mb-7 transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_8px_24px_rgba(199,220,73,0.4)]"
               style={{ backgroundColor: 'var(--color-accent)', color: '#07130a', borderRadius: 999 }}
             >
@@ -214,7 +213,7 @@ export default function Footer() {
 
         {/* ── Bottom bar ── */}
         <div
-          className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white"
+          className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white"
           style={{ borderTop: '1px solid rgba(255,255,255,0.15)' }}
         >
           <p>© {isVi ? `Bản quyền ${new Date().getFullYear()} by` : `All Copyright ${new Date().getFullYear()} by`} <span className="font-semibold" style={{ color: 'var(--color-accent)' }}>Lapla</span></p>

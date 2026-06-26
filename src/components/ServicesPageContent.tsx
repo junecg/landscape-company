@@ -2,6 +2,7 @@
 import { SERVICES, type DbService } from '@/lib/services-data';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import ScrollReveal from './ScrollReveal';
 
 
@@ -31,7 +32,7 @@ function ServiceCard({ service, index, locale, contactHref }: {
               {service.icon}
             </div>
           </div>
-          <p className="text-lg font-bold uppercase tracking-[0.3em] mb-2" style={{ color: 'var(--color-brand)' }}>{subtitle}</p>
+          <p className="text-sm font-bold uppercase tracking-[0.3em] mb-2" style={{ color: 'var(--color-brand)' }}>{subtitle}</p>
           <h2 className="font-display font-bold mb-4 leading-tight" style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', color: 'var(--color-text-primary)' }}>{title}</h2>
           <p className="mb-6 leading-relaxed" style={{ color: 'var(--color-text-secondary)', fontSize: '15px' }}>{desc}</p>
 
@@ -63,8 +64,7 @@ function ServiceCard({ service, index, locale, contactHref }: {
         {/* Image */}
         <div className={`${isEven ? 'order-1 lg:order-2' : 'order-1'} relative`} style={{ height: '420px', borderRadius: '20px', overflow: 'hidden' }}>
           {(service.images?.[0]) ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={service.images[0]} alt={title} className="w-full h-full object-cover" />
+            <Image src={service.images[0]} alt={title} fill className="object-cover" sizes="(max-width: 1024px) 100vw, 50vw" />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-6xl" style={{ backgroundColor: 'var(--color-surface-alt)' }}>
               {service.icon}
@@ -86,12 +86,12 @@ export default function ServicesPageContent({ services }: { services: DbService[
     <section className="leafix-section" style={{ backgroundColor: 'var(--color-surface-base)' }}>
       <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
         {list.map((service, i) => (
-          <ServiceCard key={service.id} service={service} index={i} locale={locale} contactHref={`/${locale}#contact`} />
+          <ServiceCard key={service.id} service={service} index={i} locale={locale} contactHref={`/${locale}/contact`} />
         ))}
 
         {/* Bottom CTA */}
         <div className="mt-16 text-center p-12 rounded-3xl" style={{ backgroundColor: 'var(--color-surface-alt)' }}>
-          <p className="text-lg font-bold uppercase tracking-[0.3em] mb-3" style={{ color: 'var(--color-brand)' }}>
+          <p className="text-sm font-bold uppercase tracking-[0.3em] mb-3" style={{ color: 'var(--color-brand)' }}>
             {isVi ? 'Bắt đầu dự án' : 'Start Your Project'}
           </p>
           <h3 className="font-display font-bold mb-4" style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', color: 'var(--color-text-primary)' }}>
@@ -101,7 +101,7 @@ export default function ServicesPageContent({ services }: { services: DbService[
             {t('finalCtaSubtitle')}
           </p>
           <Link
-            href={`/${locale}#contact`}
+            href={`/${locale}/contact`}
             className="inline-flex items-center gap-2.5 text-sm font-bold uppercase tracking-wider transition-all duration-200 hover:opacity-90"
             style={{ backgroundColor: 'var(--color-brand)', color: '#ffffff', padding: '15px 36px', borderRadius: 'var(--radius-xl)' }}
           >

@@ -16,7 +16,7 @@ const categories: { key: string; labelVi: string; labelEn: string }[] = [
   { key: 'Resort',       labelVi: 'Resort',      labelEn: 'Resort' },
   { key: 'Urban',        labelVi: 'Đô thị',      labelEn: 'Urban' },
   { key: 'Construction', labelVi: 'Xây dựng',    labelEn: 'Construction' },
-  { key: 'Artwork',      labelVi: 'Nghệ thuật',  labelEn: 'And More' },
+  { key: 'Artwork',      labelVi: 'Nghệ thuật',  labelEn: 'Artwork' },
 ];
 
 export default function ProjectsGrid() {

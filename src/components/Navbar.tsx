@@ -83,7 +83,7 @@ export default function Navbar() {
           boxShadow: scrolled ? "0 2px 24px rgba(0,0,0,0.25)" : "none",
         }}
       >
-        <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-10">
+        <div className="max-w-[1920px] mx-auto px-5 sm:px-8 lg:px-10 xl:px-12 2xl:px-16">
           <div className="flex items-center justify-between h-[76px] gap-4">
 
             {/* Logo */}
@@ -125,9 +125,6 @@ export default function Navbar() {
                     }}
                   >
                     {locale === "vi" ? link.vi : link.en}
-                    <svg className="w-3 h-3 opacity-60" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                    </svg>
                   </Link>
                 );
               })}
@@ -139,6 +136,8 @@ export default function Navbar() {
               {/* Language switcher */}
               <Link
                 href={switchPath}
+                aria-label={locale === "vi" ? "Chuyển sang English" : "Switch to Tiếng Việt"}
+                title={locale === "vi" ? "Chuyển sang English" : "Switch to Tiếng Việt"}
                 className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-bold uppercase tracking-wider border transition-all duration-200"
                 style={{
                   borderColor: "rgba(255,255,255,0.3)",
@@ -154,14 +153,14 @@ export default function Navbar() {
                 }}
               >
                 <span className="rounded-sm overflow-hidden">
-                  {otherLocale === "vi" ? <FlagVN /> : <FlagEN />}
+                  {locale === "vi" ? <FlagVN /> : <FlagEN />}
                 </span>
-                {otherLocale.toUpperCase()}
+                {locale.toUpperCase()}
               </Link>
 
               {/* REQUEST A QUOTE CTA */}
               <Link
-                href={`/${locale}#contact`}
+                href={`/${locale}/contact`}
                 className="inline-flex items-center gap-2 px-6 py-3 text-xs font-black uppercase tracking-widest transition-all duration-200 hover:opacity-90"
                 style={{
                   backgroundColor: "var(--color-accent)",

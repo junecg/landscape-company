@@ -40,11 +40,11 @@ function PartnerModal({ partner, onClose, isVi }: { partner: Partner; onClose: (
           <button onClick={onClose} className="absolute top-5 right-5 w-9 h-9 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white" aria-label="Đóng">
             <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
-          <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-[var(--color-brand)] bg-[var(--color-brand)]/20 px-3 py-1 rounded-full border border-[var(--color-brand)]/30 mb-3">
+          <span className="inline-block text-[10px] font-bold tracking-widest uppercase text-[var(--color-accent)] bg-[var(--color-accent)]/15 px-3 py-1 rounded-full border border-[var(--color-accent)]/30 mb-3">
             {isVi ? partner.sectorVi : partner.sectorEn}
           </span>
           <h3 className="text-2xl font-bold text-white mt-1">{partner.name}</h3>
-          <p className="text-white/40 text-xs mt-1">
+          <p className="text-white/70 text-xs mt-1">
             {isVi ? `Thành lập ${partner.founded} · ${partner.hq}` : `Est. ${partner.founded} · ${partner.hq}`}
           </p>
         </div>
@@ -91,45 +91,47 @@ function PartnerModal({ partner, onClose, isVi }: { partner: Partner; onClose: (
   );
 }
 
-/* ── Marquee row ── */
+/* ── Marquee row (CSS-driven, pause-on-hover) ── */
 function MarqueeRow({
   items,
   direction = 'left',
   onSelect,
+  isVi,
 }: {
   items: Partner[];
   direction?: 'left' | 'right';
   onSelect: (p: Partner) => void;
+  isVi: boolean;
 }) {
+  if (items.length === 0) return null;
   // duplicate for seamless loop
   const doubled = [...items, ...items];
   return (
-    <div className="overflow-hidden relative">
-      {/* Fade edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-[#f7faf7] to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#f7faf7] to-transparent z-10 pointer-events-none" />
+    <div className="group/marquee overflow-hidden relative">
+      {/* Fade edges — khớp nền trắng của section */}
+      <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
-      <motion.div
-        className="flex gap-3 w-max"
-        animate={{ x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] }}
-        transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+      <div
+        className={`flex gap-3 w-max ${direction === 'left' ? 'marquee-track-left' : 'marquee-track-right'} group-hover/marquee:[animation-play-state:paused]`}
       >
         {doubled.map((partner, i) => (
           <button
             key={`${partner.name}-${i}`}
             onClick={() => onSelect(partner)}
-            className="group shrink-0 flex items-center gap-3 px-5 py-3 rounded-full border border-gray-200 bg-white hover:bg-[var(--color-brand)] hover:border-[var(--color-brand)] transition-all duration-300 cursor-pointer shadow-sm"
+            aria-label={partner.name}
+            className="group shrink-0 flex items-center gap-3 px-5 py-3 rounded-full border border-gray-200 bg-white hover:bg-[var(--color-brand)] hover:border-[var(--color-brand)] hover:shadow-[0_8px_20px_rgba(15,84,30,0.18)] transition-all duration-300 cursor-pointer shadow-sm"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand)] group-hover:bg-white shrink-0 transition-colors" />
-            <span className="text-[var(--color-text-primary)] group-hover:text-white font-medium text-sm whitespace-nowrap transition-colors">
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--color-brand)] group-hover:bg-[var(--color-accent)] shrink-0 transition-colors" />
+            <span className="text-[var(--color-text-primary)] group-hover:text-white font-semibold text-sm whitespace-nowrap transition-colors">
               {partner.name}
             </span>
-            <span className="text-[var(--color-text-muted)] text-[10px] tracking-widest uppercase group-hover:text-white/60 transition-colors whitespace-nowrap">
-              {partner.sectorVi}
+            <span className="text-[var(--color-text-muted)] text-[10px] tracking-widest uppercase group-hover:text-white/65 transition-colors whitespace-nowrap">
+              {isVi ? partner.sectorVi : partner.sectorEn}
             </span>
           </button>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -167,19 +169,20 @@ export default function PartnersSection() {
           src="https://res.cloudinary.com/dg9khx2s7/image/upload/v1781085047/shapes/team-shape-01.png"
           alt="" aria-hidden="true"
           className="absolute pointer-events-none select-none hidden md:block"
-          style={{ top: '30px', left: '0px', width: '160px', opacity: 0.4, animation: 'float-bob-y 4.5s ease-in-out infinite 0.3s', zIndex: 20 }}
+          style={{ top: '30px', left: '0px', width: '160px', opacity: 0.4, animation: 'float-bob-y 4.5s ease-in-out infinite 0.3s', zIndex: 0 }}
         />
 
         {/* Header */}
-        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 mb-12 md:mb-16">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 mb-12 md:mb-16">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7 }}
             >
-              <p className="text-[10px] tracking-[0.3em] uppercase font-semibold text-[var(--color-brand)] mb-3">
-                {isVi ? 'Đối tác' : 'Trust'}
+              <p className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-semibold text-[var(--color-brand)] mb-3">
+                <span className="inline-block w-6 h-px bg-[var(--color-brand)]" />
+                {isVi ? 'Đối tác tin cậy' : 'Trusted Partners'}
               </p>
               <h2 className="font-display font-bold leading-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 4.8rem)", color: "var(--color-text-primary)" }}>
                 {isVi ? (
@@ -216,9 +219,19 @@ export default function PartnersSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="flex flex-col gap-4"
         >
-          <MarqueeRow items={row1} direction="left" onSelect={setSelected} />
-          <MarqueeRow items={row2} direction="right" onSelect={setSelected} />
+          <MarqueeRow items={row1} direction="left" onSelect={setSelected} isVi={isVi} />
+          <MarqueeRow items={row2} direction="right" onSelect={setSelected} isVi={isVi} />
         </motion.div>
+
+        <style>{`
+          .marquee-track-left  { animation: marquee-l 34s linear infinite; }
+          .marquee-track-right { animation: marquee-r 34s linear infinite; }
+          @keyframes marquee-l { from { transform: translateX(0); }      to { transform: translateX(-50%); } }
+          @keyframes marquee-r { from { transform: translateX(-50%); }   to { transform: translateX(0); } }
+          @media (prefers-reduced-motion: reduce) {
+            .marquee-track-left, .marquee-track-right { animation: none; }
+          }
+        `}</style>
       </section>
 
       <AnimatePresence>

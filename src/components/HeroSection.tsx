@@ -90,7 +90,7 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
     <section
       ref={heroRef}
       className="relative overflow-hidden"
-      style={{ marginTop: "-82px", minHeight: "100vh" }}
+      style={{ marginTop: "-76px", minHeight: "100vh" }}
     >
       {/* Slide images — only render after fetch resolves, no fallback flash */}
       {loaded && slides.map((slide, i) => (
@@ -134,7 +134,7 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
 
       {/* Content */}
       <div
-        className="relative w-full max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14"
+        className="relative w-full max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24"
         style={{ paddingTop: "320px", paddingBottom: "100px", zIndex: 10 }}
       >
         <div style={{ maxWidth: "860px" }}>
@@ -154,7 +154,7 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
 
           {/* Heading — word-by-word reveal */}
           <h1
-            className="mb-6"
+            className="font-display mb-6"
             style={{
               fontSize: "clamp(2.5rem, 5.5vw, 6.5rem)",
               lineHeight: "1.14",
@@ -171,6 +171,7 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
                 className="inline-block hero-word"
                 style={{
                   animationDelay: `${120 + i * 180}ms`,
+                  color: "#ffffff", // fallback nếu trình duyệt không hỗ trợ background-clip
                   background: "linear-gradient(160deg, #ffffff 30%, #c7dc49 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
@@ -230,6 +231,7 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
                 />
               </svg>
             </Link>
+
           </div>
         </div>
       </div>
