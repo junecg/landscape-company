@@ -57,7 +57,7 @@ export default function OurServicesSection() {
             </p>
             <h2
               className="font-display font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.8rem, 4vw, 4.8rem)', color: 'var(--color-text-primary)' }}
+              style={{ fontSize: 'clamp(1.95rem, 3.5vw, 3.75rem)', color: 'var(--color-text-primary)' }}
             >
               {isVi
                 ? <>Giải pháp cho cảnh quan<br />dân dụng và thương mại</>

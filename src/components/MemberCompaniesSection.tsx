@@ -106,7 +106,7 @@ export default function MemberCompaniesSection() {
                 <span className="inline-block w-6 h-px" style={{ backgroundColor: 'var(--color-brand)' }} />
                 {isVi ? 'Hệ sinh thái' : 'Ecosystem'}
               </p>
-              <h2 className="font-display font-bold leading-[1.08]" style={{ fontSize: 'clamp(1.9rem, 4vw, 4.2rem)', color: 'var(--color-text-primary)' }}>
+              <h2 className="font-display font-bold leading-[1.08]" style={{ fontSize: 'clamp(1.95rem, 3.5vw, 3.75rem)', color: 'var(--color-text-primary)' }}>
                 {isVi
                   ? <>Hệ sinh thái <span style={{ color: 'var(--color-brand)' }}>Lapla&nbsp;Group</span></>
                   : <>The <span style={{ color: 'var(--color-brand)' }}>Lapla</span> Ecosystem</>}

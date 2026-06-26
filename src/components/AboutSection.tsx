@@ -133,7 +133,7 @@ export default function AboutSection() {
 
                 <AnimatedHeading
                   className="font-display font-bold leading-tight mb-4"
-                  style={{ fontSize: 'clamp(1.6rem, 2.8vw, 3.4rem)', color: 'var(--color-text-primary)' }}
+                  style={{ fontSize: 'clamp(1.95rem, 3.5vw, 3.75rem)', color: 'var(--color-text-primary)' }}
                 >
                   {isVi ? 'Kiến tạo không gian xanh truyền cảm hứng sống' : 'Crafting Green Spaces That Inspire Living'}
                 </AnimatedHeading>

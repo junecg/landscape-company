@@ -61,7 +61,7 @@ export default function ProjectsSection() {
             </p>
             <AnimatedHeading
               className="font-display font-bold leading-tight"
-              style={{ fontSize: 'clamp(1.8rem, 4vw, 4.8rem)', color: 'var(--color-text-primary)' }}
+              style={{ fontSize: 'clamp(1.95rem, 3.5vw, 3.75rem)', color: 'var(--color-text-primary)' }}
             >
               {isVi ? 'Xem cách chúng tôi biến đổi không gian thành tác phẩm xanh' : 'See how we transform spaces into living works of art'}
             </AnimatedHeading>

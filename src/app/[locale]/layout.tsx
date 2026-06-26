@@ -9,22 +9,24 @@ import SmoothScroll from '@/components/SmoothScroll';
 import '../globals.css';
 
 const bricolage = Bricolage_Grotesque({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
   weight: ['400', '500', '600', '700', '800'],
   variable: '--font-bricolage',
   display: 'swap',
 });
 
 const publicSans = Public_Sans({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext', 'vietnamese'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-public-sans',
   display: 'swap',
 });
 
+// Now that Bricolage + Public Sans both ship the Vietnamese subset, this is
+// only a deep fallback — keep a minimal set of weights to stay lightweight.
 const beVietnamPro = Be_Vietnam_Pro({
   subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '600', '700'],
   variable: '--font-be-vietnam',
   display: 'swap',
 });

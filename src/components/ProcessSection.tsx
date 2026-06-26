@@ -57,7 +57,7 @@ export default function ProcessSection() {
             </p>
             <h2
               className="font-display font-bold leading-tight max-w-3xl"
-              style={{ fontSize: 'clamp(1.8rem, 4vw, 3.4rem)', color: 'var(--color-text-primary)' }}
+              style={{ fontSize: 'clamp(1.95rem, 3.5vw, 3.75rem)', color: 'var(--color-text-primary)' }}
             >
               {isVi
                 ? 'Quy trình mang khu vườn của bạn vào thực tế'

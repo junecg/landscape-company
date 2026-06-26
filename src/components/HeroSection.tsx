@@ -122,12 +122,12 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
         </div>
       ))}
 
-      {/* Dark overlay */}
+      {/* Overlay — lighter horizontal tint + soft bottom scrim for text legibility */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to right, rgba(10,22,6,0.50) 0%, rgba(10,22,6,0.50) 20%, rgba(10,22,6,0.25) 100%)",
+            "linear-gradient(to top, rgba(10,22,6,0.34) 0%, rgba(10,22,6,0) 42%), linear-gradient(to right, rgba(10,22,6,0.30) 0%, rgba(10,22,6,0.26) 30%, rgba(10,22,6,0.08) 100%)",
           zIndex: 2,
         }}
       />

@@ -184,7 +184,7 @@ export default function PartnersSection() {
                 <span className="inline-block w-6 h-px bg-[var(--color-brand)]" />
                 {isVi ? 'Đối tác tin cậy' : 'Trusted Partners'}
               </p>
-              <h2 className="font-display font-bold leading-tight" style={{ fontSize: "clamp(1.8rem, 4vw, 4.8rem)", color: "var(--color-text-primary)" }}>
+              <h2 className="font-display font-bold leading-tight" style={{ fontSize: "clamp(1.95rem, 3.5vw, 3.75rem)", color: "var(--color-text-primary)" }}>
                 {isVi ? (
                   <>Đối tác <span className="text-[var(--color-brand)]">chiến lược</span><br />của Lapla</>
                 ) : (
