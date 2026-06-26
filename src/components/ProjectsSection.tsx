@@ -89,7 +89,7 @@ export default function ProjectsSection() {
                 <div
                   key={i}
                   className="animate-pulse"
-                  style={{ borderRadius: '30px', overflow: 'hidden', backgroundColor: '#e8ede8', height: '340px' }}
+                  style={{ borderRadius: '24px', overflow: 'hidden', backgroundColor: '#e8ede8', aspectRatio: '3 / 4' }}
                 />
               );
             }
@@ -98,75 +98,53 @@ export default function ProjectsSection() {
               <ScrollReveal key={p.id} delay={i % 4} duration={650}>
                 <Link
                   href={`/${locale}/projects/${p.slug}`}
-                  className="group block bg-white overflow-hidden transition-all duration-300 h-full"
-                  style={{ borderRadius: '30px', boxShadow: '0 2px 16px rgba(0,0,0,0.06)' }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 12px 40px rgba(130,180,64,0.22)';
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(-6px)';
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 16px rgba(0,0,0,0.06)';
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                  }}
+                  className="group block relative overflow-hidden transition-all duration-300 hover:-translate-y-1.5"
+                  style={{ borderRadius: '24px', boxShadow: '0 6px 24px rgba(0,0,0,0.10)', aspectRatio: '3 / 4' }}
                 >
-                  {/* Image */}
-                  <div className="relative h-44 overflow-hidden">
-                    <Image
-                      src={p.image}
-                      alt={isVi ? p.title : p.titleEn}
-                      fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.08]"
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    />
-                    <div
-                      className="absolute inset-0 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-                      style={{ backgroundColor: 'rgba(130,180,64,0.3)' }}
-                    />
-                    {/* Category pill */}
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest rounded-full" style={{ backgroundColor: 'rgba(15,84,30,0.82)', color: '#fff', backdropFilter: 'blur(4px)' }}>
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none">
-                        <path d="M12 3C7 3 3 8 3 13c0 4 3 7 9 7 1-2.5 1-5.5 0-8 2 1.5 4 4 4 7 2-1.5 4-4 4-7C20 7 16.5 3 12 3z" fill="currentColor"/>
-                      </svg>
-                      {p.category}
-                    </div>
-                    {/* Leaf corner accent — bottom right */}
-                    <div className="absolute bottom-2.5 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
-                        <path d="M36 4C18 4 4 18 4 36c0-4 2-10 6-14 1 5 3 10 6 14C14 28 18 16 28 12c-4 4-6 10-6 16 6-2 12-8 14-24z" fill="white" opacity="0.9"/>
-                      </svg>
-                    </div>
+                  {/* Full-bleed image */}
+                  <Image
+                    src={p.image}
+                    alt={isVi ? p.title : p.titleEn}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                  />
+
+                  {/* Gradient overlay */}
+                  <div
+                    className="absolute inset-0"
+                    style={{ background: 'linear-gradient(to top, rgba(10,22,6,0.90) 0%, rgba(10,22,6,0.35) 42%, rgba(10,22,6,0.05) 72%)' }}
+                  />
+
+                  {/* Category pill — top-left */}
+                  <div className="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full" style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)' }}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 3C7 3 3 8 3 13c0 4 3 7 9 7 1-2.5 1-5.5 0-8 2 1.5 4 4 4 7 2-1.5 4-4 4-7C20 7 16.5 3 12 3z"/>
+                    </svg>
+                    {p.category}
                   </div>
 
-                  {/* Body */}
-                  <div className="relative overflow-hidden" style={{ padding: '20px 24px 20px' }}>
-                    {/* Watermark leaf — top right of body */}
-                    <svg className="absolute top-0 right-0 pointer-events-none select-none" width="72" height="72" viewBox="0 0 80 80" fill="none" aria-hidden="true">
-                      <path d="M72 8C36 8 8 36 8 72c0-8 4-20 12-28 2 10 6 20 12 28C28 56 36 32 56 24c-8 8-12 20-12 32 12-4 24-16 28-48z" fill="var(--color-brand)" opacity="0.055"/>
+                  {/* Arrow badge — top-right, reveal on hover */}
+                  <div className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center opacity-0 -translate-y-1 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0" style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)' }}>
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" />
                     </svg>
-                    <h3
-                      className="font-display font-bold text-base mb-1.5 transition-colors duration-200 group-hover:text-[var(--color-brand)] leading-snug"
-                      style={{ color: 'var(--color-text-primary)' }}
-                    >
-                      {isVi ? p.title : p.titleEn}
-                    </h3>
-                    <p className="text-xs mb-4" style={{ color: 'var(--color-text-secondary)' }}>
+                  </div>
+
+                  {/* Bottom content overlaid on image */}
+                  <div className="absolute inset-x-0 bottom-0 p-5">
+                    <p className="text-[11px] font-semibold uppercase tracking-wider mb-1.5" style={{ color: 'var(--color-accent)' }}>
                       {p.location} · {p.year}
                     </p>
-
-                    {/* Arrow row */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--color-brand)' }}>
-                        {isVi ? 'Xem chi tiết' : 'View Details'}
-                      </span>
-                      <div
-                        className="w-8 h-8 flex items-center justify-center transition-all duration-200 group-hover:scale-110"
-                        style={{ backgroundColor: 'var(--color-accent)', color: 'var(--color-text-primary)', borderRadius: '10px' }}
-                      >
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
-                        </svg>
-                      </div>
-                    </div>
+                    <h3 className="font-display font-bold text-white leading-snug" style={{ fontSize: '1.05rem' }}>
+                      {isVi ? p.title : p.titleEn}
+                    </h3>
+                    <span className="mt-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/85 group-hover:text-white transition-colors">
+                      {isVi ? 'Xem chi tiết' : 'View Details'}
+                      <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+                      </svg>
+                    </span>
                   </div>
                 </Link>
               </ScrollReveal>
