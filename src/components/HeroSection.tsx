@@ -172,10 +172,6 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
                 style={{
                   animationDelay: `${120 + i * 180}ms`,
                   color: "#ffffff", // fallback nếu trình duyệt không hỗ trợ background-clip
-                  background: "linear-gradient(160deg, #ffffff 30%, #c7dc49 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
                 }}
               >
                 {chunk}
