@@ -10,7 +10,7 @@ export default function VideoSection() {
 
   return (
     <section className="leafix-section relative overflow-hidden" style={{ backgroundColor: '#ffffff' }}>
-      <div className="max-w-[1400px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">

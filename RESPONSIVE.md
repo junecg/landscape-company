@@ -27,7 +27,8 @@ max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24
 
 > ✅ Đã đồng nhất: tất cả section home (Hero, About, Services, Process, Projects, Member, Partners, Footer) + Navbar đều cap `2240px`. (Trước đây About lệch `lg:max-w-[80%]` → đã bỏ; Process giữ `lg:max-w-[72%]` là band căn giữa có chủ đích.)
 > 📏 **Line-length:** khối chữ dài bên trong đặt `max-w` riêng (vd About desc `max-w-[640px]`, hero desc `560px`) để dòng không quá ~75 ký tự trên màn rộng. Heading/eyebrow cũng nên giới hạn (`max-w-2xl`…).
-> Các trang nội dung khác (about/services/team…) cố tình dùng container hẹp hơn (`1400/1760px`) cho dễ đọc — đây là chủ đích, không phải lỗi.
+> ✅ **Toàn site đã đồng bộ `2240px`** — kể cả các trang con (about/services/news/projects/team/pricing… và trang chi tiết). Trước đây trang con dùng `1400/1760px`, nay nâng hết về `2240px` cho thẳng hàng với Navbar/Footer + home.
+> ⚠️ Lưu ý đọc: trên màn rất rộng, **khối chữ dài** trong trang text (vd bài viết news/about) có thể bị dài dòng ở `2240px`. Nếu thấy khó đọc → bọc phần thân chữ bằng `max-w` đọc được (vd `max-w-[70ch]` / `max-w-3xl`). Hiện các cột chữ nhỏ đã có `max-w` riêng (560/640…), chỉ cần để ý nếu thêm nội dung mới.
 
 ---
 
