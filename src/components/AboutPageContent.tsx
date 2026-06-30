@@ -208,7 +208,7 @@ export default function AboutPageContent() {
         className="leafix-section overflow-hidden"
         style={{ backgroundColor: "#fff" }}
       >
-        <div className="max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
             {/* LEFT: collage */}
             <ScrollReveal direction="left">
@@ -543,7 +543,7 @@ export default function AboutPageContent() {
         className="py-16 md:py-20"
         style={{ backgroundColor: "#fff" }}
       >
-        <div className="max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
           <p
             className="text-center font-semibold mb-12"
             style={{ fontSize: "1.1rem", color: "var(--color-text-primary)" }}
@@ -617,7 +617,7 @@ export default function AboutPageContent() {
         className="leafix-section overflow-hidden"
         style={{ backgroundColor: "#f5f2ec" }}
       >
-        <div className="max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
             {/* LEFT */}
             <ScrollReveal direction="left">
@@ -735,7 +735,7 @@ export default function AboutPageContent() {
         className="leafix-section overflow-hidden"
         style={{ backgroundColor: "#fff" }}
       >
-        <div className="max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14">
+        <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
           {/* Centered header */}
           <ScrollReveal className="text-center mb-10">
             <p
@@ -817,7 +817,7 @@ export default function AboutPageContent() {
         className="relative overflow-hidden"
         style={{ backgroundColor: "var(--color-brand)", minHeight: "520px" }}
       >
-        <div className="max-w-[2240px] mx-auto">
+        <div className="max-w-[1920px] mx-auto">
           <div
             className="grid grid-cols-1 lg:grid-cols-2 items-center"
             style={{ minHeight: "520px" }}

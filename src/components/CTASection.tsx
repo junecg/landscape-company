@@ -79,7 +79,7 @@ export default function CTASection() {
         />
         <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full opacity-15 pointer-events-none" style={{ backgroundColor: 'var(--color-accent)', filter: 'blur(140px)' }} />
 
-        <div className="relative z-10 max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24">
+        <div className="relative z-10 max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
 
             {/* LEFT */}

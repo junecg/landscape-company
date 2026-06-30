@@ -21,7 +21,7 @@
 
 Container chuẩn **mọi section home** (BẮT BUỘC dùng đúng giá trị này để các section thẳng hàng):
 ```
-max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24
+max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24
 ```
 → Nội dung cap ở **2240px** (lấp màn 4K nhiều hơn); màn ≤2240px không bị ảnh hưởng. Navbar + Footer cũng cap 2240 để thẳng hàng.
 
@@ -105,7 +105,7 @@ Nguyên tắc: **tránh `height`/`width` cố định bằng px cho phần tử 
 
 **Desktop lớn / 4K ≥1800–2560px**
 - [ ] Body chữ 17px, không bị nhỏ; heading không bị "lọt thỏm".
-- [ ] Cap `max-w-[2240px]`: trên 2560/4K nội dung lấp rộng hơn, lề 2 bên gọn lại; kiểm tra card/ảnh không bị quá to.
+- [ ] Cap `max-w-[1920px]`: trên 2560/4K nội dung lấp rộng hơn, lề 2 bên gọn lại; kiểm tra card/ảnh không bị quá to.
 
 ---
 

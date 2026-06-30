@@ -76,7 +76,7 @@ export default function BenefitsSection() {
         }}
       />
 
-      <div className="relative z-10 max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24">
+      <div className="relative z-10 max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24">
 
         {/* Header */}
         <ScrollReveal className="text-center mb-14">

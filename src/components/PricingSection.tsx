@@ -123,7 +123,7 @@ export default function PricingSection() {
 
   return (
     <section className="leafix-section" style={{ backgroundColor: '#f5f9f0' }}>
-      <div className="max-w-[2240px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Header */}
         <div className="text-center mb-10">
