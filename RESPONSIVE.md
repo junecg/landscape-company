@@ -23,12 +23,12 @@ Container chuẩn **mọi section home** (BẮT BUỘC dùng đúng giá trị n
 ```
 max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24
 ```
-→ Nội dung cap ở **2240px** (lấp màn 4K nhiều hơn); màn ≤2240px không bị ảnh hưởng. Navbar + Footer cũng cap 2240 để thẳng hàng.
+→ Nội dung cap ở **1920px** (lấp màn 4K nhiều hơn); màn ≤1920px không bị ảnh hưởng. Navbar + Footer cũng cap 2240 để thẳng hàng.
 
-> ✅ Đã đồng nhất: tất cả section home (Hero, About, Services, Process, Projects, Member, Partners, Footer) + Navbar đều cap `2240px`. (Trước đây About lệch `lg:max-w-[80%]` → đã bỏ; Process giữ `lg:max-w-[72%]` là band căn giữa có chủ đích.)
+> ✅ Đã đồng nhất: tất cả section home (Hero, About, Services, Process, Projects, Member, Partners, Footer) + Navbar đều cap `1920px`. (Trước đây About lệch `lg:max-w-[80%]` → đã bỏ; Process giữ `lg:max-w-[72%]` là band căn giữa có chủ đích.)
 > 📏 **Line-length:** khối chữ dài bên trong đặt `max-w` riêng (vd About desc `max-w-[640px]`, hero desc `560px`) để dòng không quá ~75 ký tự trên màn rộng. Heading/eyebrow cũng nên giới hạn (`max-w-2xl`…).
-> ✅ **Toàn site đã đồng bộ `2240px`** — kể cả các trang con (about/services/news/projects/team/pricing… và trang chi tiết). Trước đây trang con dùng `1400/1760px`, nay nâng hết về `2240px` cho thẳng hàng với Navbar/Footer + home.
-> ⚠️ Lưu ý đọc: trên màn rất rộng, **khối chữ dài** trong trang text (vd bài viết news/about) có thể bị dài dòng ở `2240px`. Nếu thấy khó đọc → bọc phần thân chữ bằng `max-w` đọc được (vd `max-w-[70ch]` / `max-w-3xl`). Hiện các cột chữ nhỏ đã có `max-w` riêng (560/640…), chỉ cần để ý nếu thêm nội dung mới.
+> ✅ **Toàn site đã đồng bộ `1920px`** — kể cả các trang con (about/services/news/projects/team/pricing… và trang chi tiết). Trước đây trang con dùng `1400/1760px`, nay nâng hết về `1920px` cho thẳng hàng với Navbar/Footer + home.
+> ⚠️ Lưu ý đọc: trên màn rất rộng, **khối chữ dài** trong trang text (vd bài viết news/about) có thể bị dài dòng ở `1920px`. Nếu thấy khó đọc → bọc phần thân chữ bằng `max-w` đọc được (vd `max-w-[70ch]` / `max-w-3xl`). Hiện các cột chữ nhỏ đã có `max-w` riêng (560/640…), chỉ cần để ý nếu thêm nội dung mới.
 
 ---
 
@@ -113,7 +113,7 @@ Nguyên tắc: **tránh `height`/`width` cố định bằng px cho phần tử 
 
 **2026-06-28 (đợt 2 — best practice màn lớn)**
 - About: bỏ `lg:max-w-[80%]` (hết lệch hàng trên màn to); About desc thêm `max-w-[640px]` khoá line-length.
-- **Nâng cap container `1920px → 2240px`** cho toàn bộ section home + Navbar + Footer (lấp màn 4K nhiều hơn; màn ≤2240 không đổi).
+- **Nâng cap container `1920px → 1920px`** cho toàn bộ section home + Navbar + Footer (lấp màn 4K nhiều hơn; màn ≤2240 không đổi).
 
 **2026-06-28**
 - Hero: padding dọc cố định → `clamp()`; h1 min `2.5→2.15rem`.

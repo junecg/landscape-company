@@ -97,7 +97,7 @@ export default function MemberCompaniesSection() {
           className="absolute pointer-events-none select-none hidden md:block"
           style={{ bottom: '30px', right: '0px', width: '180px', opacity: 0.4, animation: 'float-bob-y 5.5s ease-in-out infinite 1s', zIndex: 0 }}
         />
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 relative z-10">
+        <div className="max-w-[1440px] lg:max-w-[80%] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 relative z-10">
 
           {/* Header */}
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
@@ -135,9 +135,9 @@ export default function MemberCompaniesSection() {
                 className="group w-full h-full relative overflow-hidden text-left cursor-pointer flex flex-col justify-between transition-all duration-300 will-change-transform hover:-translate-y-1 hover:shadow-[0_28px_64px_rgba(15,84,30,0.30)]"
                 style={{
                   background: 'linear-gradient(145deg, #0f541e 0%, var(--color-brand) 55%, #48a85a 100%)',
-                  borderRadius: '24px',
-                  padding: '36px',
-                  minHeight: '340px',
+                  borderRadius: '16px',
+                  padding: '18px',
+                  minHeight: '200px',
                   border: 'none',
                   boxShadow: '0 10px 30px rgba(15,84,30,0.18)',
                 }}
@@ -152,8 +152,8 @@ export default function MemberCompaniesSection() {
 
                 {/* Top section */}
                 <div className="relative z-10">
-                  <div className="flex items-start justify-between mb-6">
-                    <span className="inline-flex items-center gap-1.5 text-[10px] font-black tracking-[0.2em] uppercase px-3 py-1.5" style={{ color: 'var(--color-accent)', backgroundColor: 'rgba(199,220,73,0.15)', borderRadius: '999px', border: '1px solid rgba(199,220,73,0.35)' }}>
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="inline-flex items-center gap-1.5 text-[10px] font-black tracking-[0.2em] uppercase px-2.5 py-1" style={{ color: 'var(--color-accent)', backgroundColor: 'rgba(199,220,73,0.15)', borderRadius: '999px', border: '1px solid rgba(199,220,73,0.35)' }}>
                       <svg width="8" height="8" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.5 2 3 7 3 13c0 3.5 2.5 6.5 9 6.5 0.5-2.5 0.5-5 0-7 2 1.5 3.5 4 3.5 7 2-1.5 3.5-4 3.5-6.5C19 6.5 16 2 12 2z"/></svg>
                       {featured.tagline}
                     </span>
@@ -162,16 +162,16 @@ export default function MemberCompaniesSection() {
                     </div>
                   </div>
                   {/* Abbr monogram badge */}
-                  <div className="w-16 h-16 flex items-center justify-center mb-5" style={{ backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: '18px', border: '1px solid rgba(255,255,255,0.22)' }}>
-                    <span className="font-black text-xl text-white tracking-wide">{featured.abbr}</span>
+                  <div className="w-9 h-9 flex items-center justify-center mb-2" style={{ backgroundColor: 'rgba(255,255,255,0.12)', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.22)' }}>
+                    <span className="font-black text-xs text-white tracking-wide">{featured.abbr}</span>
                   </div>
-                  <h3 className="font-display font-bold text-white leading-snug" style={{ fontSize: 'clamp(1.6rem, 2.4vw, 2.2rem)' }}>{featured.name}</h3>
+                  <h3 className="font-display font-bold text-white leading-snug" style={{ fontSize: 'clamp(1rem, 1.6vw, 1.4rem)' }}>{featured.name}</h3>
                 </div>
 
                 {/* Bottom section */}
-                <div className="relative z-10 mt-8">
-                  <div className="w-12 h-px mb-4" style={{ backgroundColor: 'rgba(255,255,255,0.25)' }} />
-                  <p className="text-sm leading-relaxed mb-5" style={{ color: 'rgba(255,255,255,0.72)', maxWidth: '320px' }}>{isVi ? featured.descVi : featured.descEn}</p>
+                <div className="relative z-10 mt-3">
+                  <div className="w-8 h-px mb-2" style={{ backgroundColor: 'rgba(255,255,255,0.25)' }} />
+                  <p className="text-[11px] leading-relaxed mb-3" style={{ color: 'rgba(255,255,255,0.72)', maxWidth: '280px' }}>{isVi ? featured.descVi : featured.descEn}</p>
                   <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-white/90 group-hover:text-white transition-colors">
                     {isVi ? 'Xem chi tiết' : 'Learn more'}
                     <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-1" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" /></svg>
@@ -194,32 +194,29 @@ export default function MemberCompaniesSection() {
                     style={{ background: 'linear-gradient(90deg, var(--color-brand), var(--color-accent))' }}
                   />
 
-                  <div className="p-6 flex flex-col gap-4 flex-1">
+                  <div className="p-3 flex flex-col gap-2 flex-1">
                     {/* Header row */}
                     <div className="flex items-start justify-between">
-                      {/* Abbr badge — fill brand on hover */}
-                      <div className="w-14 h-14 flex items-center justify-center transition-colors duration-300 group-hover:bg-[var(--color-brand)]" style={{ background: 'rgba(15,84,30,0.06)', borderRadius: '14px', border: '1px solid rgba(15,84,30,0.1)' }}>
-                        <span className="font-black text-base transition-colors duration-300 group-hover:text-white" style={{ color: 'var(--color-brand)', letterSpacing: '0.04em' }}>{company.abbr}</span>
+                      <div className="w-8 h-8 flex items-center justify-center transition-colors duration-300 group-hover:bg-[var(--color-brand)]" style={{ background: 'rgba(15,84,30,0.06)', borderRadius: '8px', border: '1px solid rgba(15,84,30,0.1)' }}>
+                        <span className="font-black text-[10px] transition-colors duration-300 group-hover:text-white" style={{ color: 'var(--color-brand)', letterSpacing: '0.04em' }}>{company.abbr}</span>
                       </div>
-
-                      {/* Number */}
-                      <span className="font-display font-black text-[30px] leading-none select-none" style={{ color: 'rgba(15,84,30,0.12)' }}>
+                      <span className="font-display font-black text-[18px] leading-none select-none" style={{ color: 'rgba(15,84,30,0.12)' }}>
                         {String(i + 2).padStart(2, '0')}
                       </span>
                     </div>
 
                     {/* Content */}
                     <div className="flex-1">
-                      <p className="text-[10px] font-bold tracking-[0.22em] uppercase mb-2" style={{ color: 'rgba(15,84,30,0.5)' }}>{company.tagline}</p>
-                      <h3 className="font-display font-bold text-base leading-snug mb-2 transition-colors duration-200 group-hover:text-[var(--color-brand)]" style={{ color: 'var(--color-text-primary)' }}>{company.name}</h3>
-                      <p className="text-[13px] leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>{isVi ? company.descVi : company.descEn}</p>
+                      <p className="text-[9px] font-bold tracking-[0.18em] uppercase mb-1" style={{ color: 'rgba(15,84,30,0.5)' }}>{company.tagline}</p>
+                      <h3 className="font-display font-bold text-xs leading-snug mb-1 transition-colors duration-200 group-hover:text-[var(--color-brand)]" style={{ color: 'var(--color-text-primary)' }}>{company.name}</h3>
+                      <p className="text-[11px] leading-relaxed line-clamp-2" style={{ color: 'var(--color-text-secondary)' }}>{isVi ? company.descVi : company.descEn}</p>
                     </div>
 
                     {/* Footer */}
-                    <div className="flex items-center justify-between pt-3" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
-                      <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--color-brand)' }}>{isVi ? 'Xem thêm' : 'Details'}</span>
-                      <div className="w-8 h-8 flex items-center justify-center transition-all duration-300 group-hover:bg-[var(--color-brand)]" style={{ backgroundColor: 'var(--color-surface-alt)', borderRadius: '9px' }}>
-                        <svg className="w-3.5 h-3.5 transition-colors duration-300 group-hover:text-white" style={{ color: 'var(--color-brand)' }} fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" /></svg>
+                    <div className="flex items-center justify-between pt-1.5" style={{ borderTop: '1px solid rgba(0,0,0,0.06)' }}>
+                      <span className="text-[9px] font-bold uppercase tracking-wider" style={{ color: 'var(--color-brand)' }}>{isVi ? 'Xem thêm' : 'Details'}</span>
+                      <div className="w-6 h-6 flex items-center justify-center transition-all duration-300 group-hover:bg-[var(--color-brand)]" style={{ backgroundColor: 'var(--color-surface-alt)', borderRadius: '6px' }}>
+                        <svg className="w-2.5 h-2.5 transition-colors duration-300 group-hover:text-white" style={{ color: 'var(--color-brand)' }} fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M17 7H7M17 7v10" /></svg>
                       </div>
                     </div>
                   </div>

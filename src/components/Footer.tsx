@@ -147,8 +147,8 @@ export default function Footer() {
           </a>
         </div>
 
-        {/* ── Main 3-column grid ── */}
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-14 grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-10">
+        {/* ── Main 4-column grid ── */}
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 py-8 sm:py-14 grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-10">
 
           {/* Col 1: brand intro + contact — full width on mobile */}
           <div className="col-span-2 sm:col-span-1">
@@ -193,7 +193,7 @@ export default function Footer() {
             <ul className="space-y-3.5" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {[
                 { href: `/${locale}/about`,    vi: 'Về chúng tôi',  en: 'About Us' },
-                { href: `/${locale}/about`,    vi: 'Về chúng tôi',  en: 'About Us' },
+                { href: `/${locale}/contact`,  vi: 'Liên hệ',       en: 'Contact Us' },
                 { href: `/${locale}/projects`, vi: 'Dự án',         en: 'Our Projects' },
                 { href: `/${locale}/partners`, vi: 'Đối tác',       en: 'Partners' },
                 { href: `/${locale}/news`,     vi: 'Tin tức',       en: 'Blog & News' },
@@ -211,11 +211,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Services */}
+          {/* Col 3: Services (no extra blank line needed) */}
           <div>
             <h4 className="font-bold text-white mb-6 text-xs tracking-[0.25em] uppercase">
               {isVi ? 'Dịch vụ' : 'Services'}
             </h4>
+
             <ul className="space-y-3.5" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {[
                 { vi: 'Thiết kế & Thi công',   en: 'Garden Design' },
@@ -235,6 +236,47 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          {/* Col 4: Address / Location */}
+          <div>
+            <h4 className="font-bold text-white mb-6 text-xs tracking-[0.25em] uppercase">
+              {isVi ? 'Địa chỉ' : 'Location'}
+            </h4>
+            <div className="space-y-4 text-sm text-white/75">
+              <div className="flex items-start gap-3">
+                <svg className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--color-accent)' }} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                <span className="leading-relaxed">
+                  {isVi
+                    ? '44 Hóa Mỹ, P. Khuê Trung, Q. Cẩm Lệ, TP. Đà Nẵng'
+                    : '44 Hoa My, Khue Trung Ward, Cam Le District, Da Nang City'}
+                </span>
+              </div>
+              <div className="flex items-start gap-3">
+                <svg className="w-4 h-4 shrink-0 mt-0.5" style={{ color: 'var(--color-accent)' }} fill="none" stroke="currentColor" strokeWidth={1.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                <span className="leading-relaxed">
+                  {isVi ? 'T2–T6: 8:00 – 18:00' : 'Mon–Fri: 8:00 – 18:00'}<br />
+                  {isVi ? 'T7: 8:00 – 17:00' : 'Sat: 8:00 – 17:00'}
+                </span>
+              </div>
+              <a
+                href="https://maps.google.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider transition-colors duration-200 hover:text-[var(--color-accent)]"
+                style={{ color: 'var(--color-accent)' }}
+              >
+                {isVi ? 'Xem bản đồ' : 'View on Map'}
+                <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </a>
+            </div>
           </div>
 
         </div>

@@ -126,7 +126,10 @@
       "Bash(echo \"EXIT:$?\")",
       "Bash(nslookup db.oamzzbnurzxpyuvpyeib.supabase.co)",
       "Bash(git rm *)",
-      "Bash(xargs cat -n)"
+      "Bash(xargs cat -n)",
+      "Bash(git -C /Users/dc/landscape-company log --oneline -10)",
+      "Bash(git -C /Users/dc/landscape-company show 7eaa45c --stat)",
+      "Bash(git -C /Users/dc/landscape-company show 7eaa45c -- src/components/BenefitsSection.tsx)"
     ]
   },
   "enabledMcpjsonServers": [
