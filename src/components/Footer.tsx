@@ -190,8 +190,9 @@ export default function Footer() {
             <h4 className="font-bold text-white mb-6 text-xs tracking-[0.25em] uppercase">
               {isVi ? 'Công ty' : 'Company'}
             </h4>
-            <ul className="space-y-3.5">
+            <ul className="space-y-3.5" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {[
+                { href: `/${locale}/about`,    vi: 'Về chúng tôi',  en: 'About Us' },
                 { href: `/${locale}/about`,    vi: 'Về chúng tôi',  en: 'About Us' },
                 { href: `/${locale}/projects`, vi: 'Dự án',         en: 'Our Projects' },
                 { href: `/${locale}/partners`, vi: 'Đối tác',       en: 'Partners' },
@@ -203,10 +204,7 @@ export default function Footer() {
                     href={link.href}
                     className="text-sm text-white flex items-center gap-2.5 group transition-colors duration-200 hover:text-[var(--color-accent)]"
                   >
-                    <svg className="w-3 h-3 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--color-accent)' }} fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
-                    </svg>
-                    {isVi ? link.vi : link.en}
+{isVi ? link.vi : link.en}
                   </Link>
                 </li>
               ))}
@@ -218,7 +216,7 @@ export default function Footer() {
             <h4 className="font-bold text-white mb-6 text-xs tracking-[0.25em] uppercase">
               {isVi ? 'Dịch vụ' : 'Services'}
             </h4>
-            <ul className="space-y-3.5">
+            <ul className="space-y-3.5" style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {[
                 { vi: 'Thiết kế & Thi công',   en: 'Garden Design' },
                 { vi: 'Cây xanh & Thảm cỏ',    en: 'Plants & Turf' },
@@ -232,10 +230,7 @@ export default function Footer() {
                     href={`/${locale}/services`}
                     className="text-sm text-white flex items-center gap-2.5 group transition-colors duration-200 hover:text-[var(--color-accent)]"
                   >
-                    <svg className="w-3 h-3 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: 'var(--color-accent)' }} fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0-7.5 7.5M21 12H3" />
-                    </svg>
-                    {isVi ? item.vi : item.en}
+{isVi ? item.vi : item.en}
                   </Link>
                 </li>
               ))}

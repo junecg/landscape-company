@@ -30,15 +30,15 @@ export default function AboutSection() {
         alt=""
         aria-hidden="true"
         className="absolute pointer-events-none select-none hidden md:block"
-        style={{ top: '30px', right: '0px', width: '150px', opacity: 0.8, animation: 'float-bob-y 4s ease-in-out infinite', zIndex: 20 }}
+        style={{ top: '30px', right: '0px', width: '90px', opacity: 0.8, animation: 'float-bob-y 4s ease-in-out infinite', zIndex: 20 }}
       />
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-stretch">
 
           {/* ── LEFT: image collage ── */}
-          <ScrollReveal direction="left">
+          <ScrollReveal direction="left" className="h-full">
             {/* Outer container: needs pb for the stat card that hangs below */}
-            <div className="relative" style={{ paddingBottom: '40px' }}>
+            <div className="relative h-full">
 
               {/* Dashed border shape — offset top-right behind main image */}
               <div
@@ -57,7 +57,7 @@ export default function AboutSection() {
               {/* Main portrait image */}
               <div
                 className="group relative overflow-hidden"
-                style={{ borderRadius: '20px', zIndex: 1, height: 'clamp(360px, 52vw, 620px)' }}
+                style={{ borderRadius: '20px', zIndex: 1, height: '100%' }}
               >
                 <Image
                   src={IMG_MAIN}
@@ -121,7 +121,7 @@ export default function AboutSection() {
                   alt={isVi ? 'Thi công cảnh quan' : 'Landscape construction'}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.06]"
-                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  sizes="(max-width: 1024px) 100vw, 100vw"
                 />
               </div>
 
