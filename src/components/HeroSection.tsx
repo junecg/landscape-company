@@ -134,7 +134,7 @@ export default function HeroSection({ initialSlides }: { initialSlides?: Slide[]
 
       {/* Content */}
       <div
-        className="relative w-full max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24"
+        className="relative w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24"
         style={{ paddingTop: "clamp(112px, 20vh, 300px)", paddingBottom: "clamp(64px, 10vh, 110px)", zIndex: 10 }}
       >
         <div style={{ maxWidth: "860px" }}>

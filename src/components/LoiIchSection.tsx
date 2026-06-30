@@ -66,7 +66,7 @@ export default function LoiIchSection() {
 
   return (
     <section className="leafix-section overflow-hidden" style={{ backgroundColor: 'var(--color-surface-alt)' }}>
-      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14">
 
         {/* Header */}
         <ScrollReveal className="text-center mb-14">

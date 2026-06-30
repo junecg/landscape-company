@@ -84,7 +84,7 @@ export default function ServicesPageContent({ services }: { services: DbService[
 
   return (
     <section className="leafix-section" style={{ backgroundColor: 'var(--color-surface-base)' }}>
-      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14">
         {list.map((service, i) => (
           <ServiceCard key={service.id} service={service} index={i} locale={locale} contactHref={`/${locale}/contact`} />
         ))}

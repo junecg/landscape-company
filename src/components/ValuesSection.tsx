@@ -57,7 +57,7 @@ export default function ValuesSection() {
 
   return (
     <section className="leafix-section overflow-hidden" style={{ backgroundColor: '#f5f9f0' }}>
-      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
 
           {/* LEFT: Image */}

@@ -65,7 +65,7 @@ export default function NewsDetailClient({ article }: { article: Article }) {
         </div>
       </div>
 
-      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 py-16 md:py-24">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 2xl:px-24 py-16 md:py-24">
         <div className="grid lg:grid-cols-[1fr_320px] gap-12 lg:gap-20">
 
           {/* Article body */}

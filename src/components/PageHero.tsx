@@ -71,7 +71,7 @@ export default function PageHero({ eyebrow, title, description, breadcrumbs, bgI
         background: 'linear-gradient(to right, var(--color-accent), var(--color-brand) 40%, transparent 80%)',
       }} />
 
-      <div className="max-w-[1920px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 relative z-10">
 
         {/* Eyebrow */}
         <p
